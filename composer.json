@@ -30,7 +30,7 @@
         "Josantonius/Ip"           : "^1.1.0",
         "Josantonius/Cleaner"      : "^1.1.0",
         "Josantonius/LoadTime"     : "^1.1.0",
-        "Josantonius/Url"          : "^1.0.0",
+        "Josantonius/Url"          : "^1.1.0",
         "Josantonius/Asset"        : "^1.1.0",
         "Josantonius/ErrorHandler" : "^1.1.0"
     },
