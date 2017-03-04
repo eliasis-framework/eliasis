@@ -10,6 +10,7 @@
 
 - [Installation](#installation)
 - [Requirements](#requirements)
+- [Quick Start and Examples](#quick-start-and-examples)
 - [Contribute](#contribute)
 - [Author](#author)
 - [Licensing](#licensing)
@@ -27,6 +28,20 @@ a starting point. For existing applications you can run the following:
 ### Requirements
 
 This framework is supported by PHP versions 5.6 or higher and is compatible with HHVM versions 3.0 or higher.
+
+### Quick Start and Examples
+
+To use this framework, simply:
+
+```php
+$DS = DIRECTORY_SEPARATOR;
+
+require dirname(__DIR__) . $DS . 'vendor' . $DS . 'autoload.php';
+
+use Eliasis\App\App;
+
+new App(dirname(__DIR__));
+```
 
 ### Contribute
 1. Check for open issues or open a new issue to start a discussion around a bug or feature.

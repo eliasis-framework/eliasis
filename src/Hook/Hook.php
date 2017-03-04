@@ -212,16 +212,22 @@ class Hook {
 
                 if ((is_dir($path.$file)) && !strpos("/./../", "$file")) {
 
-                    $namespace = App::namespace('modules') . $file .BS. $file;
+                    global $loader;
 
-                    if (!method_exists($namespace, 'run')) {
+                    $classname = preg_replace('/\W+/', '', ucwords($file,'-'));
+
+                    $namespace = App::namespace('modules') . $classname . BS;
+
+                    $loader->addPsr4($namespace, App::path('modules') . $file);
+
+                    if (!method_exists($namespace . $classname, 'run')) {
 
                         $message = 'Module configuration file not found: ';
                         
                         throw new HookException($message . $file, 812);
                     }
 
-                    call_user_func([$namespace,'run']);
+                    call_user_func([$namespace . $classname,'run']);
                 }
             }
 

@@ -6,6 +6,7 @@
 * Added `Eliasis\App\App::setConstants()` method.
 * Added `Eliasis\App\App::getSettings()` method.
 * Added `Eliasis\App\App::addOption()` method.
+* Added `Eliasis\App\App::getRoutes()` method.
 * Added `Eliasis\App\App::__callstatic()` method.
 
 * Added `Eliasis\App\Exception\AppException` class.

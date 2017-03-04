@@ -15,7 +15,6 @@ use Eliasis\App\Exception\AppException,
     Eliasis\Router\Router,
     Eliasis\Route\Route,
     Eliasis\Hook\Hook,
-    Josantonius\Ip\Ip,
     Josantonius\Url\Url,
     Josantonius\Cleaner\Cleaner,
     Josantonius\ErrorHandler\ErrorHandler;
@@ -42,7 +41,6 @@ class App {
      * @uses Josantonius\ErrorHandler\ErrorHandler->__construct()
      * @uses Josantonius\Cleaner\Cleaner::removeMagicQuotes()
      * @uses Josantonius\Cleaner\Cleaner::unregisterGlobals()
-     * @uses Josantonius\Ip\Ip::get()
      * @uses Eliasis\Route\Route::set()
      * @uses Eliasis\Hook\Hook::get()
      * @uses Eliasis\Hook\Hook->run()
@@ -62,9 +60,7 @@ class App {
 
         $this->_getSettings();
 
-        self::addOption('user', ['ip' => Ip::get()]);
-
-        Route::set(['/' => self::namespace('controller') . 'Home@render']);
+        $this->_getRoutes();
 
         $hooks = Hook::getInstance();
 
@@ -130,6 +126,25 @@ class App {
     public static function addOption($name, $value) {
 
         self::$settings[$name] = $value;
+    }
+
+    /**
+     * Get routes.
+     *
+     * @since 1.0.0
+     */
+    private function _getRoutes() {
+
+        if (isset(self::$settings['routes'])) {
+
+            Route::set(self::$settings['routes']);
+
+            unset(self::$settings['routes']);
+
+            return;
+        }
+
+        Route::set(['/' => self::namespace('controller') . 'Home@render']);
     }
 
     /**
