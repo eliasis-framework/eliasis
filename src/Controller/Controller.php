@@ -11,9 +11,7 @@
 
 namespace Eliasis\Controller;
 
-use Eliasis\App\App,
-    Eliasis\View\View,
-    Eliasis\App\Exception\AppException;
+use Eliasis\View\View;
 
 /**
  * Controller class.
@@ -21,24 +19,6 @@ use Eliasis\App\App,
  * @since 1.0.0
  */
 abstract class Controller {
-
-    /**
-     * View object.
-     *
-     * @since 1.0.0
-     *
-     * @var object
-     */
-    protected static $view;
-
-    /**
-     * Model object.
-     *
-     * @since 1.0.0
-     *
-     * @var object
-     */
-    protected static $model;
 
     /**
      * Controller instance.
@@ -50,99 +30,47 @@ abstract class Controller {
     protected static $instance;
 
     /**
-     * Ensure that view and model are instantiated when loading controllers.
+     * View instance.
      *
      * @since 1.0.0
+     *
+     * @var object
      */
-    public function __construct() {
-
-        static::$view  = static::getView(get_class($this));
-        static::$model = static::getModel(get_class($this));
-    }
+    protected static $view;
 
     /**
      * Get controller instance.
      *
      * @since 1.0.0
      *
-     * @param string $className    → controller class name
-     *
-     * @throws ControllerException → controller not found
-     * @return object              → controller instance
+     * @return object → controller instance
      */
-    public static function getInstance($className) {
+    public static function getInstance() {
 
-        $instance = static::$instance;
+        $instance = self::$instance;
 
-        if (class_exists($className)) {
+        $controller = get_called_class();
 
-            if (is_null($instance) || get_class($instance) !== $className) { 
+        self::$view = self::getViewInstance();
 
-                static::$instance = new $className;
-            }
+        if (is_null($instance) || $controller !== get_class($instance)) { 
 
-            return static::$instance;
+            self::$instance = new $controller;
         }
 
-        throw new ControllerException('Controller not found', 804);
+        return self::$instance;
     }
 
     /**
-     * Validate the model and return it to accessed from the controller.
+     * Get view instance.
      *
      * @since 1.0.0
      *
-     * @param string $className    → model class name
-     *
-     * @throws ControllerException → model not found
-     * @return object              → model instance
+     * @return object → view instance
      */
-    public static function getModel($className) {
+    protected static function getViewInstance() {
 
-        $model = static::$model;
-
-        $className = str_replace('Controller', 'Model', $className);
-
-        if (class_exists($className)) {
-
-            if (!is_object($model) || get_class($model) !== $className) { 
-
-                static::$model = new $className;
-            }
-
-            return static::$model;
-        }
-
-        throw new ModelException('Model not found', 805);
-    }
-
-    /**
-     * Validate the view and return it to accessed from the controller.
-     *
-     * @since 1.0.0
-     *
-     * @param string $className    → view class name
-     *
-     * @throws ControllerException → view not found
-     * @return object              → view instance
-     */
-    public static function getView($className) {
-
-        $view = static::$view;
-
-        $className = str_replace('Controller', 'View', $className);
-
-        if (class_exists($className)) {
-
-            if (!is_object($view) || get_class($view) !== $className) { 
-
-                static::$view = new $className;
-            }
-
-            return static::$view;
-        }
-
-        throw new ModelException('View not found', 806);
+        return is_null(self::$view) ? View::getInstance() : self::$view;
     }
 
     /**

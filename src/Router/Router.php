@@ -343,7 +343,7 @@ class Router {
         $controller = $segments[0];
         $method = $segments[1];
 
-        $instance = $controller::getInstance($controller);
+        $instance = $controller::getInstance();
 
         call_user_func_array([$instance, $method], $matched ? $matched : []);
     }

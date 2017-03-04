@@ -58,14 +58,19 @@ class Hook {
      *
      * @return object → instance
      */
-    public static function get($id = 0) {
+    public static function getInstance($id = 0) {
         
         if (isset(self::$_instances[$id])) {
+
+            return self::$_instances[$id];
+
+        } else if (isset(self::$_modules[$id])) {
 
             return self::$_instances[$id];
         }
 
         self::setHooks([
+            'top',
             'meta',
             'css',
             'afterBody',
@@ -73,8 +78,6 @@ class Hook {
             'js',
             'routes'
         ]);
-
-        self::loadModules(App::path('modules'));
 
         return self::$_instances[$id] = new self();
     }
@@ -128,9 +131,9 @@ class Hook {
 
             if (!isset(self::$_hooks[$hook])) {
 
-                $message = 'Hook location not defined: ' . $hook;
+                $message = 'Hook location not defined: ';
                 
-                throw new HookException($message, 811);
+                throw new HookException($message . $hook, 811);
             }
 
             $theseHooks   = explode('|', self::$_hooks[$hook]);
@@ -157,9 +160,9 @@ class Hook {
 
         if (!isset(self::$_hooks[$where])) {
 
-            $message = 'Hook location not defined: ' . $where;
+            $message = 'Hook location not defined: ';
             
-            throw new HookException($message, 811);
+            throw new HookException($message . $where, 811);
         }
 
         $result = $args;
@@ -176,7 +179,7 @@ class Hook {
 
                 $segments = explode('@', $last);
 
-                $instance = $segments[0]::getInstance($segments[0]);
+                $instance = $segments[0]::getInstance();
 
                 $result = call_user_func([$instance, $segments[1]], $result);
 
@@ -211,18 +214,14 @@ class Hook {
 
                     $namespace = App::namespace('modules') . $file .BS. $file;
 
-                    if (method_exists($namespace, 'routes')) {
+                    if (!method_exists($namespace, 'run')) {
 
-                        call_user_func([$namespace, 'routes']);
-
-                    } else {
-
-                        $message = 'Module configuration file not found';
+                        $message = 'Module configuration file not found: ';
                         
-                        throw new HookException($message, 812);
+                        throw new HookException($message . $file, 812);
                     }
-                    
-                    self::$_modules[$file] = [];
+
+                    call_user_func([$namespace,'run']);
                 }
             }
 
@@ -231,7 +230,7 @@ class Hook {
     }
 
     /**
-     * Execute hooks attached to run and collect instead of running
+     * Execute hooks attached to run and collect instead of running.
      *
      * @since 1.0.0
      *

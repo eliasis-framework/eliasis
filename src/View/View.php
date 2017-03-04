@@ -12,7 +12,16 @@
 
 namespace Eliasis\View;
 
-abstract class View {
+class View {
+
+    /**
+     * View instance.
+     *
+     * @since 1.0.0
+     *
+     * @var object
+     */
+    protected static $instance;
 
     /**
      * HTTP headers.
@@ -31,6 +40,23 @@ abstract class View {
      * @var array
      */
     public static $data = null;
+
+    /**
+     * Get controller instance.
+     *
+     * @since 1.0.0
+     *
+     * @return object → controller instance
+     */
+    public static function getInstance() {
+
+        if (is_null(static::$instance)) { 
+
+            static::$instance = new self();
+        }
+
+        return static::$instance;
+    }
 
     /**
      * Render screen view.

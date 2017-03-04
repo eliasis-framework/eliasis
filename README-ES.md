@@ -10,7 +10,6 @@
 
 - [Instalación](#instalación)
 - [Requisitos](#requisitos)
-- [Cómo empezar y ejemplos](#cómo-empezar-y-ejemplos)
 - [Contribuir](#contribuir)
 - [Autor](#autor)
 - [Licencia](#licencia)
@@ -26,20 +25,6 @@ Puedes instalar Eliasis PHP Framework en tu proyecto utilizando [Composer](http:
 ### Requisitos
 
 Este framework es soportada por versiones de PHP 5.6 o superiores y es compatible con versiones de HHVM 3.0 o superiores.
-
-### Cómo empezar y ejemplos
-
-Para utilizar esta librería, simplemente:
-
-```php
-$DS = DIRECTORY_SEPARATOR;
-
-require dirname(__DIR__) . $DS . 'vendor' . $DS . 'autoload.php';
-
-use Eliasis\App\App;
-
-new App(dirname(__DIR__));
-```
 
 ### Contribuir
 1. Comprobar si hay incidencias abiertas o abrir una nueva para iniciar una discusión en torno a un fallo o función.

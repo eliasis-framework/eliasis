@@ -15,7 +15,6 @@ use Eliasis\App\Exception\AppException,
     Eliasis\Router\Router,
     Eliasis\Route\Route,
     Eliasis\Hook\Hook,
-    Eliasis\App\App,
     Josantonius\Ip\Ip,
     Josantonius\Url\Url,
     Josantonius\Cleaner\Cleaner,
@@ -63,11 +62,13 @@ class App {
 
         $this->_getSettings();
 
-        static::addOption('user', ['ip' => Ip::get()]);
+        self::addOption('user', ['ip' => Ip::get()]);
 
-        Route::set(['/' => static::namespace('controller') . 'Home@render']);
+        Route::set(['/' => self::namespace('controller') . 'Home@render']);
 
-        $hooks = Hook::get();
+        $hooks = Hook::getInstance();
+
+        $hooks->loadModules(App::path('modules'));
 
         $hooks->run('routes');
 
@@ -79,13 +80,14 @@ class App {
      *
      * @since 1.0.0
      */
-    private static function _setConstants($baseDir) {
+    private static function _setConstants($baseDirectory) {
 
         define('BS', '\\');
         define('DS', DIRECTORY_SEPARATOR);
-        define("ROOT", $baseDir . DS);
+        define("ROOT", $baseDirectory . DS);
         define("CORE", dirname(dirname(__DIR__)) . DS);
-        define("PUBLIC_URL", Url::getBaseUrl() . 'public' . DS);
+        define("MODULES_URL", Url::getBaseUrl()  . 'modules' . DS);
+        define("PUBLIC_URL",  Url::getBaseUrl()  . 'public'  . DS);
     }
 
     /**
@@ -109,12 +111,12 @@ class App {
 
                 foreach ($files as $file) {
 
-                    $conf = require($dir . $file);
+                    $config = require($dir . $file);
 
-                    static::$settings = array_merge(static::$settings, $conf);
+                    self::$settings = array_merge(self::$settings, $config);
                 }
 
-                unset($conf);
+                unset($config);
             }
         }
     }
@@ -127,7 +129,7 @@ class App {
      */
     public static function addOption($name, $value) {
 
-        static::$settings[$name] = $value;
+        self::$settings[$name] = $value;
     }
 
     /**
@@ -143,15 +145,11 @@ class App {
 
         switch (count($params)) {
             case '1':
-                return static::$settings[$index][$params[0]];
+                return self::$settings[$index][$params[0]];
                 break;
 
             case '2':
-                return static::$settings[$index][$params[0]][$params[1]];
-                break;
-
-            case '3':
-                return static::$settings[$index][$params[0]][$params[1]][$params[2]];
+                return self::$settings[$index][$params[0]][$params[1]];
                 break;
 
             default:

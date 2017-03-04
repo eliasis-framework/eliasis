@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 1.0-0 - 2017-02-24
+## 1.0-0 - 2017-03-04
 
 * Added `Eliasis\App\App` class.
 * Added `Eliasis\App\App::setConstants()` method.
@@ -12,19 +12,22 @@
 * Added `Eliasis\App\Exception\AppException->__construct()` method.
 
 * Added `Eliasis\Controller\Controller` abstract class.
-* Added `Eliasis\Controller\Controller->__construct()` method.
 * Added `Eliasis\Controller\Controller::getInstance()` method.
-* Added `Eliasis\Controller\Controller::getModel()` method.
-* Added `Eliasis\Controller\Controller::getView()` method.
+* Added `Eliasis\Controller\Controller::getViewInstance()` method.
 * Added `Eliasis\Controller\Controller->__clone()` method.
 
 * Added `Eliasis\Controller\Exception\ControllerException` class.
 * Added `Eliasis\Controller\Exception\ControllerException->__construct()` method.
 
+* Added `Eliasis\Module\Module` abstract class.
+* Added `Eliasis\Module\Module::run()` method.
+* Added `Eliasis\Module\Module::setRoutes()` method.
+* Added `Eliasis\Module\Module::setHooks()` method.
+
 * Added `Eliasis\Data\Data` class.
 
 * Added `Eliasis\Hook\Hook` class.
-* Added `Eliasis\Hook\Hook::get()` method.
+* Added `Eliasis\Hook\Hook::getInstance()` method.
 * Added `Eliasis\Hook\Hook::setHook()` method.
 * Added `Eliasis\Hook\Hook::setHooks()` method.
 * Added `Eliasis\Hook\Hook::addHook()` method.
