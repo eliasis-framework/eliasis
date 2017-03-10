@@ -41,7 +41,7 @@ class App {
      * @uses Josantonius\ErrorHandler\ErrorHandler->__construct()
      * @uses Josantonius\Cleaner\Cleaner::removeMagicQuotes()
      * @uses Josantonius\Cleaner\Cleaner::unregisterGlobals()
-     * @uses Eliasis\Route\Route::set()
+     * @uses Eliasis\Route\Route::addRoute()
      * @uses Eliasis\Hook\Hook::get()
      * @uses Eliasis\Hook\Hook->run()
      * @uses Eliasis\Router\Router::dispatch()
@@ -137,14 +137,14 @@ class App {
 
         if (isset(self::$settings['routes'])) {
 
-            Route::set(self::$settings['routes']);
+            Route::addRoute(self::$settings['routes']);
 
             unset(self::$settings['routes']);
 
             return;
         }
 
-        Route::set(['/' => self::namespace('controller') . 'Home@render']);
+        Route::addRoute(['/' => self::namespace('controller').'Home@render']);
     }
 
     /**

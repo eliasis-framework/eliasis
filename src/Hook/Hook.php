@@ -13,6 +13,8 @@
 namespace Eliasis\Hook;
 
 use Eliasis\App\App,
+    Eliasis\Route\Route,
+    Eliasis\Module\Module,
     Eliasis\Hook\Exception\HookException;
 
 /**
@@ -21,15 +23,6 @@ use Eliasis\App\App,
  * @since 1.0.0
  */
 class Hook {
-
-    /**
-     * Module paths.
-     *
-     * @since 1.0.0
-     *
-     * @var array
-     */
-    private static $_modules = array();
 
     /**
      * Available hooks.
@@ -63,14 +56,9 @@ class Hook {
         if (isset(self::$_instances[$id])) {
 
             return self::$_instances[$id];
-
-        } else if (isset(self::$_modules[$id])) {
-
-            return self::$_instances[$id];
-        }
+        } 
 
         self::setHooks([
-            'top',
             'meta',
             'css',
             'afterBody',
@@ -179,7 +167,7 @@ class Hook {
 
                 $segments = explode('@', $last);
 
-                $instance = $segments[0]::getInstance();
+                $instance = call_user_func([$segments[0], 'getInstance']); 
 
                 $result = call_user_func([$instance, $segments[1]], $result);
 
@@ -200,34 +188,24 @@ class Hook {
      *
      * @since 1.0.0
      *
-     * @param string $path   → modules folder path
-     *
-     * @throws HookException → module configuration file not found
+     * @param string $path → modules folder path
      */
     public static function loadModules($path) {
 
         if ($handle = opendir($path)) {
 
-            while ($file = readdir($handle)) {
+            while ($dir = readdir($handle)) {
 
-                if ((is_dir($path.$file)) && !strpos("/./../", "$file")) {
+                if ((is_dir($path . $dir)) && !strpos("/./../", "$dir")) {
 
-                    global $loader;
+                    $file = $path . $dir . DS . $dir . '.php';
 
-                    $classname = preg_replace('/\W+/', '', ucwords($file,'-'));
+                    if (file_exists($file)) {
 
-                    $namespace = App::namespace('modules') . $classname . BS;
+                        $module = require($file);
 
-                    $loader->addPsr4($namespace, App::path('modules') . $file);
-
-                    if (!method_exists($namespace . $classname, 'run')) {
-
-                        $message = 'Module configuration file not found: ';
-                        
-                        throw new HookException($message . $file, 812);
+                        Module::add($module, $path . $dir);
                     }
-
-                    call_user_func([$namespace . $classname,'run']);
                 }
             }
 

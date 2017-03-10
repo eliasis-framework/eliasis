@@ -37,7 +37,7 @@ class Route {
      *
      * @since 1.0.0
      */
-    public static function set($route) {
+    public static function addRoute($route) {
 
         self::$routes = array_merge($route, self::$routes);
     }
@@ -49,7 +49,7 @@ class Route {
      *
      * @since 1.0.0
      */
-    public static function get($route) {
+    public static function getRoute($route) {
 
          return isset(self::$routes[$route]) ? self::$routes[$route] : null;
     }

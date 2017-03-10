@@ -50,10 +50,7 @@ class View {
      */
     public static function getInstance() {
 
-        if (is_null(static::$instance)) { 
-
-            static::$instance = new self();
-        }
+        NULL === self::$instance and self::$instance = new self;
 
         return static::$instance;
     }

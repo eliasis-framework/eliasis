@@ -355,7 +355,7 @@ class Router {
      */
     private static function _routeValidator() {
 
-        if (!is_null(Route::get(static::$uri))) {
+        if (!is_null(Route::getRoute(static::$uri))) {
 
             static::any(static::$uri, Route::$routes[static::$uri]);
         }  

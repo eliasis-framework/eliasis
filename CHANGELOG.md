@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 1.0-0 - 2017-03-04
+## 1.0.0 - 2017-03-09
 
 * Added `Eliasis\App\App` class.
 * Added `Eliasis\App\App::setConstants()` method.
@@ -13,17 +13,14 @@
 * Added `Eliasis\App\Exception\AppException->__construct()` method.
 
 * Added `Eliasis\Controller\Controller` abstract class.
+* Added `Eliasis\Controller\Controller->__construct()` method.
 * Added `Eliasis\Controller\Controller::getInstance()` method.
 * Added `Eliasis\Controller\Controller::getViewInstance()` method.
+* Added `Eliasis\Controller\Controller->__wakeup()` method.
 * Added `Eliasis\Controller\Controller->__clone()` method.
 
 * Added `Eliasis\Controller\Exception\ControllerException` class.
 * Added `Eliasis\Controller\Exception\ControllerException->__construct()` method.
-
-* Added `Eliasis\Module\Module` abstract class.
-* Added `Eliasis\Module\Module::run()` method.
-* Added `Eliasis\Module\Module::setRoutes()` method.
-* Added `Eliasis\Module\Module::setHooks()` method.
 
 * Added `Eliasis\Data\Data` class.
 
@@ -39,11 +36,24 @@
 * Added `Eliasis\Hook\Exception\HookException` class.
 * Added `Eliasis\Hook\Exception\HookException->__construct()` method.
 
+* Added `Eliasis\Module\Module` class.
+* Added `Eliasis\Module\Module::getInstance()` method.
+* Added `Eliasis\Module\Module->_setInfo()` method.
+* Added `Eliasis\Module\Module->addResource()` method.
+* Added `Eliasis\Module\Module->getNamespace()` method.
+* Added `Eliasis\Module\Module->getUrl()` method.
+* Added `Eliasis\Module\Module->getPath()` method.
+* Added `Eliasis\Module\Module->getFolder()` method.
+* Added `Eliasis\Module\Module::__callstatic()` method.
+
+* Added `Eliasis\Module\Exception\ModuleException` class.
+* Added `Eliasis\Module\Exception\ModuleException->__construct()` method.
+
 * Added `Eliasis\Model\Model` abstract class.
 
 * Added `Eliasis\Route\Route` class.
-* Added `Eliasis\Route\Route::set()` method.
-* Added `Eliasis\Route\Route::get()` method.
+* Added `Eliasis\Route\Route::addRoute()` method.
+* Added `Eliasis\Route\Route::getRoute()` method.
 * Added `Eliasis\Route\Route::loadRegexRoutes()` method.
 
 * Added `Eliasis\Router\Router` class.
@@ -65,3 +75,8 @@
 * Added `Eliasis\View\View->sendHeaders()` method.
 
 * Added `config/info.php` settings file.
+
+* Added `Josantonius/Cleaner` library.
+* Added `Josantonius/Url` library.
+* Added `Josantonius/Asset` library.
+* Added `Josantonius/ErrorHandler` library.

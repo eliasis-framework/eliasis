@@ -21,7 +21,7 @@ use Eliasis\View\View;
 abstract class Controller {
 
     /**
-     * Controller instance.
+     * Controller instances.
      *
      * @since 1.0.0
      *
@@ -39,6 +39,13 @@ abstract class Controller {
     protected static $view;
 
     /**
+     * Prevent creating a new controller instance.
+     *
+     * @since 1.0.0
+     */
+    protected function __construct() { }
+
+    /**
      * Get controller instance.
      *
      * @since 1.0.0
@@ -47,18 +54,16 @@ abstract class Controller {
      */
     public static function getInstance() {
 
-        $instance = self::$instance;
-
         $controller = get_called_class();
 
         self::$view = self::getViewInstance();
 
-        if (is_null($instance) || $controller !== get_class($instance)) { 
+        if (!isset(self::$instance[$controller])) { 
 
-            self::$instance = new $controller;
+            self::$instance[$controller] = new $controller;
         }
 
-        return self::$instance;
+        return self::$instance[$controller];
     }
 
     /**
@@ -83,6 +88,14 @@ abstract class Controller {
     public function __clone() {
 
         throw new ModelException('Clone is not allowed in ' . __CLASS__, 807);
-
     }
+
+    /**
+     * Prevent unserializing.
+     *
+     * @since 1.0.0
+     *
+     * @return void
+     */
+    private function __wakeup() { }
 }
