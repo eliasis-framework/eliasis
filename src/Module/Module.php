@@ -12,6 +12,8 @@
 namespace Eliasis\Module;
 
 use Eliasis\App\App,
+    Josantonius\Hook\Hook,
+    Josantonius\Router\Router,
 	Eliasis\Module\Exception\ModuleException;
 
 /**
@@ -59,12 +61,42 @@ class Module {
 
         if (is_null(self::$instance)) { 
 
-            self::$instance = new self();
+            self::$instance = new self;
         }
 
         return self::$instance;
     }
-                                                                               
+
+    /**
+     * Load all modules found in the directory.
+     *
+     * @since 1.0.1
+     *
+     * @param string $path → modules folder path
+     */
+    public static function loadModules($path) {
+
+        if ($handle = opendir($path)) {
+
+            while ($dir = readdir($handle)) {
+
+                if ((is_dir($path . $dir)) && !strpos("/./../", "$dir")) {
+
+                    $file = $path . $dir . DS . $dir . '.php';
+
+                    if (file_exists($file)) {
+
+                        $module = require($file);
+
+                        self::add($module, $path . $dir);
+                    }
+                }
+            }
+
+            closedir($handle);
+        }
+    }
+
     /**
      * Add module.
      *
@@ -74,7 +106,6 @@ class Module {
      * @param string $path   → module path
      *
      * @throws ModuleException → module configuration file error
-     * @throws ModuleException → no routes or hooks were found
      */
     public static function add($module, $path) {
 
@@ -104,43 +135,62 @@ class Module {
 
 		$instance->modules[self::$moduleName] = [
 
-			'path'   => $path,
+			'path'   => $path . DS,
 			'folder' => array_pop($folder),
 		];
 
-		$routes = $instance->_addResource('Routes');
+        $instance->_getSettings();
 
-		$hooks  = $instance->_addResource('Hooks');
+		$instance->_addResources();
+    }
 
-		if (!$routes && $hooks) {
+    /**
+     * Get settings.
+     *
+     * @since 1.0.0
+     */
+    private function _getSettings() {
 
-			$message = 'No routes or hooks were found for the module';
+        $path = $this->modules[self::$moduleName]['path'] . 'config' . DS;
 
-			throw new ModuleException($message.' '.self::$moduleName.'.',817);
-		}
+        $config = [];
+
+        if (is_dir($path) && $handle = scandir($path)) {
+
+            $files = array_slice($handle, 2);
+
+            foreach ($files as $file) {
+
+                $content = require($path . $file);
+
+                $config = array_merge($config, $content);
+            }
+
+            $this->modules[self::$moduleName]['config'] = $config;
+
+            unset($content, $config);
+        }
+        
     }
                                                                                
     /**
-     * Add module routes and hooks.
+     * Add module routes and hooks if exists.
      *
-     * @since 1.0.0
-     *
-     * @param string $class     → name of the class (Routes | Hooks)
-     *
-     * @return boolean
+     * @since 1.0.1
      */
-    private function _addResource($class) {
+    private function _addResources() {
 
-    	$namespace = $this->getNamespace();
+        $config = $this->modules[self::$moduleName]['config'];
 
-    	if (method_exists($namespace . $class, 'add')) {
+        if (isset($config['hooks']) && count($config['hooks'])) {
 
-			call_user_func([$namespace . $class, 'add']);
+            Hook::addHook($config['hooks']);
+        } 
 
-			return true;
-    	}
+        if (isset($config['routes']) && count($config['routes'])) {
 
-		return false;
+            Router::addRoute($config['routes']);
+        }
     }
 
     /**
@@ -252,7 +302,7 @@ class Module {
     	if (!isset($instance->modules[$index])) {
 
 			$message = 'Module not found';
-			throw new ModuleException($message . ': ' . $index . '.', 818);
+			throw new ModuleException($message . ': ' . $index . '.', 817);
     	}
 
     	self::$moduleName = $index;

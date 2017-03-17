@@ -12,8 +12,8 @@
 - [Requirements](#requirements)
 - [Quick Start and Examples](#quick-start-and-examples)
 - [Contribute](#contribute)
-- [Author](#author)
 - [Licensing](#licensing)
+- [Copyright](#copyright)
 
 ---
 
@@ -36,7 +36,7 @@ To use this framework, simply:
 ```php
 $DS = DIRECTORY_SEPARATOR;
 
-require dirname(__DIR__) . $DS . 'vendor' . $DS . 'autoload.php';
+require dirname(__DIR__) . $DS . 'lib' . $DS . 'vendor' . $DS .'autoload.php';
 
 use Eliasis\App\App;
 
@@ -52,10 +52,12 @@ new App(dirname(__DIR__));
 
 This is intended for large and long-lived objects.
 
-### Author
-
-Maintained by [Josantonius](https://github.com/Josantonius/).
-
 ### Licensing
 
 This project is licensed under **MIT license**. See the [LICENSE](LICENSE) file for more info.
+
+## Copyright
+
+2017 Josantonius, [josantonius.com](https://josantonius.com/)
+
+If you found this release useful please let the author know! Follow on [Twitter](https://twitter.com/Josantonius).

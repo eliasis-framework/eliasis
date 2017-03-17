@@ -12,12 +12,7 @@
 namespace Eliasis\App;
 
 use Eliasis\App\Exception\AppException,
-    Eliasis\Router\Router,
-    Eliasis\Route\Route,
-    Eliasis\Hook\Hook,
-    Josantonius\Url\Url,
-    Josantonius\Cleaner\Cleaner,
-    Josantonius\ErrorHandler\ErrorHandler;
+    Josantonius\Url\Url;
 
 /**
  * Eliasis main class.
@@ -38,45 +33,62 @@ class App {
     /**
      * Initializer.
      *
-     * @uses Josantonius\ErrorHandler\ErrorHandler->__construct()
-     * @uses Josantonius\Cleaner\Cleaner::removeMagicQuotes()
-     * @uses Josantonius\Cleaner\Cleaner::unregisterGlobals()
-     * @uses Eliasis\Route\Route::addRoute()
-     * @uses Eliasis\Hook\Hook::get()
-     * @uses Eliasis\Hook\Hook->run()
-     * @uses Eliasis\Router\Router::dispatch()
+     * @param string $baseDirectory → directory where class is instantiated.
      *
      * @since 1.0.0
      */
-    public function __construct($baseDir) {
+    public function __construct($baseDirectory) {
 
-        new ErrorHandler;
+        $this->_runErrorHandler();
 
-        Cleaner::removeMagicQuotes();
+        $this->_runCleaner();
 
-        Cleaner::unregisterGlobals();
-
-        $this->_setConstants($baseDir);
+        $this->_setConstants($baseDirectory);
 
         $this->_getSettings();
 
-        $this->_getRoutes();
+        $this->_runHooks();
 
-        $hooks = Hook::getInstance();
+        $this->_runModules();
 
-        $hooks->loadModules(App::path('modules'));
+        $this->_runRoutes();
+    }
 
-        $hooks->run('routes');
+    /**
+     * Error Handler.
+     *
+     * @since 1.0.1
+     */
+    private static function _runErrorHandler() {
 
-        Router::dispatch();
+        if (class_exists($class = 'Josantonius\ErrorHandler\ErrorHandler')) {
+
+            new $class;
+        }
+    }
+
+    /**
+     * Cleaning resources.
+     *
+     * @since 1.0.1
+     */
+    private static function _runCleaner() {
+
+        if (class_exists($Cleaner = 'Josantonius\Cleaner\Cleaner')) {
+
+            $Cleaner::removeMagicQuotes();
+            $Cleaner::unregisterGlobals();
+        }
     }
 
     /**
      * Add global constants for the application.
      *
+     * @param string $baseDirectory → directory where class is instantiated.
+     *
      * @since 1.0.0
      */
-    private static function _setConstants($baseDirectory) {
+    private function _setConstants($baseDirectory) {
 
         define('BS', '\\');
         define('DS', DIRECTORY_SEPARATOR);
@@ -93,13 +105,13 @@ class App {
      */
     private function _getSettings() {
 
-        $configDir = [
+        $path = [
 
             CORE . 'config' . DS,
             ROOT . 'config' . DS,
         ];
 
-        foreach ($configDir as $dir) {
+        foreach ($path as $dir) {
 
             if (is_dir($dir) && $handle = scandir($dir)) {
 
@@ -118,6 +130,53 @@ class App {
     }
 
     /**
+     * Load hooks.
+     *
+     * @since 1.0.1
+     */
+    private static function _runHooks() {
+
+        if (class_exists($Hook = 'Josantonius\Hook\Hook')) {
+
+            $hooks = $Hook::getInstance();
+
+            $hooks->run('routes');
+        }
+    }
+
+    /**
+     * Load Modules.
+     *
+     * @since 1.0.1
+     */
+    private static function _runModules() {
+
+        $Module = 'Eliasis\Module\Module';
+
+        $Module::loadModules(App::path('modules'));
+    }
+
+    /**
+     * Load Routes.
+     *
+     * @since 1.0.1
+     */
+    private static function _runRoutes() {
+
+        if (class_exists($Router = 'Josantonius\Router\Router')) {
+
+            if (isset(self::$settings['routes'])) {
+
+                $Router::addRoute(self::$settings['routes']);
+
+                unset(self::$settings['routes']);
+
+                $Router::dispatch();
+            }
+        }
+    }
+
+    /**
      * Define new configuration settings.
      *
      * @param string $name
@@ -126,25 +185,6 @@ class App {
     public static function addOption($name, $value) {
 
         self::$settings[$name] = $value;
-    }
-
-    /**
-     * Get routes.
-     *
-     * @since 1.0.0
-     */
-    private function _getRoutes() {
-
-        if (isset(self::$settings['routes'])) {
-
-            Route::addRoute(self::$settings['routes']);
-
-            unset(self::$settings['routes']);
-
-            return;
-        }
-
-        Route::addRoute(['/' => self::namespace('controller').'Home@render']);
     }
 
     /**

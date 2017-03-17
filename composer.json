@@ -1,6 +1,6 @@
 {
     "name":        "eliasis-framework/eliasis",
-    "version":     "1.0.0",
+    "version":     "1.0.1",
     "description": "Eliasis PHP Framework",
     "type":        "library",
     "keywords": [
@@ -26,15 +26,12 @@
     "minimum-stability": "dev",
     "prefer-stable" : true,
     "require": {
-        "php": "^5.6 || ^7.0",
-        "Josantonius/Cleaner"      : "^1.1.0",
-        "Josantonius/Url"          : "^1.1.0",
-        "Josantonius/Asset"        : "^1.1.0",
-        "Josantonius/ErrorHandler" : "^1.1.1"
+        "php": "^5.6 || ^7.0"
     },
     "autoload": {
         "psr-4": {
-            "Eliasis\\"   : "src/"
+            "Eliasis\\"   : "src/",
+            "Josantonius/Url" : "^1.1.0"
         }
     },
     "extra": {

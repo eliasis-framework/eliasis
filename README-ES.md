@@ -12,8 +12,8 @@
 - [Requisitos](#requisitos)
 - [Cómo empezar y ejemplos](#cómo-empezar-y-ejemplos)
 - [Contribuir](#contribuir)
-- [Autor](#autor)
 - [Licencia](#licencia)
+- [Copyright](#copyright)
 
 ---
 
@@ -34,7 +34,7 @@ Para utilizar esta librería, simplemente:
 ```php
 $DS = DIRECTORY_SEPARATOR;
 
-require dirname(__DIR__) . $DS . 'vendor' . $DS . 'autoload.php';
+require dirname(__DIR__) . $DS . 'lib' . $DS . 'vendor' . $DS .'autoload.php';
 
 use Eliasis\App\App;
 
@@ -50,10 +50,12 @@ new App(dirname(__DIR__));
 
 Esto está pensado para proyectos grandes y de larga duración.
 
-### Autor
-
-Mantenido por [Josantonius](https://github.com/Josantonius/).
-
 ### Licencia
 
 Este proyecto está licenciado bajo la **licencia MIT**. Consulta el archivo [LICENSE](LICENSE) para más información.
+
+## Copyright
+
+2017 Josantonius, [josantonius.com](https://josantonius.com/)
+
+Si te ha resultado útil... ¡házmelo saber! Sígueme en [Twitter](https://twitter.com/Josantonius).
