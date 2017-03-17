@@ -31,19 +31,6 @@
         "php": "^5.6 || ^7.0",
         "Josantonius/Url" : "^1.1.0"
     },
-    "archive": {
-        "exclude": [
-            "/CHANGELOG.md", 
-            "/CONDUCT.md", 
-            "/contributors.txt", 
-            "/README.md",
-            "/README-ES.md",
-            "/.editorconfig",
-            "/.gitignore",
-            "/tests",
-            "/resources"
-        ]
-    },
     "autoload": {
         "psr-4": {
             "Eliasis\\"   : "src/"
