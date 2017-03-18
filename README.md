@@ -2,7 +2,7 @@
 
 [![Latest Stable Version](https://poser.pugx.org/eliasis-framework/eliasis/v/stable)](https://packagist.org/packages/eliasis-framework/eliasis) [![Total Downloads](https://poser.pugx.org/eliasis-framework/eliasis/downloads)](https://packagist.org/packages/eliasis-framework/eliasis) [![Latest Unstable Version](https://poser.pugx.org/eliasis-framework/eliasis/v/unstable)](https://packagist.org/packages/eliasis-framework/eliasis) [![License](https://poser.pugx.org/eliasis-framework/eliasis/license)](https://packagist.org/packages/eliasis-framework/eliasis)
 
-[Spanish version](README-ES.md)
+[Versión en español](README-ES.md)
 
 ![image](resources/eliasis-php-framework.png)
 
@@ -23,11 +23,11 @@ You can install Eliasis PHP Framework into your project using [Composer](http://
 recommend using the [basic app](https://github.com/eliasis-framework/app) as
 a starting point. For existing applications you can run the following:
 
-    $ composer require eliasis-framework/eliasis
+    $ composer require Eliasis-Framework/Eliasis
 
 The previous command will only install the necessary files, if you prefer to download the entire source, including tests, you can use:
 
-    $ composer require eliasis-framework/eliasis-framework --prefer-source
+    $ composer require Eliasis-Framework/Eliasis --prefer-source
 
 Or you can also clone the complete repository with Git:
 
@@ -64,8 +64,10 @@ This is intended for large and long-lived objects.
 
 This project is licensed under **MIT license**. See the [LICENSE](LICENSE) file for more info.
 
-## Copyright
+### Copyright
 
 2017 Josantonius, [josantonius.com](https://josantonius.com/)
 
-If you found this release useful please let the author know! Follow on [Twitter](https://twitter.com/Josantonius).
+If you find it useful, let me know :wink:
+
+You can contact me on [Twitter](https://twitter.com/Josantonius) or through my [email](mailto:hello@josantonius.com).

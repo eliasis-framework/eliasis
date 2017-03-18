@@ -13,8 +13,8 @@
     "authors": [
         {
             "name":     "Josantonius",
-            "email":    "info@josantonius.com",
-            "homepage": "https://github.com/josantonius",
+            "email":    "hello@josantonius.com",
+            "homepage": "https://josantonius.com",
             "role":     "Developer"
         }
     ],
@@ -29,7 +29,7 @@
     "minimum-stability": "stable",
     "require": {
         "php": "^5.6 || ^7.0",
-        "Josantonius/Url" : "^1.1.0"
+        "Josantonius/Url" : "^1.1.1"
     },
     "autoload": {
         "psr-4": {
