@@ -25,6 +25,14 @@ a starting point. For existing applications you can run the following:
 
     $ composer require eliasis-framework/eliasis
 
+The previous command will only install the necessary files, if you prefer to download the entire code you can use:
+
+    $ composer require eliasis-framework/eliasis-framework --prefer-source
+
+You can also clone the complete repository with Git:
+
+	$ git clone https://github.com/Eliasis-Framework/Eliasis.git
+
 ### Requirements
 
 This framework is supported by PHP versions 5.6 or higher and is compatible with HHVM versions 3.0 or higher.

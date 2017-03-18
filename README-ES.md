@@ -2,7 +2,7 @@
 
 [![Latest Stable Version](https://poser.pugx.org/eliasis-framework/eliasis/v/stable)](https://packagist.org/packages/eliasis-framework/eliasis) [![Total Downloads](https://poser.pugx.org/eliasis-framework/eliasis/downloads)](https://packagist.org/packages/eliasis-framework/eliasis) [![Latest Unstable Version](https://poser.pugx.org/eliasis-framework/eliasis/v/unstable)](https://packagist.org/packages/eliasis-framework/eliasis) [![License](https://poser.pugx.org/eliasis-framework/eliasis/license)](https://packagist.org/packages/eliasis-framework/eliasis)
 
-[English version](README-ES.md)
+[English version](README.md)
 
 ![image](resources/eliasis-php-framework.png)
 
@@ -23,6 +23,14 @@ Puedes instalar Eliasis PHP Framework en tu proyecto utilizando [Composer](http:
 
     $ composer require eliasis-framework/eliasis
 
+El comando anterior solamente instalar los archivos necesarios, si prefieres descargar todo el cófdigo puedes utilizar:
+
+    $ composer require eliasis-framework/eliasis-framework --prefer-source
+
+También puedes clonar el repositorio completo con Git:
+
+	$ git clone https://github.com/Eliasis-Framework/Eliasis.git
+	
 ### Requisitos
 
 Este framework es soportado por versiones de PHP 5.6 o superiores y es compatible con versiones de HHVM 3.0 o superiores.
