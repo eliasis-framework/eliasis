@@ -6,26 +6,26 @@
  * @copyright  Copyright (c) 2017
  * @license    https://opensource.org/licenses/MIT - The MIT License (MIT)
  * @link       https://github.com/Eliasis-Framework/Eliasis
- * @since      1.0.0
+ * @since      1.0.2
  */
 
-namespace Eliasis\App\Exception;
+namespace Eliasis\Model\Exception;
 
 /**
  * Exception class.
  *
  * You can use an exception and error handler with this library.
  *
- * @since 1.0.0
+ * @since 1.0.2
  *
  * @link https://github.com/Josantonius/PHP-ErrorHandler
  */
-class AppException extends \Exception { 
+class ModelException extends \Exception { 
 
     /**
      * Exception handler.
      *
-     * @since 1.0.0
+     * @since 1.0.2
      *
      * @param string $msg    → message error (Optional)
      * @param int    $error  → error code (Optional)

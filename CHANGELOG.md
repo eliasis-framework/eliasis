@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## 1.0.2 - 2017-03-27
+
+* Added `Eliasis\Controller\Controller::getModelInstance()` method.
+
+* Added `Eliasis\Model\Model` abstract class.
+* Added `Eliasis\Model\Model->__construct()` method.
+* Added `Eliasis\Model\Model::getInstance()` method.
+* Added `Eliasis\Model\Model->__wakeup()` method.
+* Added `Eliasis\Model\Model->__clone()` method.
+
+* Added `Eliasis\Model\Exception\ModelException` class.
+* Added `Eliasis\Model\Exception\ModelException->__construct()` method.
+
 ## 1.0.1 - 2017-03-15
 
 * Deleted `Eliasis\Hook\Hook` class.
@@ -34,11 +47,17 @@
 * Deleted `Eliasis\Data\Data` class.
 
 * Deleted `Eliasis\App\App::getRoutes()` method.
+* Deleted `Eliasis\App\App::_setConstants()` method.
 * Added   `Eliasis\App\App->_runErrorHandler()` method.
 * Added   `Eliasis\App\App->_runCleaner()` method.
 * Added   `Eliasis\App\App->_runHooks()` method.
 * Added   `Eliasis\App\App->_runModules()` method.
 * Added   `Eliasis\App\App->_runRoutes()` method.
+* Added   `Eliasis\App\App->_setPaths()` method.
+* Added   `Eliasis\App\App->_setUrls()` method.
+
+* Deleted `Eliasis\App\Exception\AppException` class.
+* Deleted `Eliasis\App\Exception\AppException->__construct()` method.
 
 * Deleted `Eliasis\Module\Module->addResource()` method.
 * Added   `Eliasis\Module\Module->addResources()` method.
@@ -50,7 +69,7 @@
 ## 1.0.0 - 2017-03-09
 
 * Added `Eliasis\App\App` class.
-* Added `Eliasis\App\App::setConstants()` method.
+* Added `Eliasis\App\App::_setConstants()` method.
 * Added `Eliasis\App\App::getSettings()` method.
 * Added `Eliasis\App\App::addOption()` method.
 * Added `Eliasis\App\App::_setRoutes()` method.

@@ -76,13 +76,13 @@ class Module {
      */
     public static function loadModules($path) {
 
-        if ($handle = opendir($path)) {
+        if (is_dir($path) && $handle = opendir($path)) {
 
             while ($dir = readdir($handle)) {
 
                 if ((is_dir($path . $dir)) && !strpos("/./../", "$dir")) {
 
-                    $file = $path . $dir . DS . $dir . '.php';
+                    $file = $path . $dir . App::DS . $dir . '.php';
 
                     if (file_exists($file)) {
 
@@ -135,7 +135,7 @@ class Module {
 
 		$instance->modules[self::$moduleName] = [
 
-			'path'   => $path . DS,
+			'path'   => $path . App::DS,
 			'folder' => array_pop($folder),
 		];
 
@@ -151,7 +151,7 @@ class Module {
      */
     private function _getSettings() {
 
-        $path = $this->modules[self::$moduleName]['path'] . 'config' . DS;
+        $path = $this->modules[self::$moduleName]['path'] .'config'. App::DS;
 
         $config = [];
 
@@ -230,18 +230,18 @@ class Module {
      */
     protected function getUrl($directory = '') {
 
-    	$url = MODULES_URL . $this->getFolder() . DS;
+    	$url = MODULES_URL . $this->getFolder() . App::DS;
 
     	switch ($directory) {
 
     		case 'assets':
-    			return $url . 'assets' . DS;
+    			return $url . 'assets' . App::DS;
 
     		case 'css':
-    			return $url . 'assets' . DS . 'css' . DS;
+    			return $url . 'assets' . App::DS . 'css' . App::DS;
 
     		case 'js':
-    			return $url . 'assets' . DS .  'js' . DS;
+    			return $url . 'assets' . App::DS .  'js' . App::DS;
 
     		default:
     			return $url;
@@ -257,15 +257,15 @@ class Module {
      */
     protected function getPath($directory = '') {
 
-    	$path = $this->modules[self::$moduleName]['path'] . DS;
+    	$path = $this->modules[self::$moduleName]['path'] . App::DS;
 
     	switch ($directory) {
 
     		case 'template':
-    			return $path . 'src' . DS . 'template' . DS;
+    			return $path . 'src' . App::DS . 'template' . App::DS;
 
             case 'view':
-                return $path . 'src' . DS . 'template' . DS . 'view' . DS;
+                return $path.'src'.App::DS.'template'.App::DS .'view'.App::DS;
 
     		default:
     			return $path;

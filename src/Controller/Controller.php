@@ -11,7 +11,8 @@
 
 namespace Eliasis\Controller;
 
-use Eliasis\View\View;
+use Eliasis\View\View,
+    Eliasis\Controller\Exception\ControllerException;
 
 /**
  * Controller class.
@@ -30,14 +31,23 @@ abstract class Controller {
     protected static $instance;
 
     /**
+     * Model instance.
+     *
+     * @since 1.0.0
+     *
+     * @var object
+     */
+    protected $model;
+
+    /**
      * View instance.
      *
      * @since 1.0.0
      *
      * @var object
      */
-    protected static $view;
-
+    protected $view;
+    
     /**
      * Prevent creating a new controller instance.
      *
@@ -56,12 +66,17 @@ abstract class Controller {
 
         $controller = get_called_class();
 
-        self::$view = self::getViewInstance();
-
         if (!isset(self::$instance[$controller])) { 
 
             self::$instance[$controller] = new $controller;
         }
+
+        if (is_null(self::$instance[$controller]->view)) {
+
+            self::getViewInstance(self::$instance[$controller]);
+        }
+
+        self::getModelInstance(self::$instance[$controller], $controller);
 
         return self::$instance[$controller];
     }
@@ -70,12 +85,29 @@ abstract class Controller {
      * Get view instance.
      *
      * @since 1.0.0
-     *
-     * @return object → view instance
      */
-    protected static function getViewInstance() {
+    protected static function getViewInstance($instance) {
 
-        return is_null(self::$view) ? View::getInstance() : self::$view;
+        $instance->view = View::getInstance();
+    }
+
+    /**
+     * Get model instance.
+     *
+     * @since 1.0.2
+     *
+     * @return object → controller instance
+     */
+    protected static function getModelInstance($instance, $controller = '') {
+
+        $controller = (empty($controller)) ? $controller : get_called_class();
+
+        $model = str_replace('Controller', 'Model', $controller);
+
+        if (class_exists($model)) {
+
+            $instance->model = call_user_func($model . '::getInstance');
+        }
     }
 
     /**
@@ -87,7 +119,9 @@ abstract class Controller {
      */
     public function __clone() {
 
-        throw new ModelException('Clone is not allowed in ' . __CLASS__, 807);
+        $message = 'Clone is not allowed in';
+
+        throw new ControllerException($message . ': ' . __CLASS__, 800);
     }
 
     /**
