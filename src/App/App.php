@@ -2,7 +2,7 @@
 /**
  * Eliasis PHP Framework
  *
- * @author     Josantonius - hola@josantonius.com
+ * @author     Josantonius - hello@josantonius.com
  * @copyright  Copyright (c) 2017
  * @license    https://opensource.org/licenses/MIT - The MIT License (MIT)
  * @link       https://github.com/Eliasis-Framework/Eliasis
@@ -51,21 +51,34 @@ class App {
      * Initializer.
      *
      * @param string $baseDirectory → directory where class is instantiated.
-     * @param string $type → application type
+     * @param string $type          → application type
      *
      * @since 1.0.0
      */
-    public function __construct($baseDirectory, $type = 'app') {
+    public function __construct($baseDirectory, $type = 'app', $run = true) {
 
         self::$type = $type;
-
-        $this->_runErrorHandler();
-
-        $this->_runCleaner();
 
         $this->_setPaths($baseDirectory);
 
         $this->_setUrls($baseDirectory);
+
+        if ($run) { 
+
+            $this->run(); 
+        }
+    }
+
+    /**
+     * Run application.
+     *
+     * @since 1.0.2
+     */
+    public function run() {
+
+        $this->_runErrorHandler();
+
+        $this->_runCleaner();
 
         $this->_getSettings();
 

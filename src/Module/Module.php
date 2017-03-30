@@ -14,7 +14,7 @@ namespace Eliasis\Module;
 use Eliasis\App\App,
     Josantonius\Hook\Hook,
     Josantonius\Router\Router,
-	Eliasis\Module\Exception\ModuleException;
+    Eliasis\Module\Exception\ModuleException;
 
 /**
  * Module class.
@@ -109,39 +109,39 @@ class Module {
      */
     public static function add($module, $path) {
 
-		$instance = self::getInstance();
+        $instance = self::getInstance();
 
-		$required = [
+        $required = [
 
-			'name',
-			'version',
-			'description',
-			'uri',
-			'author',
-			'author-uri',
-			'license',
-		];
+            'name',
+            'version',
+            'description',
+            'uri',
+            'author',
+            'author-uri',
+            'license',
+        ];
 
-		if (count(array_intersect_key(array_flip($required),$module)) !== 7) {
+        if (count(array_intersect_key(array_flip($required),$module)) !== 7) {
 
-			$message = 'The module configuration file is not correct. Path';
+            $message = 'The module configuration file is not correct. Path';
 
-			throw new ModuleException($message . ': ' . $path . '.', 816);
-		}
+            throw new ModuleException($message . ': ' . $path . '.', 816);
+        }
 
-		self::$moduleName = $module['name'];
+        self::$moduleName = $module['name'];
 
-		$folder = explode('/', $path);
+        $folder = explode('/', $path);
 
-		$instance->modules[self::$moduleName] = [
+        $instance->modules[self::$moduleName] = [
 
-			'path'   => $path . App::DS,
-			'folder' => array_pop($folder),
-		];
+            'path'   => $path . App::DS,
+            'folder' => array_pop($folder),
+        ];
 
         $instance->_getSettings();
 
-		$instance->_addResources();
+        $instance->_addResources();
     }
 
     /**
@@ -199,24 +199,24 @@ class Module {
      * @since 1.0.0
      *
      * @param string $type → namespace location
-	 *
-	 * @return string → namespace
+     *
+     * @return string → namespace
      */
     protected function getNamespace($type = '') {
 
-    	$namespace = App::namespace('modules') . self::$moduleName . BS;
+        $namespace = App::namespace('modules') . self::$moduleName . '\\';
 
-    	switch ($type) {
+        switch ($type) {
 
-    		case 'controller':
-    			return $namespace . 'Controller' . BS;
+            case 'controller':
+                return $namespace . 'Controller\\';
 
-    		case 'model':
-    			return $namespace . 'Model' . BS;
+            case 'model':
+                return $namespace . 'Model\\';
 
-    		default:
-    			return $namespace;
-    	}
+            default:
+                return $namespace;
+        }
     }
 
     /**
@@ -225,63 +225,63 @@ class Module {
      * @since 1.0.0
      *
      * @param string $directory → module directory url
-	 *
-	 * @return string → full url
+     *
+     * @return string → full url
      */
     protected function getUrl($directory = '') {
 
-    	$url = MODULES_URL . $this->getFolder() . App::DS;
+        $url = MODULES_URL . $this->getFolder() . App::DS;
 
-    	switch ($directory) {
+        switch ($directory) {
 
-    		case 'assets':
-    			return $url . 'assets' . App::DS;
+            case 'assets':
+                return $url . 'assets' . App::DS;
 
-    		case 'css':
-    			return $url . 'assets' . App::DS . 'css' . App::DS;
+            case 'css':
+                return $url . 'assets' . App::DS . 'css' . App::DS;
 
-    		case 'js':
-    			return $url . 'assets' . App::DS .  'js' . App::DS;
+            case 'js':
+                return $url . 'assets' . App::DS .  'js' . App::DS;
 
-    		default:
-    			return $url;
-    	}
+            default:
+                return $url;
+        }
     }
 
     /**
      * Get module paths.
      *
      * @since 1.0.0
-	 *
-	 * @return string → path
+     *
+     * @return string → path
      */
     protected function getPath($directory = '') {
 
-    	$path = $this->modules[self::$moduleName]['path'] . App::DS;
+        $path = $this->modules[self::$moduleName]['path'] . App::DS;
 
-    	switch ($directory) {
+        switch ($directory) {
 
-    		case 'template':
-    			return $path . 'src' . App::DS . 'template' . App::DS;
+            case 'template':
+                return $path . 'src' . App::DS . 'template' . App::DS;
 
             case 'view':
                 return $path.'src'.App::DS.'template'.App::DS .'view'.App::DS;
 
-    		default:
-    			return $path;
-    	}
+            default:
+                return $path;
+        }
     }
 
     /**
      * Get module folder name.
      *
      * @since 1.0.0
-	 *
-	 * @return string → folder name
+     *
+     * @return string → folder name
      */
     protected function getFolder() {
 
-    	return $this->modules[self::$moduleName]['folder'];
+        return $this->modules[self::$moduleName]['folder'];
     }
 
     /**
@@ -297,26 +297,26 @@ class Module {
      */
     public static function __callstatic($index, $params = '') {
 
-    	$instance = self::getInstance();
+        $instance = self::getInstance();
 
-    	if (!isset($instance->modules[$index])) {
+        if (!isset($instance->modules[$index])) {
 
-			$message = 'Module not found';
-			throw new ModuleException($message . ': ' . $index . '.', 817);
-    	}
+            $message = 'Module not found';
+            throw new ModuleException($message . ': ' . $index . '.', 817);
+        }
 
-    	self::$moduleName = $index;
+        self::$moduleName = $index;
 
-    	$method = $params[0];
+        $method = $params[0];
 
-    	$params = $params[1];
+        $params = $params[1];
 
-    	if (method_exists($instance, $method)) {
+        if (method_exists($instance, $method)) {
 
-    		return call_user_func([$instance, $method], $params);
-    	}
+            return call_user_func([$instance, $method], $params);
+        }
 
-		$message = 'Method not found';
-		throw new ModuleException($message .': '. $method . '.', 996);
+        $message = 'Method not found';
+        throw new ModuleException($message .': '. $method . '.', 996);
     }
 }

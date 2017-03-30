@@ -2,7 +2,7 @@
 /**
  * Eliasis PHP Framework
  *
- * @author     Josantonius - hola@josantonius.com
+ * @author     Josantonius  - hello@josantonius.com
  * @author     Daveismyname - dave@daveismyname.com
  * @copyright  Copyright (c) 2017
  * @license    https://opensource.org/licenses/MIT - The MIT License (MIT)
