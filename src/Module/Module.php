@@ -1,11 +1,11 @@
 <?php
 /**
- * Eliasis PHP Framework
+ * Eliasis PHP Framework application
  *
- * @author     Josantonius - hola@josantonius.com
+ * @author     Josantonius - hello@josantonius.com
  * @copyright  Copyright (c) 2017
  * @license    https://opensource.org/licenses/MIT - The MIT License (MIT)
- * @link       https://github.com/Eliasis-Framework/Eliasis
+ * @link       https://github.com/Eliasis-Framework/App
  * @since      1.0.0
  */
 
@@ -80,7 +80,9 @@ class Module {
 
             while ($dir = readdir($handle)) {
 
-                if ((is_dir($path . $dir)) && !strpos("/./../", "$dir")) {
+                $ignore = App::DS . '.' . App::DS . '..' . App::DS;
+
+                if ((is_dir($path . $dir)) && !strpos($ignore, "$dir")) {
 
                     $file = $path . $dir . App::DS . $dir . '.php';
 
@@ -133,7 +135,7 @@ class Module {
 
         $folder = explode('/', $path);
 
-        $instance->modules[self::$moduleName] = [
+        $instance->modules[App::$id][self::$moduleName] = [
 
             'path'   => $path . App::DS,
             'folder' => array_pop($folder),
@@ -151,7 +153,9 @@ class Module {
      */
     private function _getSettings() {
 
-        $path = $this->modules[self::$moduleName]['path'] .'config'. App::DS;
+        $dir = 'config'. App::DS;
+
+        $path = $this->modules[App::$id][self::$moduleName]['path'] . $dir;
 
         $config = [];
 
@@ -166,7 +170,7 @@ class Module {
                 $config = array_merge($config, $content);
             }
 
-            $this->modules[self::$moduleName]['config'] = $config;
+            $this->modules[App::$id][self::$moduleName]['config'] = $config;
 
             unset($content, $config);
         }
@@ -180,7 +184,7 @@ class Module {
      */
     private function _addResources() {
 
-        $config = $this->modules[self::$moduleName]['config'];
+        $config = $this->modules[App::$id][self::$moduleName]['config'];
 
         if (isset($config['hooks']) && count($config['hooks'])) {
 
@@ -204,7 +208,7 @@ class Module {
      */
     protected function getNamespace($type = '') {
 
-        $namespace = App::namespace('modules') . self::$moduleName . '\\';
+        $namespace = App::getNamespace('modules') . self::$moduleName . '\\';
 
         switch ($type) {
 
@@ -230,7 +234,7 @@ class Module {
      */
     protected function getUrl($directory = '') {
 
-        $url = MODULES_URL . $this->getFolder() . App::DS;
+        $url = App::MODULES_URL() . $this->getFolder() . App::DS;
 
         switch ($directory) {
 
@@ -257,7 +261,7 @@ class Module {
      */
     protected function getPath($directory = '') {
 
-        $path = $this->modules[self::$moduleName]['path'] . App::DS;
+        $path = $this->modules[App::$id][self::$moduleName]['path'] . App::DS;
 
         switch ($directory) {
 
@@ -281,7 +285,7 @@ class Module {
      */
     protected function getFolder() {
 
-        return $this->modules[self::$moduleName]['folder'];
+        return $this->modules[App::$id][self::$moduleName]['folder'];
     }
 
     /**
@@ -299,7 +303,7 @@ class Module {
 
         $instance = self::getInstance();
 
-        if (!isset($instance->modules[$index])) {
+        if (!isset($instance->modules[App::$id][$index])) {
 
             $message = 'Module not found';
             throw new ModuleException($message . ': ' . $index . '.', 817);
