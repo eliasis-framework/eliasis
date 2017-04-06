@@ -1,8 +1,13 @@
 # CHANGELOG
 
-## 1.0.2 - 2017-03-27
+## 1.0.3 - 2017-04-06
 
-* Added `Eliasis\Controller\Controller::getModelInstance()` method.
+* Modified the startup mode of the framework to allow the creation and operation of several applications at once.
+
+* Added   `Eliasis\App\App::id()` method.
+* Added   `Eliasis\App\App::run()` method.
+* Added   `Eliasis\App\App::getInstance()` method.
+* Deleted `Eliasis\App\App->__construct()` method.
 
 * Added `Eliasis\Model\Model` abstract class.
 * Added `Eliasis\Model\Model->__construct()` method.
@@ -13,7 +18,7 @@
 * Added `Eliasis\Model\Exception\ModelException` class.
 * Added `Eliasis\Model\Exception\ModelException->__construct()` method.
 
-* Added   `Eliasis\App\App::id()` method.
+* Added `Eliasis\Controller\Controller::getModelInstance()` method.
 
 ## 1.0.1 - 2017-03-15
 
