@@ -50,11 +50,11 @@ class App {
     /**
      * Initializer.
      *
+     * @since 1.0.0
+     *
      * @param string $baseDirectory → directory where class is instantiated
      * @param string $type          → application type
      * @param string $id            → unique id for the application
-     *
-     * @since 1.0.0
      */
     public function __construct($baseDirectory, $type = 'app', $id = '0') {
 
@@ -107,9 +107,9 @@ class App {
     /**
      * Set application paths.
      *
-     * @param string $baseDirectory → directory where class is instantiated
-     *
      * @since 1.0.1
+     *
+     * @param string $baseDirectory → directory where class is instantiated
      */
     private function _setPaths($baseDirectory) {
 
@@ -122,10 +122,10 @@ class App {
     /**
      * Set url depending where the framework is launched.
      *
+     * @since 1.0.1
+     *
      * @param string $baseDirectory → directory where class is instantiated
      * @param string $type          → application type
-     *
-     * @since 1.0.1
      */
     private function _setUrls($baseDirectory, $type) {
 
@@ -229,6 +229,8 @@ class App {
     /**
      * Define new configuration settings.
      *
+     * @since 1.0.0
+     *
      * @param string $option → option name or options array
      * @param mixed  $value  → value/s
      *
@@ -252,7 +254,23 @@ class App {
     }
 
     /**
+     * Define the application id.
+     *
+     * @since 1.0.1
+     *
+     * @param string $id → application id
+     *
+     * @return
+     */
+    public static function id($id) {
+
+        self::$id = $id;
+    }
+
+    /**
      * Access the configuration parameters.
+     *
+     * @since 1.0.0
      *
      * @param string $index
      * @param array  $params

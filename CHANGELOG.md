@@ -13,7 +13,7 @@
 * Added `Eliasis\Model\Exception\ModelException` class.
 * Added `Eliasis\Model\Exception\ModelException->__construct()` method.
 
-* Added   `Eliasis\App\App->run()` method.
+* Added   `Eliasis\App\App::id()` method.
 
 ## 1.0.1 - 2017-03-15
 
