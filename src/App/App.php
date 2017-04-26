@@ -182,8 +182,6 @@ class App {
             App::ROOT() . 'config' . App::DS,
         ];
 
-        $id = self::$id;
-
         foreach ($path as $dir) {
 
             if (is_dir($dir) && $handle = scandir($dir)) {
@@ -194,9 +192,9 @@ class App {
 
                     $config = require($dir . $file);
 
-                    self::$settings[$id] = array_merge(
+                    self::$settings[self::$id] = array_merge(
 
-                        self::$settings[$id], 
+                        self::$settings[self::$id], 
                         $config
                     );
                 }
@@ -236,15 +234,13 @@ class App {
      */
     private function _runRoutes() {
 
-        $id = self::$id;
-
         if (class_exists($Router = 'Josantonius\\Router\\Router')) {
 
-            if (isset(self::$settings[$id]['routes'])) {
+            if (isset(self::$settings[self::$id]['routes'])) {
 
-                $Router::addRoute(self::$settings[$id]['routes']);
+                $Router::addRoute(self::$settings[self::$id]['routes']);
 
-                unset(self::$settings[$id]['routes']);
+                unset(self::$settings[self::$id]['routes']);
 
                 $Router::dispatch();
             }
@@ -263,19 +259,17 @@ class App {
      */
     public static function addOption($option, $value) {
 
-        $id = self::$id;
-
         if (is_array($value)) {
 
             foreach ($value as $key => $value) {
             
-                self::$settings[$id][$option][$key] = $value;
+                self::$settings[self::$id][$option][$key] = $value;
             }
 
             return;
         }
 
-        self::$settings[$id][$option] = $value;
+        self::$settings[self::$id][$option] = $value;
     }
 
     /**
@@ -291,7 +285,7 @@ class App {
 
         self::$id = $id;
     }
-
+    
     /**
      * Access the configuration parameters.
      *
@@ -304,9 +298,13 @@ class App {
      */
     public static function __callstatic($index, $params = []) {
 
-        $id = self::$id;
+        if (isset(self::$settings[$index])) {
 
-        $settings = self::$settings[$id];
+            self::$id = $index;
+            $index = array_shift($params);
+        }
+
+        $settings = self::$settings[self::$id];
 
         $column[] = (isset($settings[$index])) ? $settings[$index] : null;
 

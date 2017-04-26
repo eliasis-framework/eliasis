@@ -138,7 +138,7 @@ class Module {
         $instance->modules[App::$id][self::$moduleName] = [
 
             'path'   => $path . App::DS,
-            'folder' => array_pop($folder),
+            'folder' => array_pop($folder) . App::DS,
         ];
 
         $instance->_getSettings();
@@ -153,11 +153,11 @@ class Module {
      */
     private function _getSettings() {
 
-        $dir = 'config'. App::DS;
+        $id = App::$id;
 
-        $path = $this->modules[App::$id][self::$moduleName]['path'] . $dir;
+        $name = self::$moduleName;
 
-        $config = [];
+        $path = $this->modules[$id][$name]['path'] . 'config'. App::DS;
 
         if (is_dir($path) && $handle = scandir($path)) {
 
@@ -167,14 +167,11 @@ class Module {
 
                 $content = require($path . $file);
 
-                $config = array_merge($config, $content);
+                $merge = array_merge($this->modules[$id][$name], $content);
+
+                $this->modules[$id][$name] = $merge;
             }
-
-            $this->modules[App::$id][self::$moduleName]['config'] = $config;
-
-            unset($content, $config);
         }
-        
     }
                                                                                
     /**
@@ -184,7 +181,7 @@ class Module {
      */
     private function _addResources() {
 
-        $config = $this->modules[App::$id][self::$moduleName]['config'];
+        $config = $this->modules[App::$id][self::$moduleName];
 
         if (isset($config['hooks']) && count($config['hooks'])) {
 
@@ -198,104 +195,12 @@ class Module {
     }
 
     /**
-     * Get module namespace.
-     *
-     * @since 1.0.0
-     *
-     * @param string $type → namespace location
-     *
-     * @return string → namespace
-     */
-    protected function getNamespace($type = '') {
-
-        $namespace = App::getNamespace('modules') . self::$moduleName . '\\';
-
-        switch ($type) {
-
-            case 'controller':
-                return $namespace . 'Controller\\';
-
-            case 'model':
-                return $namespace . 'Model\\';
-
-            default:
-                return $namespace;
-        }
-    }
-
-    /**
-     * Get module urls.
-     *
-     * @since 1.0.0
-     *
-     * @param string $directory → module directory url
-     *
-     * @return string → full url
-     */
-    protected function getUrl($directory = '') {
-
-        $url = App::MODULES_URL() . $this->getFolder() . App::DS;
-
-        switch ($directory) {
-
-            case 'assets':
-                return $url . 'assets' . App::DS;
-
-            case 'css':
-                return $url . 'assets' . App::DS . 'css' . App::DS;
-
-            case 'js':
-                return $url . 'assets' . App::DS .  'js' . App::DS;
-
-            default:
-                return $url;
-        }
-    }
-
-    /**
-     * Get module paths.
-     *
-     * @since 1.0.0
-     *
-     * @return string → path
-     */
-    protected function getPath($directory = '') {
-
-        $path = $this->modules[App::$id][self::$moduleName]['path'] . App::DS;
-
-        switch ($directory) {
-
-            case 'template':
-                return $path . 'src' . App::DS . 'template' . App::DS;
-
-            case 'view':
-                return $path.'src'.App::DS.'template'.App::DS .'view'.App::DS;
-
-            default:
-                return $path;
-        }
-    }
-
-    /**
-     * Get module folder name.
-     *
-     * @since 1.0.0
-     *
-     * @return string → folder name
-     */
-    protected function getFolder() {
-
-        return $this->modules[App::$id][self::$moduleName]['folder'];
-    }
-
-    /**
      * Receives the name of the module to execute: Module::ModuleName();
      *
      * @param string $index  → module name
      * @param array  $params → params
      *
      * @throws ModuleException → Module not found
-     * @throws ModuleException → Method not found
      *
      * @return mixed
      */
@@ -311,16 +216,18 @@ class Module {
 
         self::$moduleName = $index;
 
-        $method = $params[0];
+        $column[] = $instance->modules[App::$id][$index];
 
-        $params = $params[1];
+        if (!count($params)) {
 
-        if (method_exists($instance, $method)) {
-
-            return call_user_func([$instance, $method], $params);
+            return (!is_null($column[0])) ? $column[0] : '';
         }
 
-        $message = 'Method not found';
-        throw new ModuleException($message .': '. $method . '.', 996);
+        foreach ($params as $param) {
+            
+            $column = array_column($column, $param);
+        }
+        
+        return (isset($column[0])) ? $column[0] : '';
     }
 }

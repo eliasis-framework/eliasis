@@ -1,6 +1,24 @@
 # CHANGELOG
 
-## 1.0.3 - 2017-04-06
+## 1.0.4 - 2017-04-26
+
+* The method of accessing the App object for multiapplications has been changed, the identifier is indicated directly when instantiating it. For example: 
+
+App::Identifier('namespace', 'controller'); 
+
+Instead of 
+
+App::id('Identifier'); 
+App::('namespace', 'controller');
+
+## 1.0.3 - 2017-04-14
+
+* Deleted `Eliasis\Module\Module->getNamespace()` method.
+* Deleted `Eliasis\Module\Module->getUrl()` method.
+* Deleted `Eliasis\Module\Module->getPath()` method.
+* Deleted `Eliasis\Module\Module->getFolder()` method.
+
+## 1.0.2 - 2017-04-06
 
 * Modified the startup mode of the framework to allow the creation and operation of several applications at once.
 
