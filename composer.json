@@ -1,6 +1,6 @@
 {
     "name":        "eliasis-framework/eliasis",
-    "version":     "1.0.4",
+    "version":     "1.0.5",
     "description": "Eliasis PHP Framework",
     "type":        "library",
     "keywords": [

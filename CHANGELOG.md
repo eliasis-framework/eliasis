@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.0.5 - 2017-04-29
+
+* Added `Eliasis\Module\Module::getModulesInfo()` method.
+A new method was added to obtain basic information for all loaded modules.
+
+
 ## 1.0.4 - 2017-04-26
 
 * The method of accessing the App object for multiapplications has been changed, the identifier is indicated directly when instantiating it. For example: 

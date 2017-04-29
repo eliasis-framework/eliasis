@@ -1,6 +1,6 @@
 <?php
 /**
- * Eliasis PHP Framework application
+ * Eliasis PHP Framework
  *
  * @author     Josantonius - hello@josantonius.com
  * @copyright  Copyright (c) 2017
@@ -135,15 +135,54 @@ class Module {
 
         $folder = explode('/', $path);
 
-        $instance->modules[App::$id][self::$moduleName] = [
+        $module['path']   = $path . App::DS;
+        $module['folder'] = array_pop($folder) . App::DS;
 
-            'path'   => $path . App::DS,
-            'folder' => array_pop($folder) . App::DS,
-        ];
+        $instance->modules[App::$id][self::$moduleName] = $module;
 
         $instance->_getSettings();
 
         $instance->_addResources();
+    }
+
+    /**
+     * Get modules info.
+     *
+     * @since 1.0.5
+     *
+     * @return array $data → modules info
+     */
+    public static function getModulesInfo() {
+
+        $data = [];
+
+        $instance = self::getInstance();
+
+        $modules = array_keys($instance->modules[App::$id]);
+
+        foreach ($modules as $module) {
+
+            $module = $instance->modules[App::$id][$module];
+
+            $name = $module['name'];
+
+            $name = trim(implode(' ', preg_split("/(?=[A-Z])/", $name)));
+
+            $data[] = [
+
+                'id'          => $module['name'],
+                'name'        => $name,
+                'version'     => $module['version'],
+                'description' => $module['description'],
+                'uri'         => $module['uri'],
+                'author'      => $module['author'],
+                'author-uri'  => $module['author-uri'],
+                'license'     => $module['license'],
+                'slug'        => trim($module['folder'], App::DS),
+            ];
+        }
+
+        return $data;
     }
 
     /**
