@@ -11,6 +11,7 @@
 - [Installation](#installation)
 - [Requirements](#requirements)
 - [Quick Start and Examples](#quick-start-and-examples)
+- [Developed with Eliasis](#developed-with-eliasis)
 - [Contribute](#contribute)
 - [Licensing](#licensing)
 - [Copyright](#copyright)
@@ -54,6 +55,13 @@ App::run(dirname(__DIR__));
 
 // App::run(dirname(__DIR__), 'wordpress-plugin', 'unique_id');
 ```
+
+## Developed with Eliasis
+
+| Module | Description | Type
+| --- | --- | --- |
+| [Search Inside](https://github.com/Josantonius/Search-Inside.git) | Easily search text within your pages or blog posts. | WordPress Plugin
+| [Extensions For Grifus](https://github.com/Josantonius/Extensions-For-Grifus.git) | Extensions for the Grifus theme. | WordPress Plugin
 
 ### Contribute
 1. Check for open issues or open a new issue to start a discussion around a bug or feature.

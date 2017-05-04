@@ -11,6 +11,7 @@
 - [Instalación](#instalación)
 - [Requisitos](#requisitos)
 - [Cómo empezar y ejemplos](#cómo-empezar-y-ejemplos)
+- [Desarrollos con Eliasis](#desarrollos-con-eliasis)
 - [Contribuir](#contribuir)
 - [Licencia](#licencia)
 - [Copyright](#copyright)
@@ -52,6 +53,13 @@ App::run(dirname(__DIR__));
 
 // App::run(dirname(__DIR__), 'wordpress-plugin', 'unique_id');
 ```
+
+## Desarrollos con Eliasis
+
+| Módulo | Descripción | Tipo
+| --- | --- | --- |
+| [Search Inside](https://github.com/Josantonius/Search-Inside.git) | Busca y remarca fácilmente frases o palabras en páginas y entradas. | Plugin WordPress
+| [Extensions For Grifus](https://github.com/Josantonius/Extensions-For-Grifus.git) | Extensiones para el theme Grifus. | Plugin WordPress
 
 ### Contribuir
 1. Comprobar si hay incidencias abiertas o abrir una nueva para iniciar una discusión en torno a un fallo o función.
