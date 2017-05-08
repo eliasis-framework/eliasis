@@ -45,15 +45,15 @@ To use this framework, simply:
 ```php
 $DS = DIRECTORY_SEPARATOR;
 
-require dirname(__DIR__) . $DS . 'lib' . $DS . 'vendor' . $DS .'autoload.php';
+require __DIR__ . $DS . 'lib' . $DS . 'vendor' . $DS .'autoload.php';
 
 use Eliasis\App\App;
 
-App::run(dirname(__DIR__));
+App::run(__DIR__);
 
-// App::run(dirname(__DIR__), 'app', 'unique_id');
+// App::run(__DIR__, 'app', 'unique_id');
 
-// App::run(dirname(__DIR__), 'wordpress-plugin', 'unique_id');
+// App::run(__DIR__, 'wordpress-plugin', 'unique_id');
 ```
 
 ## Developed with Eliasis
