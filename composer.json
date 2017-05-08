@@ -24,6 +24,7 @@
         "source": "https://github.com/eliasis-framework/eliasis"
     },
     "config": {
+        "vendor-dir": "lib/vendor",
         "preferred-install": "dist"
     },
     "minimum-stability": "stable",
