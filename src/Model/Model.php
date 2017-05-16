@@ -11,7 +11,8 @@
 
 namespace Eliasis\Model;
 
-use Eliasis\Model\Exception\ModelException;
+use Eliasis\App\App,
+    Eliasis\Model\Exception\ModelException;
 
 /**
  * Model class.
@@ -28,6 +29,15 @@ abstract class Model {
      * @var object
      */
     protected static $instance;
+
+    /**
+     * Database instance.
+     *
+     * @since 1.0.6
+     *
+     * @var object
+     */
+    protected $db;
 
     /**
      * Prevent creating a new model instance.
@@ -50,9 +60,39 @@ abstract class Model {
         if (!isset(self::$instance[$model])) { 
 
             self::$instance[$model] = new $model;
+
+            if (is_null(self::$instance[$model]->db)) {
+                
+                self::$instance[$model]->_getDatabaseInstance();
+            }
         }
 
         return self::$instance[$model];
+    }
+
+    /**
+     * Get Database connection.
+     *
+     * This method will only be used if the Database class exists.
+     *
+     * @since 1.0.6
+     *
+     * @uses Josantonius\\Database\\Database class
+     *
+     * @link https://github.com/Josantonius/PHP-Database
+     *
+     * @return object → controller instance
+     */
+    private function _getDatabaseInstance() {
+
+        if (class_exists($Database = 'Josantonius\\Database\\Database')) {
+
+            $config = App::db();
+
+            $id = (is_array($config)) ? array_keys($config)[0] : 'app';
+
+            $this->db = $Database::getConnection($id);
+        }
     }
 
     /**

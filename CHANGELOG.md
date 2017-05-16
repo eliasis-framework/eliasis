@@ -1,5 +1,29 @@
 # CHANGELOG
 
+## 1.0.6 - 2017-05-16
+
+* Added `Eliasis\Model\Model->_getDatabaseInstance` method.
+
+* Added a method for compatibility with the Josantonius\Database\Database library. If it exists, it will get the connection to the database and save it in the $db attribute that will be available on all models.
+
+* Database will get the connection parameters from the Eliasis Framework configuration files. It should have the following structure:
+
+'db' => [
+
+    'identifier' => [
+        'id'         => 'identifier',
+        'prefix'     => 'identifier_',
+        'provider'   => 'PDOprovider',
+        'host'       => 'localhost',
+        'user'       => 'db_user',
+        'name'       => 'db_name',
+        'password'   => 'db_password',
+        'settings'   => ['charset' => 'utf8'],
+    ],
+]
+
+* Database class url: https://github.com/Josantonius/PHP-Database
+
 ## 1.0.5 - 2017-04-29
 
 * Added `Eliasis\Module\Module::getModulesInfo()` method.
