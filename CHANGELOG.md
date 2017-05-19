@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 1.0.7 - 2017-05-19
+
+* Deleted `Eliasis\Module\Module` class.
+
+* Deleted `Eliasis\App\App->_runHooks()` method.
+
+* The Module library was deleted. Now the addition of modules for Eliasis Framework will not be included in the core and can optionally be added.
+
 ## 1.0.6 - 2017-05-16
 
 * Added `Eliasis\Model\Model->_getDatabaseInstance` method.

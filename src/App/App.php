@@ -95,8 +95,6 @@ class App {
 
         $instance->_getSettings();
 
-        $instance->_runHooks();
-
         $instance->_runModules();
 
         $instance->_runRoutes();
@@ -203,19 +201,6 @@ class App {
     }
 
     /**
-     * Load hooks.
-     *
-     * @since 1.0.1
-     */
-    private function _runHooks() {
-
-        if (class_exists($Hook = 'Josantonius\\Hook\\Hook')) {
-
-            $Hook::getInstance();
-        }
-    }
-
-    /**
      * Load Modules.
      *
      * @since 1.0.1
@@ -224,8 +209,8 @@ class App {
 
         $Module = 'Eliasis\\Module\\Module';
 
-        $Module::loadModules(self::path('modules'));
-    }
+        $Module::loadModules(App::ROOT() . 'modules' . App::DS);
+    } 
 
     /**
      * Load Routes.
