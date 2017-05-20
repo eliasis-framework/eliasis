@@ -6,7 +6,7 @@
 
 * Deleted `Eliasis\App\App->_runHooks()` method.
 
-* The Module library was deleted. Now the addition of modules for Eliasis Framework will not be included in the core and can optionally be added.
+* The Module library was deleted. Now the addition of modules for Eliasis Framework will not be included in the core and can optionally be added from https://github.com/Eliasis-Framework/Modules.git.
 
 ## 1.0.6 - 2017-05-16
 
