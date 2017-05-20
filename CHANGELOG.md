@@ -8,6 +8,8 @@
 
 * The Module library was deleted. Now the addition of modules for Eliasis Framework will not be included in the core and can optionally be added from https://github.com/Eliasis-Framework/Modules.git.
 
+* Added verification for the Module library on App class.
+
 ## 1.0.6 - 2017-05-16
 
 * Added `Eliasis\Model\Model->_getDatabaseInstance` method.
