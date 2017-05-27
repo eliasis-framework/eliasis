@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 1.0.7 - 2017-05-19
+## 1.0.7 - 2017-05-27
 
 * Deleted `Eliasis\Module\Module` class.
 

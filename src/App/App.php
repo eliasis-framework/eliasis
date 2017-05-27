@@ -207,9 +207,12 @@ class App {
      */
     private function _runModules() {
 
-        if (class_exists($Module = 'Eliasis\\Module\\Module')) {
+        if (is_dir($modulesPath = App::ROOT() . 'modules' . App::DS)) {
 
-            $Module::loadModules(App::ROOT() . 'modules' . App::DS);
+            if (class_exists($Module = 'Eliasis\\Module\\Module')) {
+
+                $Module::loadModules($modulesPath);
+            }
         }
     } 
 
