@@ -299,7 +299,7 @@ class App {
 
         if (!count($params)) {
 
-            return (!is_null($column[0])) ? $column[0] : '';
+            return (!is_null($column[0])) ? $column[0] : [];
         }
 
         foreach ($params as $param) {
