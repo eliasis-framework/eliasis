@@ -131,17 +131,13 @@ class App {
      * Set application paths.
      *
      * @since 1.0.1
-     *
-     * @param string $baseDirectory → directory where class is instantiated
      */
     private function _setPaths($baseDirectory) {
 
-        $baseUrl = Url::getBaseUrl();
-
         self::addOption("ROOT", $baseDirectory . App::DS);
         self::addOption("CORE", dirname(dirname(__DIR__)) . App::DS);
+        self::addOption("MODULES", App::ROOT() . 'modules' . App::DS);
     }
-
     /**
      * Set url depending where the framework is launched.
      *
