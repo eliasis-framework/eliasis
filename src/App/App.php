@@ -242,7 +242,7 @@ class App {
      *
      * @return
      */
-    protected function addOption($option, $value) {
+    public function addOption($option, $value) {
 
         if (!is_array($value)) {
 
@@ -309,7 +309,7 @@ class App {
         }
 
         foreach ($params as $param) {
-            
+
             $column = array_column($column, $param);
         }
         
