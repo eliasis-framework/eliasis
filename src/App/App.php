@@ -240,16 +240,16 @@ class App {
      * @param string $option → option name or options array
      * @param mixed  $value  → value/s
      *
-     * @return
+     * @return mixed
      */
-    public function addOption($option, $value) {
+    public static function addOption($option, $value) {
 
         if (!is_array($value)) {
 
             return self::$settings[self::$id][$option] = $value;
         }
 
-        if (array_key_exists($option, $data)) {
+        if (array_key_exists($option, $value)) {
 
             self::$settings[self::$id][$option] = array_merge_recursive(
 
