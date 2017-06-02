@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.0.8 - 2017-06-02
+
+* Deleted `VERSION.txt` file.
+
+* The addOption method was improved.
+
 ## 1.0.7 - 2017-05-27
 
 * Deleted `Eliasis\Module\Module` class.

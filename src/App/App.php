@@ -242,21 +242,31 @@ class App {
      *
      * @return
      */
-    public static function addOption($option, $value) {
+    protected function addOption($option, $value) {
 
-        if (is_array($value)) {
+        if (!is_array($value)) {
+
+            return self::$settings[self::$id][$option] = $value;
+        }
+
+        if (array_key_exists($option, $data)) {
+
+            self::$settings[self::$id][$option] = array_merge_recursive(
+
+                self::$settings[self::$id][$option], $value
+            );
+        
+        } else {
 
             foreach ($value as $key => $value) {
             
                 self::$settings[self::$id][$option][$key] = $value;
             }
-
-            return;
         }
 
-        self::$settings[self::$id][$option] = $value;
+        return self::$settings[self::$id][$option];        
     }
-
+    
     /**
      * Define the application id.
      *
