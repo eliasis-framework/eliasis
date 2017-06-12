@@ -1,10 +1,24 @@
 # CHANGELOG
 
+## 1.0.9 - 2017-06-08
+
+* Added `Eliasis\App\App->set()` method.
+* Added `Eliasis\App\App->get()` method.
+* Added `Eliasis\App\App->instance()` method.
+
+* Added `Eliasis\View\View->get()` method.
+
+* Deprecated `Eliasis\App\App->addOption()` method.
+
+The `addOption()` method will be deleted in the next version. It will be replaced by the `set()` method and will be removed in the next version.
+
+* Added `config/modules.php` settings file.
+
 ## 1.0.8 - 2017-06-02
 
 * Deleted `VERSION.txt` file.
 
-* The addOption method was improved.
+* The `addOption()` method was improved.
 
 ## 1.0.7 - 2017-05-27
 

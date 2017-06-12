@@ -25,16 +25,16 @@ class App {
      *
      * @since 1.0.2
      *
-     * @var object
+     * @var array
      */
-    protected static $instance;
+    protected static $instances;
 
     /**
      * Unique id for the application.
      *
      * @since 1.0.0
      *
-     * @var object
+     * @var string
      */
     public static $id;
 
@@ -45,7 +45,7 @@ class App {
      *
      * @var array
      */
-    protected static $settings = [];
+    protected $settings = [];
 
     /**
      * Set directory separator constant.
@@ -65,9 +65,12 @@ class App {
      */
     public static function getInstance() {
 
-        NULL === self::$instance and self::$instance = new self;
+        if (!isset(self::$instances[self::$id])) { 
 
-        return static::$instance;
+            self::$instances[self::$id] = new self;
+        }
+
+        return self::$instances[self::$id];
     }
 
     /**
@@ -83,21 +86,21 @@ class App {
 
         self::$id = $id;
 
-        $instance = self::getInstance();
+        $that = self::getInstance();
 
-        $instance->_setPaths($baseDirectory);
+        $that->_setPaths($baseDirectory, $that);
 
-        $instance->_setUrls($baseDirectory, $type);
+        $that->_setUrls($baseDirectory, $type, $that);
 
-        $instance->_runErrorHandler();
+        $that->_runErrorHandler();
 
-        $instance->_runCleaner();
+        $that->_runCleaner();
 
-        $instance->_getSettings();
+        $that->_getSettings($that);
 
-        $instance->_runModules();
+        $that->_runModules();
 
-        $instance->_runRoutes();
+        $that->_runRoutes($that);
     }
 
     /**
@@ -107,7 +110,7 @@ class App {
      */
     private function _runErrorHandler() {
 
-        if (class_exists($class='Josantonius\\ErrorHandler\\ErrorHandler')) {
+        if (class_exists($class='Josantonius\ErrorHandler\ErrorHandler')) {
 
             new $class;
         }
@@ -120,7 +123,7 @@ class App {
      */
     private function _runCleaner() {
 
-        if (class_exists($Cleaner = 'Josantonius\\Cleaner\\Cleaner')) {
+        if (class_exists($Cleaner = 'Josantonius\Cleaner\Cleaner')) {
 
             $Cleaner::removeMagicQuotes();
             $Cleaner::unregisterGlobals();
@@ -131,13 +134,17 @@ class App {
      * Set application paths.
      *
      * @since 1.0.1
+     *
+     * @param string $baseDirectory → directory where class is instantiated
+     * @param object $that          → application instance 
      */
-    private function _setPaths($baseDirectory) {
+    private function _setPaths($baseDirectory, $that) {
 
-        self::addOption("ROOT", $baseDirectory . App::DS);
-        self::addOption("CORE", dirname(dirname(__DIR__)) . App::DS);
-        self::addOption("MODULES", App::ROOT() . 'modules' . App::DS);
+        $that->set("ROOT", $baseDirectory . App::DS);
+        $that->set("CORE", dirname(dirname(__DIR__)) . App::DS);
+        $that->set("MODULES", App::ROOT() . 'modules' . App::DS);
     }
+
     /**
      * Set url depending where the framework is launched.
      *
@@ -145,8 +152,9 @@ class App {
      *
      * @param string $baseDirectory → directory where class is instantiated
      * @param string $type          → application type
+     * @param object $that          → application instance 
      */
-    private function _setUrls($baseDirectory, $type) {
+    private function _setUrls($baseDirectory, $type, $that) {
 
         switch ($type) {
 
@@ -159,8 +167,8 @@ class App {
                 break;
         }
 
-        self::addOption("MODULES_URL", $baseUrl . 'modules' . App::DS);
-        self::addOption("PUBLIC_URL",  $baseUrl . 'public'  . App::DS);
+        $that->set("MODULES_URL", $baseUrl . 'modules' . App::DS);
+        $that->set("PUBLIC_URL",  $baseUrl . 'public'  . App::DS);
     }
 
     /**
@@ -168,7 +176,7 @@ class App {
      *
      * @since 1.0.0
      */
-    private function _getSettings() {
+    private function _getSettings($that) {
 
         $path = [
 
@@ -186,11 +194,7 @@ class App {
 
                     $config = require($dir . $file);
 
-                    self::$settings[self::$id] = array_merge(
-
-                        self::$settings[self::$id], 
-                        $config
-                    );
+                    $that->settings = array_merge($that->settings, $config);
                 }
             }
         }         
@@ -205,7 +209,7 @@ class App {
 
         if (is_dir($modulesPath = App::ROOT() . 'modules' . App::DS)) {
 
-            if (class_exists($Module = 'Eliasis\\Module\\Module')) {
+            if (class_exists($Module = 'Eliasis\Module\Module')) {
 
                 $Module::loadModules($modulesPath);
             }
@@ -217,15 +221,15 @@ class App {
      *
      * @since 1.0.1
      */
-    private function _runRoutes() {
+    private function _runRoutes($that) {
 
-        if (class_exists($Router = 'Josantonius\\Router\\Router')) {
+        if (class_exists($Router = 'Josantonius\Router\Router')) {
 
-            if (isset(self::$settings[self::$id]['routes'])) {
+            if (isset($that->settings['routes'])) {
 
-                $Router::addRoute(self::$settings[self::$id]['routes']);
+                $Router::addRoute($that->settings['routes']);
 
-                unset(self::$settings[self::$id]['routes']);
+                unset($that->settings['routes']);
 
                 $Router::dispatch();
             }
@@ -236,6 +240,9 @@ class App {
      * Define new configuration settings.
      *
      * @since 1.0.0
+     *
+     * @deprecated 1.0.9 → This method will be deleted in the next version.
+     *                     It will be replaced by the set method.
      *
      * @param string $option → option name or options array
      * @param mixed  $value  → value/s
@@ -266,7 +273,113 @@ class App {
 
         return self::$settings[self::$id][$option];        
     }
-    
+
+    /**
+     * Define new configuration settings.
+     *
+     * @since 1.0.9
+     *
+     * @param string $option → option name or options array
+     * @param mixed  $value  → value/s
+     *
+     * @return mixed
+     */
+    public static function set($option, $value) {
+
+        $that = self::getInstance();
+
+        if (!is_array($value)) {
+
+            return $that->settings[$option] = $value;
+        }
+
+        if (array_key_exists($option, $value)) {
+
+            $that->settings[$option] = array_merge_recursive(
+
+                $that->settings[$option], $value
+            );
+        
+        } else {
+
+            foreach ($value as $key => $value) {
+            
+                $that->settings[$option][$key] = $value;
+            }
+        }
+
+        return $that->settings[$option];        
+    }
+
+    /**
+     * Get options saved.
+     *
+     * @since 1.0.9
+     *
+     * @param array $params
+     *
+     * @return mixed
+     */
+    public static function get(...$params) {
+ 
+        $that = self::getInstance();
+
+        $key = array_shift($params);
+
+        $col[] = isset($that->settings[$key]) ? $that->settings[$key] : 0;
+
+        if (!count($params)) {
+
+            return ($col[0]) ? $col[0] : '';
+        }
+
+        foreach ($params as $param) {
+
+            $col = array_column($col, $param);
+        }
+        
+        return (isset($col[0])) ? $col[0] : '';
+    }
+
+    /**
+     * Get controller instance.
+     *
+     * @since 1.0.9
+     *
+     * @param array $class     → class name
+     * @param array $namespace → namespace index
+     *
+     * @return object|false → class instance or false
+     */
+    public static function instance($class, $namespace = '') {
+
+        $that = self::getInstance();
+
+        if (isset($that->settings['namespaces'])) {
+
+            if (isset($that->settings['namespaces'][$namespace])) {
+
+                $namespace = $that->settings['namespaces'][$namespace];
+
+                $class = $namespace . $class . '\\' . $class;
+
+                return call_user_func([$class, 'getInstance']);
+            }
+
+            foreach ($that->settings['namespaces'] as $key => $namespace) {
+
+                $instance = $namespace . $class . '\\' . $class;
+                
+                if (class_exists($instance)) {
+
+                    return call_user_func([$instance, 'getInstance']);
+                }
+            }
+        }
+
+        return false;
+    }
+
     /**
      * Define the application id.
      *
@@ -274,13 +387,13 @@ class App {
      *
      * @param string $id → application id
      *
-     * @return
+     * @return string → application id
      */
     public static function id($id) {
 
-        self::$id = $id;
+        return self::$id = $id;
     }
-    
+
     /**
      * Access the configuration parameters.
      *
@@ -291,28 +404,19 @@ class App {
      *
      * @return mixed
      */
-    public static function __callstatic($index, $params = []) {
+    public static function __callstatic($index, $params = false) {
 
-        if (isset(self::$settings[$index])) {
+        if (array_key_exists($index, self::$instances)) {
 
-            self::$id = $index;
-            $index = array_shift($params);
-        }
+            self::id($index);
 
-        $settings = self::$settings[self::$id];
+            $that = self::getInstance();
 
-        $column[] = (isset($settings[$index])) ? $settings[$index] : null;
+            return $that;
+        } 
 
-        if (!count($params)) {
+        array_unshift($params, $index);
 
-            return (!is_null($column[0])) ? $column[0] : [];
-        }
-
-        foreach ($params as $param) {
-
-            $column = array_column($column, $param);
-        }
-        
-        return (isset($column[0])) ? $column[0] : '';
+        return call_user_func_array([__CLASS__, 'get'], $params);
     }
 }

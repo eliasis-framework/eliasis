@@ -85,6 +85,8 @@ abstract class Controller {
      * Get view instance.
      *
      * @since 1.0.0
+     *
+     * @param object $instance → this
      */
     protected static function getViewInstance($instance) {
 
@@ -96,11 +98,14 @@ abstract class Controller {
      *
      * @since 1.0.2
      *
+     * @param object $instance   → this
+     * @param string $controller → controller namespace
+     *
      * @return object → controller instance
      */
-    protected static function getModelInstance($instance, $controller = '') {
+    protected static function getModelInstance($instance, $controller='') {
 
-        $controller = (empty($controller)) ? $controller : get_called_class();
+        $controller = empty($controller) ? $controller : get_called_class();
 
         $model = str_replace('Controller', 'Model', $controller);
 

@@ -2,8 +2,7 @@
 /**
  * Eliasis PHP Framework
  *
- * @author     Josantonius  - hello@josantonius.com
- * @author     Daveismyname - dave@daveismyname.com
+ * @author     Josantonius - hello@josantonius.com
  * @copyright  Copyright (c) 2017
  * @license    https://opensource.org/licenses/MIT - The MIT License (MIT)
  * @link       https://github.com/Eliasis-Framework/Eliasis
@@ -19,7 +18,7 @@ class View {
      *
      * @since 1.0.0
      *
-     * @var object
+     * @var array
      */
     protected static $instance;
 
@@ -46,6 +45,8 @@ class View {
      *
      * @since 1.0.0
      *
+     * @param string $controller → controller namespace
+     *
      * @return object → controller instance
      */
     public static function getInstance() {
@@ -60,21 +61,53 @@ class View {
      *
      * @since 1.0.0
      *
-     * @param string $file → view name
+     * @param string $path → filepath
+     * @param string $file → filename
      * @param array  $data → view content
      */
-    public function renderizate($file, $data = '') {
+    public function renderizate($path, $file, $data = null) {
 
-        if (is_array($data)) {
+        $file = $path . $file . '.php';
 
-            self::$data = $data;
+        if ($data) {
+
+            self::$data[sha1($file)] = $data;
         }
 
-        $data = self::$data;
+        require_once $file;
+    }
 
-        $path = $file . '.php';
+    /**
+     * Get options saved.
+     *
+     * @since 1.0.9
+     *
+     * @param array  $params → parameters
+     * @param string $file   → filepath
+     *
+     * @return mixed
+     */
+    public static function get(...$params) {
 
-        require $path;
+        $trace = debug_backtrace(2, 1);
+          
+        $id = (isset($trace[0]['file'])) ? sha1($trace[0]['file']) : 0;
+
+        $key = array_shift($params);
+
+        $col[] = isset(self::$data[$id][$key]) ? self::$data[$id][$key] : 0;
+
+        if (!count($params)) {
+
+            return ($col[0]) ? $col[0] : self::$data[$id];
+        }
+
+        foreach ($params as $param) {
+
+            $col = array_column($col, $param);
+        }
+        
+        return (isset($col[0])) ? $col[0] : '';
     }
 
     /**
@@ -96,11 +129,11 @@ class View {
      *
      * @param array $headers
      */
-    public function addHeaders(array $headers = array()) {
+    public function addHeaders($headers = []) {
 
         self::$headers = array_merge(self::$headers, $headers);
     }
-    
+
     /**
      * Send headers
      *
