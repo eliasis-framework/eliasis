@@ -38,7 +38,7 @@ Este framework es soportado por versiones de PHP 5.6 o superiores y es compatibl
 
 ### Cómo empezar y ejemplos
 
-Para utilizar esta librería, simplemente:
+Para utilizar esta biblioteca, simplemente:
 
 ```php
 $DS = DIRECTORY_SEPARATOR;
