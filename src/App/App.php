@@ -223,6 +223,8 @@ class App {
 
             if (isset($that->settings['hooks'])) {
 
+            	$Hook = $Hook::getInstance(self::$id);
+
                 $Hook::addActions($that->settings['hooks']);
 
                 unset($that->settings['hooks']);
