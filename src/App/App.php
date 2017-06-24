@@ -98,6 +98,8 @@ class App {
 
         $that->_getSettings($that);
 
+        $that->_runHooks($that);
+
         $that->_runModules();
 
         $that->_runRoutes($that);
@@ -107,6 +109,8 @@ class App {
      * Error Handler.
      *
      * @since 1.0.1
+     *
+     * @link https://github.com/Josantonius/PHP-ErrorHandler
      */
     private function _runErrorHandler() {
 
@@ -120,6 +124,8 @@ class App {
      * Cleaning resources.
      *
      * @since 1.0.1
+     *
+     * @link https://github.com/Josantonius/PHP-Cleaner
      */
     private function _runCleaner() {
 
@@ -159,7 +165,7 @@ class App {
         switch ($type) {
 
             case 'wordpress-plugin':
-                $baseUrl = plugins_url(basename($baseDirectory)) . App::DS;
+                $baseUrl = plugins_url(basename($baseDirectory)) . '/';
                 break;
             
             default:
@@ -167,14 +173,16 @@ class App {
                 break;
         }
 
-        $that->set("MODULES_URL", $baseUrl . 'modules' . App::DS);
-        $that->set("PUBLIC_URL",  $baseUrl . 'public'  . App::DS);
+        $that->set("MODULES_URL", $baseUrl . 'modules/');
+        $that->set("PUBLIC_URL",  $baseUrl . 'public/');
     }
 
     /**
      * Get settings.
      *
      * @since 1.0.0
+     *
+     * @param object $that → application instance
      */
     private function _getSettings($that) {
 
@@ -201,9 +209,35 @@ class App {
     }
 
     /**
+     * Load hooks.
+     *
+     * @since 1.1.0
+     *
+     * @param object $that → application instance
+     *
+     * @link https://github.com/Josantonius/PHP-Hook
+     */
+    private function _runHooks($that) {
+
+        if (class_exists($Hook = 'Josantonius\Hook\Hook')) {
+
+            $that->set("Hook", $Hook->getInstance(self::$id));
+
+            if (isset($that->settings['hooks'])) {
+
+                App::Hook()->addActions($that->settings['hooks']);
+
+                unset($that->settings['hooks']);
+            }
+        }
+    }
+
+    /**
      * Load Modules.
      *
      * @since 1.0.1
+     *
+     * @link https://github.com/Eliasis-Framework/Module
      */
     private function _runModules() {
 
@@ -220,6 +254,10 @@ class App {
      * Load Routes.
      *
      * @since 1.0.1
+     *
+     * @param object $that → application instance
+     *
+     * @link https://github.com/Josantonius/PHP-Router
      */
     private function _runRoutes($that) {
 
@@ -234,44 +272,6 @@ class App {
                 $Router::dispatch();
             }
         }
-    }
-
-    /**
-     * Define new configuration settings.
-     *
-     * @since 1.0.0
-     *
-     * @deprecated 1.0.9 → This method will be deleted in the next version.
-     *                     It will be replaced by the set method.
-     *
-     * @param string $option → option name or options array
-     * @param mixed  $value  → value/s
-     *
-     * @return mixed
-     */
-    public static function addOption($option, $value) {
-
-        if (!is_array($value)) {
-
-            return self::$settings[self::$id][$option] = $value;
-        }
-
-        if (array_key_exists($option, $value)) {
-
-            self::$settings[self::$id][$option] = array_merge_recursive(
-
-                self::$settings[self::$id][$option], $value
-            );
-        
-        } else {
-
-            foreach ($value as $key => $value) {
-            
-                self::$settings[self::$id][$option][$key] = $value;
-            }
-        }
-
-        return self::$settings[self::$id][$option];        
     }
 
     /**
