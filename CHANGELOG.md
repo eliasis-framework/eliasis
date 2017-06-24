@@ -4,7 +4,7 @@
 
 * Added `Eliasis\App\App->_runHooks()` method.
 
-* The action hooks load was added again and the object of the `Hook` class in `App::Hook()` will be saved.
+* The action hooks load was added again.
 
 ## 1.0.9 - 2017-06-08
 
