@@ -221,7 +221,7 @@ class App {
 
         if (class_exists($Hook = 'Josantonius\Hook\Hook')) {
 
-            $Hook = $Hook::getInstance(self::$id);
+            $Hook::getInstance(self::$id);
 
             if (isset($that->settings['hooks'])) {
 
