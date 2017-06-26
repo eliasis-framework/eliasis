@@ -221,9 +221,9 @@ class App {
 
         if (class_exists($Hook = 'Josantonius\Hook\Hook')) {
 
-            if (isset($that->settings['hooks'])) {
+            $Hook = $Hook::getInstance(self::$id);
 
-            	$Hook = $Hook::getInstance(self::$id);
+            if (isset($that->settings['hooks'])) {
 
                 $Hook::addActions($that->settings['hooks']);
 
