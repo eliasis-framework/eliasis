@@ -87,22 +87,16 @@ class App {
         self::$id = $id;
 
         $that = self::getInstance();
-
-        $that->_setPaths($baseDirectory, $that);
-
-        $that->_setUrls($baseDirectory, $type, $that);
-
+        
+        $that->_setPaths($baseDirectory);
+        $that->_setUrls($baseDirectory, $type);
+        $that->_setIp();
         $that->_runErrorHandler();
-
         $that->_runCleaner();
-
-        $that->_getSettings($that);
-
-        $that->_runHooks($that);
-
+        $that->_getSettings();
+        $that->_runHooks();
         $that->_runModules();
-
-        $that->_runRoutes($that);
+        $that->_runRoutes();
     }
 
     /**
@@ -142,13 +136,12 @@ class App {
      * @since 1.0.1
      *
      * @param string $baseDirectory → directory where class is instantiated
-     * @param object $that          → application instance 
      */
-    private function _setPaths($baseDirectory, $that) {
+    private function _setPaths($baseDirectory) {
 
-        $that->set("ROOT", $baseDirectory . App::DS);
-        $that->set("CORE", dirname(dirname(__DIR__)) . App::DS);
-        $that->set("MODULES", App::ROOT() . 'modules' . App::DS);
+        $this->set('ROOT', $baseDirectory . App::DS);
+        $this->set('CORE', dirname(dirname(__DIR__)) . App::DS);
+        $this->set('MODULES', App::ROOT() . 'modules' . App::DS);
     }
 
     /**
@@ -158,9 +151,8 @@ class App {
      *
      * @param string $baseDirectory → directory where class is instantiated
      * @param string $type          → application type
-     * @param object $that          → application instance 
      */
-    private function _setUrls($baseDirectory, $type, $that) {
+    private function _setUrls($baseDirectory, $type) {
 
         switch ($type) {
 
@@ -173,18 +165,33 @@ class App {
                 break;
         }
 
-        $that->set("MODULES_URL", $baseUrl . 'modules/');
-        $that->set("PUBLIC_URL",  $baseUrl . 'public/');
+        $this->set('MODULES_URL', $baseUrl . 'modules/');
+        $this->set('PUBLIC_URL',  $baseUrl . 'public/');
+    }
+
+    /**
+     * Set ip.
+     *
+     * @since 1.1.0
+     *
+     * @link https://github.com/Josantonius/PHP-Ip
+     */
+    private function _setIp() {
+
+        if (class_exists($Ip = 'Josantonius\Ip\Ip')) {
+
+            $ip = $Ip::get();
+
+            $this->set('IP', ($ip) ? $ip : 'unknown');
+        }
     }
 
     /**
      * Get settings.
      *
      * @since 1.0.0
-     *
-     * @param object $that → application instance
      */
-    private function _getSettings($that) {
+    private function _getSettings() {
 
         $path = [
 
@@ -202,7 +209,7 @@ class App {
 
                     $config = require($dir . $file);
 
-                    $that->settings = array_merge($that->settings, $config);
+                    $this->settings = array_merge($this->settings, $config);
                 }
             }
         }         
@@ -213,21 +220,19 @@ class App {
      *
      * @since 1.1.0
      *
-     * @param object $that → application instance
-     *
      * @link https://github.com/Josantonius/PHP-Hook
      */
-    private function _runHooks($that) {
+    private function _runHooks() {
 
         if (class_exists($Hook = 'Josantonius\Hook\Hook')) {
 
             $Hook::getInstance(self::$id);
 
-            if (isset($that->settings['hooks'])) {
+            if (isset($this->settings['hooks'])) {
 
-                $Hook::addActions($that->settings['hooks']);
+                $Hook::addActions($this->settings['hooks']);
 
-                unset($that->settings['hooks']);
+                unset($this->settings['hooks']);
             }
         }
     }
@@ -255,19 +260,17 @@ class App {
      *
      * @since 1.0.1
      *
-     * @param object $that → application instance
-     *
      * @link https://github.com/Josantonius/PHP-Router
      */
-    private function _runRoutes($that) {
+    private function _runRoutes() {
 
         if (class_exists($Router = 'Josantonius\Router\Router')) {
 
-            if (isset($that->settings['routes'])) {
+            if (isset($this->settings['routes'])) {
 
-                $Router::addRoute($that->settings['routes']);
+                $Router::addRoute($this->settings['routes']);
 
-                unset($that->settings['routes']);
+                unset($this->settings['routes']);
 
                 $Router::dispatch();
             }

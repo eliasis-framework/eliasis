@@ -6,6 +6,10 @@
 
 * The action hooks load was added again.
 
+* Added `Eliasis\App\App->_getIp()` method.
+
+* The ip will now be saved if the `Josantonius\Ip\Ip` library is used.
+
 ## 1.0.9 - 2017-06-08
 
 * Added `Eliasis\App\App->set()` method.
