@@ -18,6 +18,16 @@
 
 ---
 
+<p align="center"><strong>Echa un vistazo al código</strong></p>
+
+<p align="center">
+  <a href="" title="Echa un vistazo al código">
+  	<img src="https://raw.githubusercontent.com/Josantonius/PHP-Algorithm/master/resources/youtube-thumbnail.jpg">
+  </a>
+</p>
+
+---
+
 ### Instalación 
 
 Puedes instalar Eliasis PHP Framework en tu proyecto utilizando [Composer](http://getcomposer.org/download/). Si vas a empezar un nuevo proyecto, recomendamos utilizar nuestra [app básica](https://github.com/eliasis-framework/app) como punto de partida. Para aplicaciones existentes puedes ejecutar lo siguiente:
