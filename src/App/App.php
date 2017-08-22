@@ -142,6 +142,7 @@ class App {
         $this->set('ROOT', $baseDirectory . App::DS);
         $this->set('CORE', dirname(dirname(__DIR__)) . App::DS);
         $this->set('MODULES', App::ROOT() . 'modules' . App::DS);
+        $this->set('PUBLIC',  App::ROOT() . 'public'  . App::DS);
     }
 
     /**
