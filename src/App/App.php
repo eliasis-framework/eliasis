@@ -247,12 +247,12 @@ class App {
      */
     private function _runModules() {
 
-        if (is_dir($modulesPath = App::ROOT() . 'modules' . App::DS)) {
+        if (class_exists($Module = 'Eliasis\Module\Module')) {
 
-            if (class_exists($Module = 'Eliasis\Module\Module')) {
+            $Module::loadModules(
 
-                $Module::loadModules($modulesPath);
-            }
+                $modulesPath = App::ROOT() . 'modules' . App::DS
+            );
         }
     } 
 
