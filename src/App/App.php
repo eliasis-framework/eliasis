@@ -81,6 +81,8 @@ class App {
      * @param string $baseDirectory → directory where class is instantiated
      * @param string $type          → application type
      * @param string $id            → unique id for the application
+     *
+     * @return void
      */
     public static function run($baseDirectory, $type = 'app', $id = '0') {
 
@@ -105,10 +107,12 @@ class App {
      * @since 1.0.1
      *
      * @link https://github.com/Josantonius/PHP-ErrorHandler
+     *
+     * @return void
      */
     private function _runErrorHandler() {
 
-        if (class_exists($class='Josantonius\ErrorHandler\ErrorHandler')) {
+        if (class_exists($class = 'Josantonius\ErrorHandler\ErrorHandler')) {
 
             new $class;
         }
@@ -119,7 +123,12 @@ class App {
      *
      * @since 1.0.1
      *
+     * @uses void Cleaner::removeMagicQuotes() → remove magic quotes
+     * @uses void Cleaner::unregisterGlobals() → remove register globals
+     *
      * @link https://github.com/Josantonius/PHP-Cleaner
+     *
+     * @return void
      */
     private function _runCleaner() {
 
@@ -136,6 +145,8 @@ class App {
      * @since 1.0.1
      *
      * @param string $baseDirectory → directory where class is instantiated
+     *
+     * @return void
      */
     private function _setPaths($baseDirectory) {
 
@@ -152,6 +163,8 @@ class App {
      *
      * @param string $baseDirectory → directory where class is instantiated
      * @param string $type          → application type
+     *
+     * @return void
      */
     private function _setUrls($baseDirectory, $type) {
 
@@ -175,7 +188,11 @@ class App {
      *
      * @since 1.1.0
      *
+     * @uses string Ip::get() → get IP
+     *
      * @link https://github.com/Josantonius/PHP-Ip
+     *
+     * @return void
      */
     private function _setIp() {
 
@@ -191,6 +208,8 @@ class App {
      * Get settings.
      *
      * @since 1.0.0
+     *
+     * @return void
      */
     private function _getSettings() {
 
@@ -221,7 +240,12 @@ class App {
      *
      * @since 1.1.0
      *
+     * @uses string Hook::getInstance() → get Hook instance
+     * @uses string Hook::addActions()  → add action hook
+     *
      * @link https://github.com/Josantonius/PHP-Hook
+     *
+     * @return void
      */
     private function _runHooks() {
 
@@ -243,16 +267,17 @@ class App {
      *
      * @since 1.0.1
      *
+     * @uses string Module::loadModules() → load modules
+     *
      * @link https://github.com/Eliasis-Framework/Module
+     *
+     * @return void
      */
     private function _runModules() {
 
         if (class_exists($Module = 'Eliasis\Module\Module')) {
 
-            $Module::loadModules(
-
-                $modulesPath = App::ROOT() . 'modules' . App::DS
-            );
+            $Module::loadModules();
         }
     } 
 
@@ -261,7 +286,12 @@ class App {
      *
      * @since 1.0.1
      *
+     * @uses string Router::addRoute() → add routes
+     * @uses string Router::dispatch() → dispath routes
+     *
      * @link https://github.com/Josantonius/PHP-Router
+     *
+     * @return void
      */
     private function _runRoutes() {
 
