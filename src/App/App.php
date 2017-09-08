@@ -97,7 +97,7 @@ class App {
         $that->_runCleaner();
         $that->_getSettings();
         $that->_runHooks();
-        $that->_runModules();
+        $that->_runComplements();
         $that->_runRoutes();
     }
 
@@ -151,9 +151,14 @@ class App {
     private function _setPaths($baseDirectory) {
 
         $this->set('ROOT', $baseDirectory . App::DS);
+
         $this->set('CORE', dirname(dirname(__DIR__)) . App::DS);
-        $this->set('MODULES', App::ROOT() . 'modules' . App::DS);
-        $this->set('PUBLIC',  App::ROOT() . 'public'  . App::DS);
+
+        $this->set('PUBLIC',     App::ROOT() . 'public'     . App::DS);
+        $this->set('THEMES',     App::ROOT() . 'themes'     . App::DS);
+        $this->set('MODULES',    App::ROOT() . 'modules'    . App::DS);
+        $this->set('PLUGINS',    App::ROOT() . 'plugins'    . App::DS);
+        $this->set('COMPONENTS', App::ROOT() . 'components' . App::DS);
     }
 
     /**
@@ -179,8 +184,12 @@ class App {
                 break;
         }
 
-        $this->set('MODULES_URL', $baseUrl . 'modules/');
-        $this->set('PUBLIC_URL',  $baseUrl . 'public/');
+        $this->set('PUBLIC_URL',     $baseUrl . 'public/');
+        $this->set('THEMES_URL',     $baseUrl . 'themes/');
+        $this->set('MODULES_URL',    $baseUrl . 'modules/');
+        $this->set('PLUGINS_URL',    $baseUrl . 'plugins/');
+        $this->set('COMPONENTS_URL', $baseUrl . 'components/');
+        
     }
 
     /**
@@ -263,21 +272,29 @@ class App {
     }
 
     /**
-     * Load Modules.
+     * Load complements.
      *
-     * @since 1.0.1
+     * @since 1.1.1
      *
-     * @uses string Module::loadModules() → load modules
+     * @uses void Component::run() → run modules
+     * @uses void Plugin::run()    → run modules
+     * @uses void Module::run()    → run modules
+     * @uses void Template::run()  → run modules
      *
-     * @link https://github.com/Eliasis-Framework/Module
+     * @link https://github.com/Eliasis-Framework/Complement
      *
      * @return void
      */
-    private function _runModules() {
+    private function _runComplements() {
 
-        if (class_exists($Module = 'Eliasis\Module\Module')) {
+        if (class_exists('Eliasis\Complement\Complement')) {
 
-            $Module::loadModules();
+            $complement = 'Eliasis\Complement\\';
+
+            call_user_func($complement . 'Type\Component\Component::run');
+            call_user_func($complement . 'Type\Plugin\Plugin::run');
+            call_user_func($complement . 'Type\Module\Module::run');
+            call_user_func($complement . 'Type\Template\Template::run');
         }
     } 
 

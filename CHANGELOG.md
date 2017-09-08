@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 1.1.1 - 2017-09-07
+
+* Deleted `Eliasis\App\App->_runModules()` method.
+
+* Added `Eliasis\App\App->_runComplements()` method.
+
+* Deleted `config/modules.php` settings file.
+
 ## 1.1.0 - 2017-06-24
 
 * Added `Eliasis\App\App->_runHooks()` method.
