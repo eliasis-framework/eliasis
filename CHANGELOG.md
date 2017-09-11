@@ -8,6 +8,8 @@
 
 * Deleted `config/modules.php` settings file.
 
+* Deleted `Eliasis\Cleaner\Cleaner->_runCleaner()` method.
+
 ## 1.1.0 - 2017-06-24
 
 * Added `Eliasis\App\App->_runHooks()` method.

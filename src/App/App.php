@@ -94,7 +94,6 @@ class App {
         $that->_setUrls($baseDirectory, $type);
         $that->_setIp();
         $that->_runErrorHandler();
-        $that->_runCleaner();
         $that->_getSettings();
         $that->_runHooks();
         $that->_runComplements();
@@ -115,27 +114,6 @@ class App {
         if (class_exists($class = 'Josantonius\ErrorHandler\ErrorHandler')) {
 
             new $class;
-        }
-    }
-
-    /**
-     * Cleaning resources.
-     *
-     * @since 1.0.1
-     *
-     * @uses void Cleaner::removeMagicQuotes() → remove magic quotes
-     * @uses void Cleaner::unregisterGlobals() → remove register globals
-     *
-     * @link https://github.com/Josantonius/PHP-Cleaner
-     *
-     * @return void
-     */
-    private function _runCleaner() {
-
-        if (class_exists($Cleaner = 'Josantonius\Cleaner\Cleaner')) {
-
-            $Cleaner::removeMagicQuotes();
-            $Cleaner::unregisterGlobals();
         }
     }
 
