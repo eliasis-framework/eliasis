@@ -14,5 +14,6 @@ package-lock.json
 .git*/
 node_modules/
 _docpress/
+vendor/
 .idea
 .DS_STORE
