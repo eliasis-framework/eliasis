@@ -1,0 +1,16 @@
+# Config for Nginx
+#
+#location / {
+#   #try_files $uri $uri/ =404;
+#   try_files $uri $uri/ @rewrite;
+#}
+#
+#location @rewrite {
+#   rewrite ^ index.php;
+#}
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>

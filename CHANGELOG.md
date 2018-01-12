@@ -1,5 +1,45 @@
 # CHANGELOG
 
+## 1.1.2 - 2018-01-09
+
+* Unit tests supported by `PHPUnit` were added.
+
+* The repository was synchronized with Travis CI to implement continuous integration.
+
+* Implemented `PHP Mess Detector` to detect inconsistencies in code styles.
+
+* Implemented `PHP Code Beautifier and Fixer` to fixing errors automatically.
+
+* Implemented `PHP Coding Standards Fixer` to organize PHP code automatically according to PSR standards.
+
+* Implemented `PSR2 code standard` from all library PHP files.
+
+* Implemented `Codacy` to automates code reviews and monitors code quality over time.
+
+* Implemented `Codecov` to coverage reports.
+
+* Deprecated `Eliasis\App::id()` method.
+
+* Added `Eliasis\Framework\App::getCurrentID()` method.
+
+* Added `Eliasis\Framework\App::setCurrentID()` method.
+
+* Deprecated `Eliasis\Framework\App::instance()` method.
+
+* Added `Eliasis\Framework\App::getControllerInstance()` method.
+
+* Deprecated `Eliasis\Framework\App::set()` method.
+
+* Added `Eliasis\Framework\App::setOption()` method.
+
+* Deprecated `Eliasis\Framework\App::get()` method.
+
+* Added `Eliasis\Framework\App::getOption()` method.
+
+* Deprecated `Eliasis\Framework\View::get()` method.
+
+* Added `Eliasis\Framework\View::getOption()` method.
+
 ## 1.1.1 - 2017-09-07
 
 * Deleted `Eliasis\App\App->_runModules()` method.

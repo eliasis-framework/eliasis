@@ -1,6 +1,6 @@
 # Eliasis PHP Framework
 
-[![Latest Stable Version](https://poser.pugx.org/eliasis-framework/eliasis/v/stable)](https://packagist.org/packages/eliasis-framework/eliasis) [![Total Downloads](https://poser.pugx.org/eliasis-framework/eliasis/downloads)](https://packagist.org/packages/eliasis-framework/eliasis) [![Latest Unstable Version](https://poser.pugx.org/eliasis-framework/eliasis/v/unstable)](https://packagist.org/packages/eliasis-framework/eliasis) [![License](https://poser.pugx.org/eliasis-framework/eliasis/license)](https://packagist.org/packages/eliasis-framework/eliasis)
+[![Latest Stable Version](https://poser.pugx.org/eliasis-framework/eliasis/v/stable)](https://packagist.org/packages/eliasis-framework/eliasis) [![Total Downloads](https://poser.pugx.org/eliasis-framework/eliasis/downloads)](https://packagist.org/packages/eliasis-framework/eliasis) [![Latest Unstable Version](https://poser.pugx.org/eliasis-framework/eliasis/v/unstable)](https://packagist.org/packages/eliasis-framework/eliasis) [![License](https://poser.pugx.org/eliasis-framework/eliasis/license)](https://packagist.org/packages/eliasis-framework/eliasis) [![Travis](https://travis-ci.org/eliasis-framework/Eliasis.svg)](https://travis-ci.org/eliasis-framework/Eliasis)
 
 [English version](README.md)
 
@@ -11,20 +11,14 @@
 - [Instalación](#instalación)
 - [Requisitos](#requisitos)
 - [Cómo empezar y ejemplos](#cómo-empezar-y-ejemplos)
-- [Desarrollos con Eliasis](#desarrollos-con-eliasis)
+- [Métodos disponibles](#métodos-disponibles)
+- [Uso](#uso)
+- [Tests](#tests)
+- [Tareas pendientes](#-tareas-pendientes)
+- [Desarrollado con Eliasis](#desarrollado-con-eliasis)
 - [Contribuir](#contribuir)
 - [Licencia](#licencia)
 - [Copyright](#copyright)
-
----
-
-<p align="center"><strong>Echa un vistazo al código</strong></p>
-
-<p align="center">
-  <a href="https://youtu.be/TYGcOPhhtb0" title="Echa un vistazo al código">
-  	<img src="https://raw.githubusercontent.com/Josantonius/PHP-Algorithm/master/resources/youtube-thumbnail.jpg">
-  </a>
-</p>
 
 ---
 
@@ -64,7 +58,30 @@ App::run(__DIR__);
 // App::run(__DIR__, 'wordpress-plugin', 'unique_id');
 ```
 
-## Desarrollos con Eliasis
+### Métodos disponibles
+
+Métodos disponibles en esta biblioteca:
+
+### Uso
+
+Ejemplo de uso para esta biblioteca:
+
+### Tests 
+
+Para ejecutar las [pruebas](tests/DataType/Test) simplemente:
+
+    $ git clone https://github.com/Eliasis-Framework/Eliasis.git
+    
+    $ cd Eliasis
+
+    $ phpunit
+
+### ☑ Tareas pendientes
+
+- [x] Completar tests
+- [ ] Mejorar la documentación
+
+## Desarrollado con Eliasis
 
 | Módulo | Descripción | Tipo
 | --- | --- | --- |
@@ -72,6 +89,7 @@ App::run(__DIR__);
 | [Extensions For Grifus](https://github.com/Josantonius/Extensions-For-Grifus.git) | Extensiones para el theme Grifus. | Plugin WordPress
 
 ### Contribuir
+
 1. Comprobar si hay incidencias abiertas o abrir una nueva para iniciar una discusión en torno a un fallo o función.
 1. Bifurca la rama del repositorio en GitHub para iniciar la operación de ajuste.
 1. Escribe una o más pruebas para la nueva característica o expón el error.

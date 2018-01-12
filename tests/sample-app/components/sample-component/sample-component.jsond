@@ -1,0 +1,13 @@
+{
+   "id": "SampleComponent",
+   "name": "Sample Component",
+   "version": "1.0.0",
+   "description": "Description",
+   "state": "active",
+   "category": "component-complement",
+   "uri": "https://github.com/Josantonius/",
+   "author": "Josantonius",
+   "author-uri": "https://josantonius.com/",
+   "license": "GPL-2.0+",
+   "hooks-controller": "Launcher"
+}
