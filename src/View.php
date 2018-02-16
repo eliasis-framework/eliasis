@@ -37,11 +37,9 @@ class View
     public static $data = null;
 
     /**
-     * Get controller instance.
+     * Get View instance.
      *
-     * @param string $controller → controller namespace
-     *
-     * @return object → controller instance
+     * @return object → view instance
      */
     public static function getInstance()
     {
@@ -55,7 +53,7 @@ class View
      *
      * @param string $path → filepath
      * @param string $file → filename
-     * @param array  $data → view content
+     * @param array  $data → options for view
      *
      * @return boolean true
      */
@@ -133,7 +131,7 @@ class View
      *
      * @return boolean true
      */
-    public function addHeader($header)
+    public static function addHeader($header)
     {
         self::$headers[] = $header;
 
@@ -147,7 +145,7 @@ class View
      *
      * @return boolean true
      */
-    public function addHeaders($headers = [])
+    public static function addHeaders($headers = [])
     {
         self::$headers = array_merge(self::$headers, $headers);
 

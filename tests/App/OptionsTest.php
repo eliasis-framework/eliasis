@@ -141,7 +141,7 @@ final class OptionsTest extends TestCase
     }
 
     /**
-     * Set options from multiple aplications.
+     * Set options from multiple applications.
      *
      * @depends testRunMultipleApplications
      */

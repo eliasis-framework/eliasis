@@ -12,143 +12,137 @@ namespace Eliasis\Framework\App;
 
 use Eliasis\Framework\App;
 use Josantonius\Hook\Hook;
-use Eliasis\Complement\Type\Plugin\Plugin;
-use Eliasis\Complement\Type\Component\Component;
-use Eliasis\Complement\Type\Module\Module;
-use Eliasis\Complement\Type\Template\Template;
+use Eliasis\Complement\Type\Plugin;
+use Eliasis\Complement\Type\Component;
+use Eliasis\Complement\Type\Module;
+use Eliasis\Complement\Type\Template;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Tests class for check load external libraries.
  */
-final class ExtenalLibrariesTest extends TestCase
-{
-    /**
-     * App instance.
-     *
-     * @var object
-     */
-    protected $app;
+final class ExtenalLibrariesTest extends TestCase {
 
-    /**
-     * Root path.
-     *
-     * @var string
-     */
-    protected $root;
+	/**
+	 * App instance.
+	 *
+	 * @var object
+	 */
+	protected $app;
 
-    /**
-     * Set up.
-     */
-    public function setUp()
-    {
-        parent::setUp();
+	/**
+	 * Root path.
+	 *
+	 * @var string
+	 */
+	protected $root;
 
-        $this->app = new App;
-        
-        $this->root = $_SERVER['DOCUMENT_ROOT'];
+	/**
+	 * Set up.
+	 */
+	public function setUp() {
+		parent::setUp();
 
-        $app = $this->app;
+		$this->app = new App();
 
-        $app::run($this->root);
-    }
+		$this->root = $_SERVER['DOCUMENT_ROOT'];
 
-    /**
-     * Check if it is an instance of App.
-     */
-    public function testIsInstanceOf()
-    {
-        $this->assertInstanceOf('Eliasis\Framework\App', $this->app);
-    }
+		$app = $this->app;
 
-    /**
-     * Check if set IP library.
-     */
-    public function testCheckIfSetIpLibrary()
-    {
-        $app = $this->app;
+		$app::run( $this->root );
+	}
 
-        $this->assertEquals(
-            $_SERVER['REMOTE_ADDR'],
-            $app::IP()
-        );
-    }
+	/**
+	 * Check if it is an instance of App.
+	 */
+	public function testIsInstanceOf() {
+		$this->assertInstanceOf( 'Eliasis\Framework\App', $this->app );
+	}
 
-    /**
-     * Validate if hooks were added.
-     */
-    public function testCheckIfHooksWereAdded()
-    {
-        $this->assertTrue(
-            Hook::isAction('css')
-        );
+	/**
+	 * Check if set IP library.
+	 */
+	public function testCheckIfSetIpLibrary() {
+		$app = $this->app;
 
-        $this->assertTrue(
-            Hook::isAction('js')
-        );
+		$this->assertEquals(
+			$_SERVER['REMOTE_ADDR'],
+			$app::IP()
+		);
+	}
 
-        ob_start();
+	/**
+	 * Validate if hooks were added.
+	 */
+	public function testCheckIfHooksWereAdded() {
+		$this->assertTrue(
+			Hook::isAction( 'css' )
+		);
 
-        Hook::doAction('js');
+		$this->assertTrue(
+			Hook::isAction( 'js' )
+		);
 
-        $js = ob_get_contents();
+		ob_start();
 
-        Hook::doAction('css');
+		Hook::doAction( 'js' );
 
-        $css = ob_get_contents();
+		$js = ob_get_contents();
 
-        ob_end_clean();
+		Hook::doAction( 'css' );
 
-        $this->assertContains('<script></script>', $js);
+		$css = ob_get_contents();
 
-        $this->assertContains('<style></style>', $css);
-    }
+		ob_end_clean();
 
-    /**
-     * Validate if complements were loaded.
-     */
-    public function testCheckIfComplementsWereLoaded()
-    {
-        $this->assertTrue(
-            Module::exists('SampleModule')
-        );
+		$this->assertContains( '<script></script>', $js );
 
-        $this->assertTrue(
-            Plugin::exists('SamplePlugin')
-        );
+		$this->assertContains( '<style></style>', $css );
+	}
 
-        $this->assertTrue(
-            Component::exists('SampleComponent')
-        );
+	/**
+	 * Validate if complements were loaded.
+	 */
+	public function testCheckIfComplementsWereLoaded() {
+		$this->assertTrue(
+			Module::exists( 'SampleModule' )
+		);
 
-        $this->assertTrue(
-            Template::exists('SampleTemplate')
-        );
-    }
+		$this->assertTrue(
+			Plugin::exists( 'SamplePlugin' )
+		);
 
-    /**
-     * Validate if routes were added.
-     *
-     * Simulate https://josantonius.com/my-route/.
-     *
-     * Response from 'App\Controller\Home->routes()' method.
-     *
-     * @runInSeparateProcess
-     */
-    public function testCheckIfRoutesWereAdded()
-    {
-        $app = $this->app;
+		$this->assertTrue(
+			Component::exists( 'SampleComponent' )
+		);
 
-        $_SERVER['REQUEST_URI'] = '/my-route/';
+		$this->assertTrue(
+			Template::exists( 'SampleTemplate' )
+		);
+	}
 
-        ob_start();
+	/**
+	 * Validate if routes were added.
+	 *
+	 * Simulate https://josantonius.com/my-route/.
+	 *
+	 * Response from 'App\Controller\Home->routes()' method.
+	 *
+	 * @runInSeparateProcess
+	 */
+	public function testCheckIfRoutesWereAdded() {
+		$app = $this->app;
 
-        $app::run($this->root);
+		$_SERVER['REQUEST_URI'] = '/my-route/';
 
-        $routeContent = ob_get_contents();
+		ob_start();
 
-        ob_end_clean();
+		$app::run( $this->root );
 
-        $this->assertContains('The routes were loaded correctly', $routeContent);
-    }
+		$routeContent = ob_get_contents();
+
+		ob_end_clean();
+
+		$this->assertContains( 'The routes were loaded correctly', $routeContent );
+	}
 }

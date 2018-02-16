@@ -84,7 +84,7 @@ final class ViewTest extends TestCase
         $view = $this->view;
 
         $this->assertTrue(
-            $view->addHeader('HTTP/1.0 404 Not Found')
+            $view::addHeader('HTTP/1.0 404 Not Found')
         );
     }
 
@@ -96,7 +96,7 @@ final class ViewTest extends TestCase
         $view = $this->view;
 
         $this->assertTrue(
-            $view->addHeaders([
+            $view::addHeaders([
                 'WWW-Authenticate: Negotiate',
                 'HTTP/1.0 404 Not Found'
             ])
@@ -134,8 +134,6 @@ final class ViewTest extends TestCase
      */
     public function testRenderizate()
     {
-        $view = $this->view;
-
         $app = $this->app;
 
         $page = $app::getOption('path', 'page');
@@ -147,7 +145,7 @@ final class ViewTest extends TestCase
         ob_start();
 
         $this->assertTrue(
-            $view->renderizate(
+            $this->view->renderizate(
                 $layout,
                 'header',
                 ['test' => 'Hello from header template.']
@@ -159,7 +157,7 @@ final class ViewTest extends TestCase
         $this->assertFileIsReadable($page . 'home.php');
 
         $this->assertTrue(
-            $view->renderizate(
+            $this->view->renderizate(
                 $page,
                 'home',
                 ['test' => 'Hello from home template.']
@@ -171,7 +169,7 @@ final class ViewTest extends TestCase
         $this->assertFileIsReadable($layout . 'footer.php');
 
         $this->assertTrue(
-            $view->renderizate(
+            $this->view->renderizate(
                 $layout,
                 'footer',
                 ['test' => 'Hello from footer template.']

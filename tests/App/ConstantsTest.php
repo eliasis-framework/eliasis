@@ -77,7 +77,7 @@ final class ConstantsTest extends TestCase
     /**
      * Validate that application base paths have been generated.
      */
-    public function testCheckApplicationBasePathsConstants()
+    public function testCheckApplicationBasepathConstants()
     {
         $app = $this->app;
 
