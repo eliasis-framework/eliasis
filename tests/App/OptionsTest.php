@@ -40,7 +40,7 @@ final class OptionsTest extends TestCase
         parent::setUp();
 
         $this->app = new App;
-        
+
         $this->root = $_SERVER['DOCUMENT_ROOT'];
     }
 
@@ -83,7 +83,7 @@ final class OptionsTest extends TestCase
 
         $string = 'test-value';
 
-        $this->assertEquals(
+        $this->assertSame(
             $string,
             $app::setOption('test', $string)
         );
@@ -100,7 +100,7 @@ final class OptionsTest extends TestCase
 
         $array = ['array' => 'test-value'];
 
-        $this->assertEquals(
+        $this->assertSame(
             $array,
             $app::setOption('test', $array)
         );
@@ -117,7 +117,7 @@ final class OptionsTest extends TestCase
 
         $value = true;
 
-        $this->assertEquals(
+        $this->assertSame(
             $value,
             $app::setOption('test', $value)
         );
@@ -134,7 +134,7 @@ final class OptionsTest extends TestCase
 
         $value = 8;
 
-        $this->assertEquals(
+        $this->assertSame(
             $value,
             $app::setOption('test', $value)
         );
@@ -151,21 +151,21 @@ final class OptionsTest extends TestCase
 
         $value = 'Hello from MyApplicationOne application';
 
-        $this->assertEquals(
+        $this->assertSame(
             $value,
             $app::MyApplicationOne()->setOption('test', $value)
         );
 
         $value = 'Hello from MyApplicationTwo application';
 
-        $this->assertEquals(
+        $this->assertSame(
             $value,
             $app::MyApplicationTwo()->setOption('test', $value)
         );
 
         $value = 'Hello from MyApplicationThree application';
 
-        $this->assertEquals(
+        $this->assertSame(
             $value,
             $app::MyApplicationThree()->setOption('test', $value)
         );
@@ -182,27 +182,27 @@ final class OptionsTest extends TestCase
     {
         $app = $this->app;
 
-        $this->assertEquals(
+        $this->assertSame(
             'first-application',
             $app::getOption('slug')
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             'App\\Controller\\',
             $app::getOption('namespaces', 'controller')
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             'App\\Modules\\',
             $app::getOption('namespaces', 'modules')
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->root . 'src/template/layout/',
             $app::getOption('path', 'layout')
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->root . 'src/template/page/',
             $app::getOption('path', 'page')
         );
@@ -219,27 +219,27 @@ final class OptionsTest extends TestCase
     {
         $app = $this->app;
 
-        $this->assertEquals(
+        $this->assertSame(
             'first-application',
             $app::slug()
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             'App\\Controller\\',
             $app::namespaces('controller')
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             'App\\Modules\\',
             $app::namespaces('modules')
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->root . 'src/template/layout/',
             $app::path('layout')
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->root . 'src/template/page/',
             $app::path('page')
         );
@@ -256,17 +256,17 @@ final class OptionsTest extends TestCase
     {
         $app = $this->app;
 
-        $this->assertEquals(
+        $this->assertSame(
             'Hello from MyApplicationOne application',
             $app::MyApplicationOne()->getOption('test')
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             'Hello from MyApplicationTwo application',
             $app::MyApplicationTwo()->getOption('test')
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             'Hello from MyApplicationThree application',
             $app::MyApplicationThree()->getOption('test')
         );
@@ -285,21 +285,21 @@ final class OptionsTest extends TestCase
 
         $app::setCurrentID('MyApplicationOne');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Hello from MyApplicationOne application',
             $app::getOption('test')
         );
 
         $app::setCurrentID('MyApplicationTwo');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Hello from MyApplicationTwo application',
             $app::getOption('test')
         );
 
         $app::setCurrentID('MyApplicationThree');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Hello from MyApplicationThree application',
             $app::getOption('test')
         );

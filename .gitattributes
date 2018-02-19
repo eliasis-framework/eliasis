@@ -1,3 +1,4 @@
+/bin export-ignore
 /tests export-ignore
 /docs export-ignore
 /src/bootstrap.php export-ignore
@@ -17,3 +18,7 @@ README-ES.md export-ignore
 composer.lock export-ignore
 package.json export-ignore
 index.js export-ignore
+phpcs.xml export-ignore
+phpmd.xml export-ignore
+.php_cs.dist export-ignore
+.php_cs.dist export-ignore

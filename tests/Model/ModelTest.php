@@ -10,9 +10,9 @@
  */
 namespace Eliasis\Framework\Model;
 
-use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\Error;
 use App\Model\Home;
+use PHPUnit\Framework\Error;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests class for Model class.
@@ -37,7 +37,7 @@ final class ModelTest extends TestCase
     /**
      * Force error when instantiate a abstract class.
      *
-     * @expectedException Error
+     * @expectedException \Error
      */
     public function testErrorWhenInstantiateAbstractClass()
     {
@@ -67,7 +67,7 @@ final class ModelTest extends TestCase
     /**
      * Error to access database instance directly.
      *
-     * @expectedException Error
+     * @expectedException \Error
      */
     public function testErrorToAccessDatabaseInstanceDirectly()
     {

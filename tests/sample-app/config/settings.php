@@ -10,6 +10,5 @@
  */
 
 return [
-
     'slug' => 'first-application'
 ];

@@ -10,9 +10,9 @@
  */
 namespace Eliasis\Framework\Controller;
 
-use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\Error;
 use App\Controller\Home;
+use PHPUnit\Framework\Error;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests class for Controller class.
@@ -38,7 +38,7 @@ final class ControllerTest extends TestCase
     /**
      * Force error when instantiate a abstract class.
      *
-     * @expectedException Error
+     * @expectedException \Error
      */
     public function testErrorWhenInstantiateAbstractClass()
     {
@@ -60,7 +60,7 @@ final class ControllerTest extends TestCase
      *
      * @depends testGetControllerInstance
      *
-     * @expectedException Error
+     * @expectedException \Error
      */
     public function testErrorWhenGetModelFromControllerInstance()
     {
@@ -86,7 +86,7 @@ final class ControllerTest extends TestCase
      *
      * @depends testGetControllerInstance
      *
-     * @expectedException Error
+     * @expectedException \Error
      */
     public function testErrorWhenGetViewFromControllerInstance()
     {

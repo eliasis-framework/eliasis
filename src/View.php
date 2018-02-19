@@ -16,6 +16,13 @@ namespace Eliasis\Framework;
 class View
 {
     /**
+     * View content.
+     *
+     * @var array
+     */
+    public static $data = null;
+
+    /**
      * View instance.
      *
      * @var array
@@ -28,13 +35,6 @@ class View
      * @var array
      */
     private static $headers = [];
-
-    /**
-     * View content.
-     *
-     * @var array
-     */
-    public static $data = null;
 
     /**
      * Get View instance.
@@ -55,7 +55,7 @@ class View
      * @param string $file → filename
      * @param array  $data → options for view
      *
-     * @return boolean true
+     * @return bool true
      */
     public function renderizate($path, $file, $data = null)
     {
@@ -83,53 +83,30 @@ class View
     public static function getOption(...$params)
     {
         $trace = debug_backtrace(2, 1);
-          
+
         $id = (isset($trace[0]['file'])) ? md5($trace[0]['file']) : 0;
 
         $key = array_shift($params);
 
         $col[] = isset(self::$data[$id][$key]) ? self::$data[$id][$key] : 0;
 
-        if (!count($params)) {
+        if (! count($params)) {
             return ($col[0]) ? $col[0] : self::$data[$id];
         }
 
         foreach ($params as $param) {
             $col = array_column($col, $param);
         }
-        
-        return (isset($col[0])) ? $col[0] : '';
-    }
 
-    /**
-     * Get options saved.
-     *
-     * This method will be removed in future versions, instead you should use getOption().
-     *
-     * @since 1.0.9
-     *
-     * @deprecated 1.1.2
-     *
-     * @param array  $params → parameters
-     *
-     * @return mixed
-     */
-    public static function get(...$params)
-    {
-        trigger_error(
-            'The "View::get()" is deprecated, instead you should use "View::getOption()".',
-            E_USER_ERROR
-        );
-        
-        return self::getOption(...$params);
+        return (isset($col[0])) ? $col[0] : '';
     }
 
     /**
      * Add HTTP header to headers array.
      *
-     * @param  string $header → HTTP header text
+     * @param string $header → HTTP header text
      *
-     * @return boolean true
+     * @return bool true
      */
     public static function addHeader($header)
     {
@@ -143,7 +120,7 @@ class View
      *
      * @param array $headers
      *
-     * @return boolean true
+     * @return bool true
      */
     public static function addHeaders($headers = [])
     {
@@ -155,11 +132,11 @@ class View
     /**
      * Send headers.
      *
-     * @return boolean
+     * @return bool
      */
     public static function sendHeaders()
     {
-        if (!headers_sent()) {
+        if (! headers_sent()) {
             foreach (self::$headers as $header) {
                 header($header, true);
             }

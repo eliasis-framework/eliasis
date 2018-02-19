@@ -42,19 +42,12 @@ before_script:
   - export PATH="./vendor/bin:$PATH"
   - travis_retry composer self-update
   - travis_retry composer install --no-interaction --prefer-source --dev
-  - |
-    if [[ ! -z "$WP_VERSION" ]] ; then
-      bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
-    fi
+  - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
 
 script:
   - phpunit --coverage-clover=coverage.xml
-  - |
-    if [[ "$WP_VERSION" ]] ; then
-      phpunit --coverage-clover=coverage.xml
-      phpcs --standard=phpcs.xml $(find . -name '*.php')
-      phpmd src,tests text ./phpmd.xml
-    fi
+  - phpcs --standard=phpcs.xml $(find . -name '*.php')
+  - phpmd src,tests text ./phpmd.xml
 
 after_success:
  - bash <(curl -s https://codecov.io/bash)

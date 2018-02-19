@@ -8,16 +8,13 @@
  * @link      https://github.com/Eliasis-Framework/Eliasis
  * @since     1.1.2
  */
-
 use Eliasis\Framework\App;
 
 $rootPath = App::ROOT();
 
 return [
-
     'path' => [
-
         'layout' => $rootPath . 'src/template/layout/',
-        'page'   => $rootPath . 'src/template/page/',
+        'page' => $rootPath . 'src/template/page/',
     ],
 ];

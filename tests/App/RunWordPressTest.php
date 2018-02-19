@@ -15,7 +15,7 @@ use Eliasis\Framework\App;
 /**
  * Tests class for App::run() method.
  */
-final class WordPressTest extends \WP_UnitTestCase
+final class RunWordPressTest extends \WP_UnitTestCase
 {
     /**
      * App instance.
@@ -39,7 +39,7 @@ final class WordPressTest extends \WP_UnitTestCase
         parent::setUp();
 
         $this->app = new App;
-        
+
         $this->root = $_SERVER['DOCUMENT_ROOT'];
     }
 

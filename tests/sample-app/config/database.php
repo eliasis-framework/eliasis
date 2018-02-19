@@ -8,11 +8,9 @@
  * @link      https://github.com/Eliasis-Framework/Eliasis
  * @since     1.1.2
  */
-
 require_once '/tmp/wordpress-tests-lib/wp-tests-config.php';
 
 return [
-
     'db' => [
         'app' => [
             'provider' => 'PDOprovider',

@@ -8,15 +8,12 @@
  * @link      https://github.com/Eliasis-Framework/Eliasis
  * @since     1.1.2
  */
-
 use Eliasis\Framework\App;
 
 $homeClass = App::namespaces('controller') . 'Home';
 
 return [
-
     'hooks' => [
-
         ['header', [$homeClass, 'header'], 8, 0],
         ['footer', [$homeClass, 'footer'], 8, 0],
         ['css', [$homeClass, 'css'], 8, 0],

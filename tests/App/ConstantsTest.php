@@ -54,7 +54,7 @@ final class ConstantsTest extends TestCase
         parent::setUp();
 
         $this->app = new App;
-        
+
         $this->root = $_SERVER['DOCUMENT_ROOT'];
 
         $this->root_url = 'https://' . $_SERVER['SERVER_NAME'] . '/';
@@ -81,37 +81,32 @@ final class ConstantsTest extends TestCase
     {
         $app = $this->app;
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->root,
             $app::ROOT()
         );
-        
-        $this->assertEquals(
+
+        $this->assertSame(
             $this->core,
             $app::CORE()
         );
-        
-        $this->assertEquals(
-            $this->root . 'public/',
-            $app::PUBLIC()
-        );
-        
-        $this->assertEquals(
+
+        $this->assertSame(
             $this->root . 'templates/',
             $app::TEMPLATES()
         );
-        
-        $this->assertEquals(
+
+        $this->assertSame(
             $this->root . 'modules/',
             $app::MODULES()
         );
-        
-        $this->assertEquals(
+
+        $this->assertSame(
             $this->root . 'plugins/',
             $app::PLUGINS()
         );
-        
-        $this->assertEquals(
+
+        $this->assertSame(
             $this->root . 'components/',
             $app::COMPONENTS()
         );
@@ -124,27 +119,27 @@ final class ConstantsTest extends TestCase
     {
         $app = $this->app;
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->root_url . 'public/',
             $app::PUBLIC_URL()
         );
-        
-        $this->assertEquals(
+
+        $this->assertSame(
             $this->root_url . 'templates/',
             $app::TEMPLATES_URL()
         );
-        
-        $this->assertEquals(
+
+        $this->assertSame(
             $this->root_url . 'modules/',
             $app::MODULES_URL()
         );
-        
-        $this->assertEquals(
+
+        $this->assertSame(
             $this->root_url . 'plugins/',
             $app::PLUGINS_URL()
         );
-        
-        $this->assertEquals(
+
+        $this->assertSame(
             $this->root_url . 'components/',
             $app::COMPONENTS_URL()
         );

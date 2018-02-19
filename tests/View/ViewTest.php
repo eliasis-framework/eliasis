@@ -10,10 +10,10 @@
  */
 namespace Eliasis\Framework\View;
 
-use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\Error;
-use Eliasis\Framework\View;
 use Eliasis\Framework\App;
+use Eliasis\Framework\View;
+use PHPUnit\Framework\Error;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests class for View class.
@@ -194,7 +194,7 @@ final class ViewTest extends TestCase
             '<body>',
             $home
         );
-        
+
         $this->assertContains(
             'Hello from home template.',
             $home

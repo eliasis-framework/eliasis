@@ -15,465 +15,392 @@ use Josantonius\Url\Url;
 /**
  * Eliasis main class.
  */
-class App {
+class App
+{
+    /**
+     * Set directory separator constant.
+     *
+     * @since 1.0.1
+     *
+     * @var string
+     */
+    const DS = DIRECTORY_SEPARATOR;
 
-	/**
-	 * App instance.
-	 *
-	 * @since 1.0.2
-	 *
-	 * @var array
-	 */
-	protected static $instances = [];
+    /**
+     * Unique id for the application.
+     *
+     * @var string
+     */
+    public static $id;
 
-	/**
-	 * Unique id for the application.
-	 *
-	 * @var string
-	 */
-	public static $id;
+    /**
+     * App instance.
+     *
+     * @since 1.0.2
+     *
+     * @var array
+     */
+    protected static $instances = [];
 
-	/**
-	 * Framework settings.
-	 *
-	 * @var array
-	 */
-	protected $settings = [];
+    /**
+     * Framework settings.
+     *
+     * @var array
+     */
+    protected $settings = [];
 
-	/**
-	 * Set directory separator constant.
-	 *
-	 * @since 1.0.1
-	 *
-	 * @var string
-	 */
-	const DS = DIRECTORY_SEPARATOR;
+    /**
+     * Access the configuration parameters.
+     *
+     * @param string $index
+     * @param array  $params
+     *
+     * @return mixed
+     */
+    public static function __callstatic($index, $params = false)
+    {
+        if (array_key_exists($index, self::$instances)) {
+            self::setCurrentID($index);
+            $that = self::getInstance();
 
-	/**
-	 * Get application instance.
-	 *
-	 * @return object → controller app instance
-	 */
-	protected static function getInstance() {
-		if ( ! isset( self::$instances[ self::$id ] ) ) {
-			self::$instances[ self::$id ] = new self();
-		}
+            return $that;
+        }
 
-		return self::$instances[ self::$id ];
-	}
+        array_unshift($params, $index);
 
-	/**
-	 * Initializer.
-	 *
-	 * @since 1.0.2
-	 *
-	 * @param string $baseDirectory → directory where class is instantiated
-	 * @param string $type          → application type
-	 * @param string $id            → unique id for the application
-	 *
-	 * @return boolean true
-	 */
-	public static function run( $baseDirectory, $type = 'app', $id = 'Default' ) {
-		self::$id = $id;
+        return call_user_func_array([__CLASS__, 'getOption'], $params);
+    }
 
-		$that = self::getInstance();
+    /**
+     * Initializer.
+     *
+     * @since 1.0.2
+     *
+     * @param string $baseDirectory → directory where class is instantiated
+     * @param string $type          → application type
+     * @param string $id            → unique id for the application
+     *
+     * @return bool true
+     */
+    public static function run($baseDirectory, $type = 'app', $id = 'Default')
+    {
+        self::$id = $id;
 
-		$that->setPaths( $baseDirectory );
-		$that->setUrls( $baseDirectory, $type );
-		$that->setIp();
-		$that->runErrorHandler();
-		$that->getSettings();
-		$that->runHooks();
-		$that->runComplements();
-		$that->runRoutes();
+        $that = self::getInstance();
 
-		return true;
-	}
+        $that->setPaths($baseDirectory);
+        $that->setUrls($baseDirectory, $type);
+        $that->setIp();
+        $that->runErrorHandler();
+        $that->getSettings();
+        $that->runHooks();
+        $that->runComplements();
+        $that->runRoutes();
 
-	/**
-	 * Get options saved.
-	 *
-	 * @since 1.1.2
-	 *
-	 * @param array $params
-	 *
-	 * @return mixed
-	 */
-	public static function getOption( ...$params ) {
-		$that = self::getInstance();
+        return true;
+    }
 
-		$key = array_shift( $params );
+    /**
+     * Get options saved.
+     *
+     * @since 1.1.2
+     *
+     * @param array $params
+     *
+     * @return mixed
+     */
+    public static function getOption(...$params)
+    {
+        $that = self::getInstance();
 
-		$col[] = isset( $that->settings[ $key ] ) ? $that->settings[ $key ] : 0;
+        $key = array_shift($params);
 
-		if ( ! count( $params ) ) {
-			return ( $col[0] ) ? $col[0] : '';
-		}
+        $col[] = isset($that->settings[$key]) ? $that->settings[$key] : 0;
 
-		foreach ( $params as $param ) {
-			$col = array_column( $col, $param );
-		}
+        if (! count($params)) {
+            return ($col[0]) ? $col[0] : '';
+        }
 
-		return ( isset( $col[0] ) ) ? $col[0] : '';
-	}
+        foreach ($params as $param) {
+            $col = array_column($col, $param);
+        }
 
-	/**
-	 * Get options saved.
-	 *
-	 * This method will be removed in future versions, instead you should use getOption().
-	 *
-	 * @since 1.0.9
-	 *
-	 * @deprecated 1.1.2
-	 *
-	 * @param array $params
-	 *
-	 * @return mixed
-	 */
-	public static function get( ...$params ) {
-		trigger_error(
-			'The "App::get()" is deprecated, instead you should use "App::getOption()".',
-			E_USER_ERROR
-		);
+        return (isset($col[0])) ? $col[0] : '';
+    }
 
-		return self::getOption( ...$params );
-	}
+    /**
+     * Define new configuration settings.
+     *
+     * @since 1.1.2
+     *
+     * @param string $option → option name
+     * @param mixed  $value  → value/s
+     *
+     * @return mixed
+     */
+    public static function setOption($option, $value)
+    {
+        $that = self::getInstance();
 
-	/**
-	 * Define new configuration settings.
-	 *
-	 * @since 1.0.9
-	 *
-	 * @param string $option → option name
-	 * @param mixed  $value  → value/s
-	 *
-	 * @return mixed
-	 */
-	public static function setOption( $option, $value ) {
-		$that = self::getInstance();
+        if (! is_array($value)) {
+            return $that->settings[$option] = $value;
+        }
 
-		if ( ! is_array( $value ) ) {
-			return $that->settings[ $option ] = $value;
-		}
+        if (array_key_exists($option, $that->settings)) {
+            $that->settings[$option] = array_merge_recursive(
+                is_array($that->settings[$option]) ? $that->settings[$option] : [],
+                $value
+            );
+        } else {
+            foreach ($value as $key => $value) {
+                $that->settings[$option][$key] = $value;
+            }
+        }
 
-		if ( array_key_exists( $option, $that->settings ) ) {
-			$that->settings[ $option ] = array_merge_recursive(
-				is_array( $that->settings[ $option ] ) ? $that->settings[ $option ] : [],
-				$value
-			);
-		} else {
-			foreach ( $value as $key => $value ) {
-				$that->settings[ $option ][ $key ] = $value;
-			}
-		}
+        return $that->settings[$option];
+    }
 
-		return $that->settings[ $option ];
-	}
+    /**
+     * Get controller instance.
+     *
+     * @since 1.1.2
+     *
+     * @param string $class     → class name
+     * @param string $namespace → namespace index
+     *
+     * @return object|false → class instance or false
+     */
+    public static function getControllerInstance($class, $namespace = '')
+    {
+        $that = self::getInstance();
 
-	/**
-	 * Define new configuration settings.
-	 *
-	 * This method will be removed in future versions, instead you should use setOption().
-	 *
-	 * @since 1.0.9
-	 *
-	 * @deprecated 1.1.2
-	 *
-	 * @param string $option → option name or options array
-	 * @param mixed  $value  → value/s
-	 *
-	 * @return mixed
-	 */
-	public static function set( $option, $value ) {
-		trigger_error(
-			'The "App::set()" is deprecated, instead you should use "App::setOption()".',
-			E_USER_ERROR
-		);
+        if (array_key_exists('namespaces', $that->settings)) {
+            if (array_key_exists($namespace, $that->settings['namespaces'])) {
+                return call_user_func(
+                    [
+                        $that->settings['namespaces'][$namespace] . $class,
+                        'getInstance',
+                    ]
+                );
+            }
 
-		return self::setOption( $option, $value );
-	}
+            foreach ($that->settings['namespaces'] as $namespace) {
+                $instance = $namespace . $class;
+                if (class_exists($instance)) {
+                    return call_user_func([$instance, 'getInstance']);
+                }
+            }
+        }
 
-	/**
-	 * Get controller instance.
-	 *
-	 * @since 1.1.2
-	 *
-	 * @param string $class     → class name
-	 * @param string $namespace → namespace index
-	 *
-	 * @return object|false → class instance or false
-	 */
-	public static function getControllerInstance( $class, $namespace = '' ) {
-		$that = self::getInstance();
+        return false;
+    }
 
-		if ( array_key_exists( 'namespaces', $that->settings ) ) {
-			if ( array_key_exists( $namespace, $that->settings['namespaces'] ) ) {
-				return call_user_func(
-					[
-						$that->settings['namespaces'][ $namespace ] . $class,
-						'getInstance',
-					]
-				);
-			}
+    /**
+     * Get the current application ID.
+     *
+     * @since 1.1.2
+     *
+     * @return string → application ID
+     */
+    public static function getCurrentID()
+    {
+        return self::$id;
+    }
 
-			foreach ( $that->settings['namespaces'] as $namespace ) {
-				$instance = $namespace . $class;
-				if ( class_exists( $instance ) ) {
-					return call_user_func( [ $instance, 'getInstance' ] );
-				}
-			}
-		}
+    /**
+     * Define the current application ID.
+     *
+     * @since 1.1.2
+     *
+     * @param string $id → application ID
+     *
+     * @return bool
+     */
+    public static function setCurrentID($id)
+    {
+        if (array_key_exists($id, self::$instances)) {
+            self::$id = $id;
 
-		return false;
-	}
+            return true;
+        }
 
-	/**
-	 * Get controller instance.
-	 *
-	 * This method will be removed in future versions, instead you should use getControllerInstance().
-	 *
-	 * @since 1.0.9
-	 *
-	 * @deprecated 1.1.2
-	 *
-	 * @param string $class     → class name
-	 * @param string $namespace → namespace index
-	 *
-	 * @return object|false → class instance or false
-	 */
-	public static function instance( $class, $namespace = '' ) {
-		trigger_error(
-			'The "App::instance()" is deprecated, instead you should use "App::getControllerInstance()".',
-			E_USER_ERROR
-		);
+        return false;
+    }
 
-		return self::getControllerInstance( $class, $namespace );
-	}
+    /**
+     * Get application instance.
+     *
+     * @return object → controller app instance
+     */
+    protected static function getInstance()
+    {
+        if (! isset(self::$instances[self::$id])) {
+            self::$instances[self::$id] = new self();
+        }
 
-	/**
-	 * Get the current application ID.
-	 *
-	 * @since 1.1.2
-	 *
-	 * @return string → application ID
-	 */
-	public static function getCurrentID() {
-		return self::$id;
-	}
+        return self::$instances[self::$id];
+    }
 
-	/**
-	 * Define the current application ID.
-	 *
-	 * @since 1.1.2
-	 *
-	 * @param string $id → application ID
-	 *
-	 * @return boolean
-	 */
-	public static function setCurrentID( $id ) {
-		if ( array_key_exists( $id, self::$instances ) ) {
-			self::$id = $id;
-			return true;
-		}
-		return false;
-	}
+    /**
+     * Error Handler.
+     *
+     * @since 1.0.1
+     *
+     * @link https://github.com/Josantonius/PHP-ErrorHandler
+     */
+    private function runErrorHandler()
+    {
+        if (class_exists($class = 'Josantonius\ErrorHandler\ErrorHandler')) {
+            new $class();
+        }
+    }
 
-	/**
-	 * Define the current application ID.
-	 *
-	 * This method will be removed in future versions, instead you should use setCurrentID() method.
-	 *
-	 * @since 1.0.1
-	 *
-	 * @deprecated 1.1.2
-	 *
-	 * @param string $id → application ID
-	 *
-	 * @return string|false → application ID or false
-	 */
-	public static function id( $id = null ) {
-		trigger_error(
-			'The "App::id()" is deprecated, instead you should use "App::setCurrentID()".',
-			E_USER_ERROR
-		);
+    /**
+     * Set application paths.
+     *
+     * @since 1.0.1
+     *
+     * @param string $baseDirectory → directory where class is instantiated
+     */
+    private function setPaths($baseDirectory)
+    {
+        $this->setOption('ROOT', Url::addBackSlash($baseDirectory));
+        $this->setOption('CORE', dirname(dirname(dirname(__DIR__))) . '/');
+        $this->setOption('PUBLIC', self::ROOT() . 'public/');
+        $this->setOption('TEMPLATES', self::ROOT() . 'templates/');
+        $this->setOption('MODULES', self::ROOT() . 'modules/');
+        $this->setOption('PLUGINS', self::ROOT() . 'plugins/');
+        $this->setOption('COMPONENTS', self::ROOT() . 'components/');
+    }
 
-		return self::setCurrentID( $id );
-	}
+    /**
+     * Set url depending where the framework is launched.
+     *
+     * @since 1.0.1
+     *
+     * @param string $baseDirectory → directory where class is instantiated
+     * @param string $type          → application type
+     */
+    private function setUrls($baseDirectory, $type)
+    {
+        switch ($type) {
+            case 'wordpress-plugin':
+                $pluginUrl = plugins_url(basename($baseDirectory));
+                $baseUrl = Url::addBackSlash($pluginUrl);
+                break;
+            default:
+                $baseUrl = Url::getBaseUrl();
+                break;
+        }
 
-	/**
-	 * Access the configuration parameters.
-	 *
-	 * @param string $index
-	 * @param array  $params
-	 *
-	 * @return mixed
-	 */
-	public static function __callstatic( $index, $params = false ) {
-		if ( array_key_exists( $index, self::$instances ) ) {
-			self::setCurrentID( $index );
-			$that = self::getInstance();
+        $this->setOption('PUBLIC_URL', $baseUrl . 'public/');
+        $this->setOption('MODULES_URL', $baseUrl . 'modules/');
+        $this->setOption('PLUGINS_URL', $baseUrl . 'plugins/');
+        $this->setOption('TEMPLATES_URL', $baseUrl . 'templates/');
+        $this->setOption('COMPONENTS_URL', $baseUrl . 'components/');
+    }
 
-			return $that;
-		}
+    /**
+     * Set ip.
+     *
+     * @since 1.1.0
+     *
+     * @uses \string Ip::get() → get IP
+     *
+     * @link https://github.com/Josantonius/PHP-Ip
+     */
+    private function setIp()
+    {
+        if (class_exists($Ip = 'Josantonius\Ip\Ip')) {
+            $ip = $Ip::get();
+            $this->setOption('IP', ($ip) ? $ip : 'unknown');
+        }
+    }
 
-		array_unshift( $params, $index );
+    /**
+     * Get settings.
+     */
+    private function getSettings()
+    {
+        $path = [
+            self::CORE() . 'config/',
+            self::ROOT() . 'config/',
+        ];
 
-		return call_user_func_array( [ __CLASS__, 'getOption' ], $params );
-	}
+        foreach ($path as $dir) {
+            if (is_dir($dir) && $handle = scandir($dir)) {
+                $files = array_slice($handle, 2);
+                foreach ($files as $file) {
+                    $config = require $dir . $file;
+                    $this->settings = array_merge($this->settings, $config);
+                }
+            }
+        }
+    }
 
-	/**
-	 * Error Handler.
-	 *
-	 * @since 1.0.1
-	 *
-	 * @link https://github.com/Josantonius/PHP-ErrorHandler
-	 */
-	private function runErrorHandler() {
-		if ( class_exists( $class = 'Josantonius\ErrorHandler\ErrorHandler' ) ) {
-			new $class();
-		}
-	}
+    /**
+     * Load hooks.
+     *
+     * @since 1.1.0
+     *
+     * @uses \string Hook::getInstance() → get Hook instance
+     * @uses \string Hook::addActions()  → add action hook
+     *
+     * @link https://github.com/Josantonius/PHP-Hook
+     */
+    private function runHooks()
+    {
+        if (class_exists($Hook = 'Josantonius\Hook\Hook')) {
+            $Hook::getInstance(self::$id);
+            if (isset($this->settings['hooks'])) {
+                $Hook::addActions($this->settings['hooks']);
+                unset($this->settings['hooks']);
+            }
+        }
+    }
 
-	/**
-	 * Set application paths.
-	 *
-	 * @since 1.0.1
-	 *
-	 * @param string $baseDirectory → directory where class is instantiated
-	 */
-	private function setPaths( $baseDirectory ) {
-		$this->setOption( 'ROOT', Url::addBackSlash( $baseDirectory ) );
-		$this->setOption( 'CORE', dirname( dirname( dirname( __DIR__ ) ) ) . '/' );
-		$this->setOption( 'PUBLIC', App::ROOT() . 'public/' );
-		$this->setOption( 'TEMPLATES', App::ROOT() . 'templates/' );
-		$this->setOption( 'MODULES', App::ROOT() . 'modules/' );
-		$this->setOption( 'PLUGINS', App::ROOT() . 'plugins/' );
-		$this->setOption( 'COMPONENTS', App::ROOT() . 'components/' );
-	}
+    /**
+     * Load complements.
+     *
+     * @since 1.1.1
+     *
+     * @uses \void Component::run() → run modules
+     * @uses \void Plugin::run()    → run modules
+     * @uses \void Module::run()    → run modules
+     * @uses \void Template::run()  → run modules
+     *
+     * @link https://github.com/Eliasis-Framework/Complement
+     */
+    private function runComplements()
+    {
+        $complement = 'Eliasis\Complement\\';
 
-	/**
-	 * Set url depending where the framework is launched.
-	 *
-	 * @since 1.0.1
-	 *
-	 * @param string $baseDirectory → directory where class is instantiated
-	 * @param string $type          → application type
-	 */
-	private function setUrls( $baseDirectory, $type ) {
-		switch ( $type ) {
-			case 'wordpress-plugin':
-				$pluginUrl = plugins_url( basename( $baseDirectory ) );
-				$baseUrl = Url::addBackSlash( $pluginUrl );
-				break;
+        if (class_exists($complement . 'Complement')) {
+            call_user_func($complement . 'Type\Component::run');
+            call_user_func($complement . 'Type\Plugin::run');
+            call_user_func($complement . 'Type\Module::run');
+            call_user_func($complement . 'Type\Template::run');
+        }
+    }
 
-			default:
-				$baseUrl = Url::getBaseUrl();
-				break;
-		}
-
-		$this->setOption( 'PUBLIC_URL', $baseUrl . 'public/' );
-		$this->setOption( 'MODULES_URL', $baseUrl . 'modules/' );
-		$this->setOption( 'PLUGINS_URL', $baseUrl . 'plugins/' );
-		$this->setOption( 'TEMPLATES_URL', $baseUrl . 'templates/' );
-		$this->setOption( 'COMPONENTS_URL', $baseUrl . 'components/' );
-	}
-
-	/**
-	 * Set ip.
-	 *
-	 * @since 1.1.0
-	 *
-	 * @uses string Ip::get() → get IP
-	 *
-	 * @link https://github.com/Josantonius/PHP-Ip
-	 */
-	private function setIp() {
-		if ( class_exists( $Ip = 'Josantonius\Ip\Ip' ) ) {
-			$ip = $Ip::get();
-			$this->setOption( 'IP', ( $ip ) ? $ip : 'unknown' );
-		}
-	}
-
-	/**
-	 * Get settings.
-	 */
-	private function getSettings() {
-		$path = [
-			App::CORE() . 'config/',
-			App::ROOT() . 'config/',
-		];
-
-		foreach ( $path as $dir ) {
-			if ( is_dir( $dir ) && $handle = scandir( $dir ) ) {
-				$files = array_slice( $handle, 2 );
-				foreach ( $files as $file ) {
-					$config = require( $dir . $file );
-					$this->settings = array_merge( $this->settings, $config );
-				}
-			}
-		}
-	}
-
-	/**
-	 * Load hooks.
-	 *
-	 * @since 1.1.0
-	 *
-	 * @uses string Hook::getInstance() → get Hook instance
-	 * @uses string Hook::addActions()  → add action hook
-	 *
-	 * @link https://github.com/Josantonius/PHP-Hook
-	 */
-	private function runHooks() {
-		if ( class_exists( $Hook = 'Josantonius\Hook\Hook' ) ) {
-			$Hook::getInstance( self::$id );
-			if ( isset( $this->settings['hooks'] ) ) {
-				$Hook::addActions( $this->settings['hooks'] );
-				unset( $this->settings['hooks'] );
-			}
-		}
-	}
-
-	/**
-	 * Load complements.
-	 *
-	 * @since 1.1.1
-	 *
-	 * @uses void Component::run() → run modules
-	 * @uses void Plugin::run()    → run modules
-	 * @uses void Module::run()    → run modules
-	 * @uses void Template::run()  → run modules
-	 *
-	 * @link https://github.com/Eliasis-Framework/Complement
-	 */
-	private function runComplements() {
-		$complement = 'Eliasis\Complement\\';
-
-		if ( class_exists( $complement . 'Complement' ) ) {
-			call_user_func( $complement . 'Type\Component::run' );
-			call_user_func( $complement . 'Type\Plugin::run' );
-			call_user_func( $complement . 'Type\Module::run' );
-			call_user_func( $complement . 'Type\Template::run' );
-		}
-	}
-
-	/**
-	 * Load Routes.
-	 *
-	 * @since 1.0.1
-	 *
-	 * @uses string Router::add()      → add routes
-	 * @uses string Router::dispatch() → dispath routes
-	 *
-	 * @link https://github.com/Josantonius/PHP-Router
-	 */
-	private function runRoutes() {
-		if ( class_exists( $Router = 'Josantonius\Router\Router' ) ) {
-			if ( isset( $this->settings['routes'] ) ) {
-				$Router::add( $this->settings['routes'] );
-				unset( $this->settings['routes'] );
-				$Router::dispatch();
-			}
-		}
-	}
+    /**
+     * Load Routes.
+     *
+     * @since 1.0.1
+     *
+     * @uses \string Router::add()      → add routes
+     * @uses \string Router::dispatch() → dispath routes
+     *
+     * @link https://github.com/Josantonius/PHP-Router
+     */
+    private function runRoutes()
+    {
+        if (class_exists($Router = 'Josantonius\Router\Router')) {
+            if (isset($this->settings['routes'])) {
+                $Router::add($this->settings['routes']);
+                unset($this->settings['routes']);
+            }
+            $Router::dispatch();
+        }
+    }
 }

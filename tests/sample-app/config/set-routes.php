@@ -8,13 +8,10 @@
  * @link      https://github.com/Eliasis-Framework/Eliasis
  * @since     1.1.2
  */
-
 use Eliasis\Framework\App;
 
 return [
-
     'routes' => [
-
         'my-route/' => App::namespaces('controller') . 'Home@routes'
     ],
 ];

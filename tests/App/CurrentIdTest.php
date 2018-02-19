@@ -40,7 +40,7 @@ final class CurrentIdTest extends TestCase
         parent::setUp();
 
         $this->app = new App;
-        
+
         $this->root = $_SERVER['DOCUMENT_ROOT'];
     }
 
@@ -80,7 +80,7 @@ final class CurrentIdTest extends TestCase
     public function testSetCurrentID()
     {
         $app = $this->app;
-        
+
         $this->assertTrue(
             $app::setCurrentID('MyApplicationOne')
         );
@@ -117,7 +117,7 @@ final class CurrentIdTest extends TestCase
     {
         $app = $this->app;
 
-        $this->assertEquals(
+        $this->assertSame(
             'MyApplicationTwo',
             $app::getCurrentID()
         );

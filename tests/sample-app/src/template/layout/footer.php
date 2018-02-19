@@ -8,11 +8,10 @@
  * @link      https://github.com/Eliasis-Framework/Eliasis
  * @since     1.1.2
  */
-
-use Josantonius\Hook\Hook;
 use Eliasis\Framework\View;
+use Josantonius\Hook\Hook;
 
 echo View::getOption('test');
- 
+
 Hook::doAction('js');
 Hook::doAction('footer');

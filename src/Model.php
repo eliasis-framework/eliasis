@@ -10,7 +10,6 @@
  */
 namespace Eliasis\Framework;
 
-use Eliasis\Framework\App;
 use Eliasis\Framework\Exception\ModelException;
 
 /**
@@ -18,7 +17,6 @@ use Eliasis\Framework\Exception\ModelException;
  */
 abstract class Model
 {
-
     /**
      * Model instances.
      *
@@ -47,6 +45,27 @@ abstract class Model
     }
 
     /**
+     * Prevents the object from being cloned.
+     *
+     * @since 1.0.2
+     *
+     * @throws ModelException → clone is not allowed
+     */
+    public function __clone()
+    {
+        throw new ModelException('Clone is not allowed in: ' . __CLASS__);
+    }
+
+    /**
+     * Prevent unserializing.
+     *
+     * @since 1.0.2
+     */
+    private function __wakeup()
+    {
+    }
+
+    /**
      * Get model instance.
      *
      * @since 1.0.2
@@ -57,7 +76,7 @@ abstract class Model
     {
         $model = get_called_class();
 
-        if (!isset(self::$instance[$model])) {
+        if (! isset(self::$instance[$model])) {
             self::$instance[$model] = new $model;
 
             if (is_null(self::$instance[$model]->db)) {
@@ -75,7 +94,7 @@ abstract class Model
      *
      * @since 1.0.6
      *
-     * @uses Josantonius\Database\Database class
+     * @uses \Josantonius\Database\Database class
      *
      * @link https://github.com/Josantonius/PHP-Database
      *
@@ -88,28 +107,5 @@ abstract class Model
             $id = (is_array($config)) ? array_keys($config)[0] : 'app';
             $this->db = $Database::getConnection($id);
         }
-    }
-
-    /**
-     * Prevents the object from being cloned.
-     *
-     * @since 1.0.2
-     *
-     * @throws ModelException → clone is not allowed
-     */
-    public function __clone()
-    {
-        throw new ModelException('Clone is not allowed in: ' . __CLASS__);
-    }
-
-    /**
-     * Prevent unserializing.
-     *
-     * @since 1.0.2
-     *
-     * @return void
-     */
-    private function __wakeup()
-    {
     }
 }

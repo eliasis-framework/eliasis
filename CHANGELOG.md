@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 1.1.3 - 2018-02-19
+
+* Documentation was added.
+
+* Deleted `Eliasis\App::id()` method.
+* Deleted `Eliasis\Framework\App::instance()` method.
+* Deleted `Eliasis\Framework\App::set()` method.
+* Deleted `Eliasis\Framework\App::get()` method.
+* Deleted `Eliasis\Framework\View::get()` method.
+
 ## 1.1.2 - 2018-01-09
 
 * Unit tests supported by `PHPUnit` were added.

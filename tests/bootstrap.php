@@ -8,6 +8,7 @@
  * @link      https://github.com/Eliasis-Framework/Eliasis
  * @since     1.1.2
  */
+session_start();
 
 require __DIR__ . '/../vendor/autoload.php';
 

@@ -10,7 +10,6 @@
  */
 namespace Eliasis\Framework;
 
-use Eliasis\Framework\View;
 use Eliasis\Framework\Exception\ControllerException;
 
 /**
@@ -18,7 +17,6 @@ use Eliasis\Framework\Exception\ControllerException;
  */
 abstract class Controller
 {
-
     /**
      * Controller instances.
      *
@@ -39,11 +37,28 @@ abstract class Controller
      * @var object
      */
     protected $view;
-    
+
     /**
      * Prevent creating a new controller instance.
      */
     protected function __construct()
+    {
+    }
+
+    /**
+     * Prevents the object from being cloned.
+     *
+     * @throws ControllerException → clone is not allowed
+     */
+    public function __clone()
+    {
+        throw new ControllerException('Clone is not allowed in: ' . __CLASS__);
+    }
+
+    /**
+     * Prevent unserializing.
+     */
+    private function __wakeup()
     {
     }
 
@@ -56,7 +71,7 @@ abstract class Controller
     {
         $controller = get_called_class();
 
-        if (!isset(self::$instance[$controller])) {
+        if (! isset(self::$instance[$controller])) {
             self::$instance[$controller] = new $controller;
         }
 
@@ -98,22 +113,5 @@ abstract class Controller
         if (class_exists($model)) {
             $instance->model = call_user_func($model . '::getInstance');
         }
-    }
-
-    /**
-     * Prevents the object from being cloned.
-     *
-     * @throws ControllerException → clone is not allowed
-     */
-    public function __clone()
-    {
-        throw new ControllerException('Clone is not allowed in: ' . __CLASS__);
-    }
-
-    /**
-     * Prevent unserializing.
-     */
-    private function __wakeup()
-    {
     }
 }

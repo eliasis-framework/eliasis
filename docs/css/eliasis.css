@@ -1,0 +1,99 @@
+/* ----------------------------------------------------
+  
+    File Name: eliasis.css
+    Template Name: Documentation
+    Created By: Josantonius
+    https://github.com/Josantonius
+
+    1. IMPORT
+    2. SKELETON
+    
+------------------------------------------------------- */
+
+h3 {
+    font-size: 21px;
+}
+
+h4 {
+    font-size: 18px;
+}
+
+ol {
+  list-style: none;
+}
+.language img {
+  margin-right: 10px;
+}
+
+#languages {
+  margin-right: -3px;
+  margin-top: -60px;
+}
+
+.navbar-right {
+  margin-right: 0px !important;
+}
+
+#languages-list {
+  left: -78px;
+}
+
+.syntaxhighlighter {
+  margin: 1.6em 0 2.6em 0 !important;
+}
+
+.top,
+.top:hover {
+  color: #D90440;
+}
+
+.caret,
+.caret:hover,
+#lanNavSel,
+#lanNavSel:hover,
+.intro1 a {
+  color: #767676 !important;
+}
+
+.intro2 {
+  border: none;
+  border-radius: 2px;
+  font-style: normal;
+  background-color: #D90440;
+  margin-bottom: 33px;
+}
+
+.intro2 > p {
+  font-size: 15px;
+}
+
+.intro2 a {
+  font-family: sans-serif;
+  font-weight: lighter;
+}
+
+.docs-sidebar .nav>li:not(.active)>a:hover,
+.docs-sidebar .nav>.active>a {
+  color: #D90440;
+  border-left-color: #D90440;
+}
+
+.fa-circle {
+  font-size: 11px !important;
+}
+
+.fa-circle > a {
+    font-size: 14px !important;
+    margin-left: 8px;
+}
+
+.highlight {
+  color: #D90440 !important;
+}
+
+@media (max-width: 767px) {
+  #languages {
+    margin-left: 21px;
+    margin-right: 0px;
+  }
+}

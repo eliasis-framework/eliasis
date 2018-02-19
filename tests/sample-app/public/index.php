@@ -8,7 +8,6 @@
  * @link      https://github.com/Eliasis-Framework/Eliasis
  * @since     1.1.2
  */
-
 require dirname(__DIR__) . '/lib/vendor/autoload.php';
 
 use Eliasis\Framework\App;
@@ -18,7 +17,7 @@ LoadTime::start();
 
 App::run(dirname(__DIR__));
 
-/**
+/*
  * Show runtime.
  *
  * print_r('Executed in: ' . LoadTime::end() . ' seconds.');

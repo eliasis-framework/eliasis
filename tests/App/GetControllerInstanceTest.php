@@ -40,7 +40,7 @@ final class GetControllerInstanceTest extends TestCase
         parent::setUp();
 
         $this->app = new App;
-        
+
         $this->root = $_SERVER['DOCUMENT_ROOT'];
     }
 

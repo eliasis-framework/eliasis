@@ -10,10 +10,8 @@
  */
 
 return [
-
     'namespaces' => [
-
         'controller' => 'App\\Controller\\',
-        'modules'    => 'App\\Modules\\',
+        'modules' => 'App\\Modules\\',
     ],
 ];

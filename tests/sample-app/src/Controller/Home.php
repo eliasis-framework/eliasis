@@ -10,7 +10,6 @@
  */
 namespace App\Controller;
 
-use Eliasis\Framework\App;
 use Eliasis\Framework\Controller;
 
 /**
@@ -18,7 +17,6 @@ use Eliasis\Framework\Controller;
  */
 class Home extends Controller
 {
-
     /**
      * Actions for header hook.
      */
