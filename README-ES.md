@@ -1,6 +1,6 @@
 # Eliasis PHP Framework
 
-[![Latest Stable Version](https://poser.pugx.org/eliasis-framework/eliasis/v/stable)](https://packagist.org/packages/eliasis-framework/eliasis) [![Total Downloads](https://poser.pugx.org/eliasis-framework/eliasis/downloads)](https://packagist.org/packages/eliasis-framework/eliasis) [![Latest Unstable Version](https://poser.pugx.org/eliasis-framework/eliasis/v/unstable)](https://packagist.org/packages/eliasis-framework/eliasis) [![License](https://poser.pugx.org/eliasis-framework/eliasis/license)](https://packagist.org/packages/eliasis-framework/eliasis) [![Travis](https://travis-ci.org/eliasis-framework/Eliasis.svg)](https://travis-ci.org/eliasis-framework/Eliasis)
+[![Packagist](https://img.shields.io/packagist/v/Eliasis-Framework/Eliasis.svg)](https://packagist.org/packages/eliasis-framework/eliasis) [![Downloads](https://img.shields.io/packagist/dt/Eliasis-Framework/Eliasis.svg)](https://github.com/Eliasis-Framework/Eliasis) [![kB](https://img.shields.io/badge/kB-~24.3-009688.svg)](https://github.com/Eliasis-Framework/Eliasis) [![License](https://img.shields.io/packagist/l/Eliasis-Framework/Eliasis.svg)](https://github.com/Eliasis-Framework/Eliasis/blob/master/LICENSE) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4f65d7ad0ee14b53a8c30c70911903de)](https://www.codacy.com/app/Josantonius/Eliasis?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Eliasis-Framework/Eliasis&amp;utm_campaign=Badge_Grade) [![Build Status](https://travis-ci.org/Eliasis-Framework/Eliasis.svg?branch=master)](https://travis-ci.org/Eliasis-Framework/Eliasis) [![PSR2](https://img.shields.io/badge/PSR-2-1abc9c.svg)](http://www.php-fig.org/psr/psr-2/) [![PSR4](https://img.shields.io/badge/PSR-4-9b59b6.svg)](http://www.php-fig.org/psr/psr-4/) [![codecov](https://codecov.io/gh/Eliasis-Framework/Eliasis/branch/master/graph/badge.svg)](https://codecov.io/gh/Eliasis-Framework/Eliasis)
 
 [English version](README.md)
 
@@ -8,103 +8,90 @@
 
 ---
 
-- [Instalación](#instalación)
 - [Requisitos](#requisitos)
-- [Cómo empezar y ejemplos](#cómo-empezar-y-ejemplos)
-- [Métodos disponibles](#métodos-disponibles)
-- [Uso](#uso)
+- [Instalación](#instalación)
+- [Documentación](#documentation)
 - [Tests](#tests)
 - [Tareas pendientes](#-tareas-pendientes)
-- [Desarrollado con Eliasis](#desarrollado-con-eliasis)
 - [Contribuir](#contribuir)
 - [Licencia](#licencia)
 - [Copyright](#copyright)
 
 ---
 
-### Instalación 
+## Requisitos
 
-Puedes instalar Eliasis PHP Framework en tu proyecto utilizando [Composer](http://getcomposer.org/download/). Si vas a empezar un nuevo proyecto, recomendamos utilizar nuestra [app básica](https://github.com/eliasis-framework/app) como punto de partida. Para aplicaciones existentes puedes ejecutar lo siguiente:
+Este framework es soportada por versiones de **PHP 5.6** o superiores y es compatible con versiones de **HHVM 3.0** o superiores.
 
-    $ composer require eliasis-framework/eliasis
+## Installation
 
-El comando anterior sólo instalará los archivos necesarios, si prefieres descargar todo el código fuente (incluyendo tests, directorio vendor, excepciones no utilizadas, documentos...) puedes utilizar:
+Puedes instalar **Eliasis PHP Framework** en tu proyecto utilizando [Composer](http://getcomposer.org/download/). Si vas a empezar un nuevo proyecto, recomendamos utilizar nuestra [app básica](https://github.com/eliasis-framework/app) como punto de partida. Para aplicaciones existentes puedes ejecutar lo siguiente:
 
-    $ composer require eliasis-framework/eliasis-framework --prefer-source
+    $ composer require Eliasis-Framework/Eliasis
 
-También puedes clonar el repositorio completo con Git:
+El comando anterior sólo instalará los archivos necesarios, si prefieres **descargar todo el código fuente** puedes utilizar:
 
-	$ git clone https://github.com/Eliasis-Framework/Eliasis.git
-	
-### Requisitos
+    $ composer require Eliasis-Framework/Eliasis --prefer-source
 
-Este framework es soportado por versiones de PHP 5.6 o superiores y es compatible con versiones de HHVM 3.0 o superiores.
+## Documentación
 
-### Cómo empezar y ejemplos
+[Documentación y ejemplos de uso](https://eliasis-framework.github.io/Eliasis/v1.1.3/lang/es/).
 
-Para utilizar esta biblioteca, simplemente:
+## Tests 
 
-```php
-$DS = DIRECTORY_SEPARATOR;
-
-require __DIR__ . $DS . 'lib' . $DS . 'vendor' . $DS .'autoload.php';
-
-use Eliasis\App\App;
-
-App::run(__DIR__);
-
-// App::run(__DIR__, 'app', 'unique_id');
-
-// App::run(__DIR__, 'wordpress-plugin', 'unique_id');
-```
-
-### Métodos disponibles
-
-Métodos disponibles en esta biblioteca:
-
-### Uso
-
-Ejemplo de uso para esta biblioteca:
-
-### Tests 
-
-Para ejecutar las [pruebas](tests/DataType/Test) simplemente:
+Para ejecutar las [pruebas](tests) necesitarás [Composer](http://getcomposer.org/download/) y seguir los siguientes pasos:
 
     $ git clone https://github.com/Eliasis-Framework/Eliasis.git
     
     $ cd Eliasis
 
-    $ phpunit
+    $ composer install
 
-### ☑ Tareas pendientes
+Ejecutar pruebas unitarias con [PHPUnit](https://phpunit.de/):
 
-- [x] Completar tests
-- [ ] Mejorar la documentación
+    $ composer phpunit
 
-## Desarrollado con Eliasis
+Ejecutar pruebas de estándares de código [PSR2](http://www.php-fig.org/psr/psr-2/) con [PHPCS](https://github.com/squizlabs/PHP_CodeSniffer):
 
-| Módulo | Descripción | Tipo
-| --- | --- | --- |
-| [Search Inside](https://github.com/Josantonius/Search-Inside.git) | Busca y remarca fácilmente frases o palabras en páginas y entradas. | Plugin WordPress
-| [Extensions For Grifus](https://github.com/Josantonius/Extensions-For-Grifus.git) | Extensiones para el theme Grifus. | Plugin WordPress
+    $ composer phpcs
 
-### Contribuir
+Ejecutar pruebas con [PHP Mess Detector](https://phpmd.org/) para detectar inconsistencias en el estilo de codificación:
 
-1. Comprobar si hay incidencias abiertas o abrir una nueva para iniciar una discusión en torno a un fallo o función.
-1. Bifurca la rama del repositorio en GitHub para iniciar la operación de ajuste.
-1. Escribe una o más pruebas para la nueva característica o expón el error.
-1. Haz cambios en el código para implementar la característica o reparar el fallo.
-1. Envía pull request para fusionar los cambios y que sean publicados.
+    $ composer phpmd
 
-Esto está pensado para proyectos grandes y de larga duración.
+Ejecutar todas las pruebas anteriores:
 
-### Licencia
+    $ composer tests
+
+## ☑ Tareas pendientes
+
+- [ ] Añadir nueva funcionalidad.
+- [ ] Mejorar pruebas.
+- [ ] Mejorar documentación.
+- [ ] Refactorizar código para las reglas de estilo de código deshabilitadas. Ver [phpmd.xml](phpmd.xml) y [.php_cs.dist](.php_cs.dist).
+
+## Contribuir
+
+Si deseas colaborar, puedes echar un vistazo a la lista de
+[issues](https://github.com/Eliasis-Framework/Eliasis/issues) o [tareas pendientes](#-tareas-pendientes).
+
+**Pull requests**
+
+* [Fork and clone](https://help.github.com/articles/fork-a-repo).
+* Ejecuta el comando `composer install` para instalar dependencias.
+  Esto también instalará las [dependencias de desarrollo](https://getcomposer.org/doc/03-cli.md#install).
+* Ejecuta el comando `composer fix` para estandarizar el código.
+* Ejecuta las [pruebas](#tests).
+* Crea una nueva rama (**branch**), **commit**, **push** y envíame un
+  [pull request](https://help.github.com/articles/using-pull-requests).
+
+## Licencia
 
 Este proyecto está licenciado bajo **licencia MIT**. Consulta el archivo [LICENSE](LICENSE) para más información.
 
-### Copyright
+## Copyright
 
-2017 Josantonius, [josantonius.com](https://josantonius.com/)
+2016 - 2018 Josantonius, [josantonius.com](https://josantonius.com/)
 
 Si te ha resultado útil, házmelo saber :wink:
 
