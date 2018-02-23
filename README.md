@@ -47,6 +47,8 @@ To run [tests](tests) you just need [composer](http://getcomposer.org/download/)
     
     $ cd Eliasis
 
+    $ bash bin/install-wp-tests.sh wordpress_test root '' localhost latest
+
     $ composer install
 
 Run unit tests with [PHPUnit](https://phpunit.de/):
