@@ -35,7 +35,7 @@ El comando anterior sólo instalará los archivos necesarios, si prefieres **des
 
 ## Documentación
 
-[Documentación y ejemplos de uso](https://eliasis-framework.github.io/Eliasis/v1.1.3/lang/es/).
+[Documentación y ejemplos de uso](https://eliasis-framework.github.io/eliasis/v1.1.3/lang/es/).
 
 ## Tests 
 
@@ -43,7 +43,7 @@ Para ejecutar las [pruebas](tests) necesitarás [Composer](http://getcomposer.or
 
     $ git clone https://github.com/eliasis-framework/eliasis.git
     
-    $ cd Eliasis
+    $ cd eliasis
 
     $ bash bin/install-wp-tests.sh wordpress_test root '' localhost latest
 
