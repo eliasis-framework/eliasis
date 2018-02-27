@@ -106,4 +106,59 @@ final class ControllerTest extends TestCase
 
         $this->assertInstanceOf('Eliasis\Framework\View', $home->getView());
     }
+
+    /**
+     * Force error when get view intance directly from the controller.
+     *
+     * @depends testGetControllerInstance
+     *
+     * @expectedException \Error
+     */
+    public function testErrorWhenGetDatabaseFromControllerInstance()
+    {
+        $home = $this->home;
+
+        $home = $home->getModel();
+
+        $this->assertInstanceOf('Josantonius\Database\Database', $home->db);
+    }
+
+    /**
+     * Get view intance from controller method.
+     *
+     * @depends testGetControllerInstance
+     */
+    public function testGetDatabaseFromControllerMethod()
+    {
+        $home = $this->home;
+
+        $db = $home->getDatabase();
+
+        $this->assertInstanceOf('Josantonius\Database\Database', $db);
+
+        $this->assertContains('app', $db::$id);
+
+        $this->assertContains(
+            'Josantonius\Database\Provider\PDOprovider',
+            get_class($db->provider)
+        );
+    }
+
+    /**
+     * Get connection test when using config from the Eliasis Framework.
+     */
+    public function testGetConnectionFromEliasis()
+    {
+        $home = $this->home;
+
+        $db = $home->getDatabase();
+
+        $this->assertContains('app', $db::$id);
+
+        $home->changeDatabaseConnection('api-rest');
+
+        $db = $home->getDatabase();
+
+        $this->assertContains('api-rest', $db::$id);
+    }
 }

@@ -1,0 +1,32 @@
+{
+    "Default": {
+        "SamplePlugin": {
+            "action": "activation",
+            "state": "active"
+        }
+    },
+    "MyApplicationOne": {
+        "SamplePlugin": {
+            "action": "activation",
+            "state": "active"
+        }
+    },
+    "MyApplicationTwo": {
+        "SamplePlugin": {
+            "action": "activation",
+            "state": "active"
+        }
+    },
+    "MyApplicationThree": {
+        "SamplePlugin": {
+            "action": "activation",
+            "state": "active"
+        }
+    },
+    "FirstApplication": {
+        "SamplePlugin": {
+            "action": "activation",
+            "state": "active"
+        }
+    }
+}

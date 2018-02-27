@@ -1,0 +1,32 @@
+{
+    "Default": {
+        "SampleTemplate": {
+            "action": "activation",
+            "state": "active"
+        }
+    },
+    "MyApplicationOne": {
+        "SampleTemplate": {
+            "action": "activation",
+            "state": "active"
+        }
+    },
+    "MyApplicationTwo": {
+        "SampleTemplate": {
+            "action": "activation",
+            "state": "active"
+        }
+    },
+    "MyApplicationThree": {
+        "SampleTemplate": {
+            "action": "activation",
+            "state": "active"
+        }
+    },
+    "FirstApplication": {
+        "SampleTemplate": {
+            "action": "activation",
+            "state": "active"
+        }
+    }
+}

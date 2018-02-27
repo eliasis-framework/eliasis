@@ -1878,7 +1878,7 @@
                             composer require Josantonius/Database
                         </pre>
 
-                        <p>Eliasis will connect to the database using the first configuration found in the configuration parameter "db":</p>
+                        <p>Eliasis will connect to the database using the first configuration found in the app configuration parameter "db":</p>
 
                         <div class="box">
                             <ul class="directory-list">
@@ -1953,15 +1953,23 @@
                                         'user' => 'db_user',
                                         'name' => 'db_name',
                                         'password' => 'db_password',
-                                        'settings' => ['charset' => DB_CHARSET],
+                                        'settings' => ['charset' => 'utf8'],
+                                    ],
+                                    'api-rest' => [
+                                        'provider' => 'PDOprovider',
+                                        'host' => 'localhost',
+                                        'user' => 'db_user',
+                                        'name' => 'db_name',
+                                        'password' => 'db_password',
+                                        'settings' => ['charset' => 'utf8'],
                                     ],
                                 ],
                             ];
                         </pre>
 
-                        <p>You can access the database instance using the "db" attribute in the models methods:</p>
+                        <p>You can access the database instance using the "db" attribute in the models methods. To change the database connection simply use the "changeDatabaseConnection()" model method.</p>
                         
-                        <pre id="src-model-home-php" class="brush: php highlight: [18,19,20,22,23,24,25,26,27,28,29,30]">
+                        <pre id="src-model-home-php" class="brush: php highlight: [18,19,20,22,24,26,27,28,29,30,31,32]">
                             /**
                              * src/Model/Home.php
                              */
@@ -1978,10 +1986,12 @@
                                         'name'  => 'VARCHAR(30) NOT NULL',
                                         'email' => 'VARCHAR(50)'
                                     ];
-
+                                    
                                     $this->db->create($params)
                                              ->table('test')
                                              ->execute();
+                                    
+                                    $this-model->changeDatabaseConnection('api-rest');
 
                                     $this->db->create($params)
                                              ->table('test_two')

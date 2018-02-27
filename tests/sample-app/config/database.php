@@ -20,5 +20,13 @@ return [
             'password' => DB_PASSWORD,
             'settings' => ['charset' => DB_CHARSET],
         ],
+        'api-rest' => [
+            'provider' => 'PDOprovider',
+            'host' => DB_HOST,
+            'user' => DB_USER,
+            'name' => DB_NAME,
+            'password' => DB_PASSWORD,
+            'settings' => ['charset' => DB_CHARSET],
+        ],
     ],
 ];

@@ -5,9 +5,9 @@
    "description": "Description",
    "state": "active",
    "category": "plugin-complement",
-   "uri": "https://github.com/Josantonius/",
+   "url": "https://github.com/Josantonius/",
    "author": "Josantonius",
-   "author-uri": "https://josantonius.com/",
+   "author-url": "https://josantonius.com/",
    "license": "GPL-2.0+",
    "hooks-controller": "Launcher"
 }

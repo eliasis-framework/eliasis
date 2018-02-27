@@ -20,13 +20,6 @@ use PHPUnit\Framework\TestCase;
 final class ModelTest extends TestCase
 {
     /**
-     * Home model instance.
-     *
-     * @var object
-     */
-    protected $model;
-
-    /**
      * Set up.
      */
     public function setUp()
@@ -49,9 +42,9 @@ final class ModelTest extends TestCase
      */
     public function testGetModelInstance()
     {
-        $this->model = Home::getInstance();
+        $model = Home::getInstance();
 
-        $this->assertInstanceOf('App\Model\Home', $this->model);
+        $this->assertInstanceOf('App\Model\Home', $model);
     }
 
     /**

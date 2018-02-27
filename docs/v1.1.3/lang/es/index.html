@@ -1876,7 +1876,7 @@
                             composer require Josantonius/Database
                         </pre>
 
-                        <p>Eliasis conectará con la base de datos utilizando la primera configuración encontrada en el parámetro "db" de la configuración:</p>
+                        <p>Eliasis conectará con la base de datos utilizando la primera configuración encontrada en el parámetro "db" de la configuración de la aplicación:</p>
 
                         <div class="box">
                             <ul class="directory-list">
@@ -1951,15 +1951,23 @@
                                         'user' => 'db_user',
                                         'name' => 'db_name',
                                         'password' => 'db_password',
-                                        'settings' => ['charset' => DB_CHARSET],
+                                        'settings' => ['charset' => 'utf8'],
+                                    ],
+                                    'api-rest' => [
+                                        'provider' => 'PDOprovider',
+                                        'host' => 'localhost',
+                                        'user' => 'db_user',
+                                        'name' => 'db_name',
+                                        'password' => 'db_password',
+                                        'settings' => ['charset' => 'utf8'],
                                     ],
                                 ],
                             ];
                         </pre>
 
-                        <p>Puedes acceder a la instancia de la base de datos utilizando el atributo "db" en los métodos del modelo:</p>
+                        <p>Puedes acceder a la instancia de la base de datos utilizando el atributo "db" en los métodos del modelo. Para cambiar la conexión basta con utilizar el método "changeDatabaseConnection()" del modelo.</p>
                         
-                        <pre id="src-model-home-php" class="brush: php highlight: [18,19,20,22,23,24,25,26,27,28,29,30]">
+                        <pre id="src-model-home-php" class="brush: php highlight: [18,19,20,22,24,26,27,28,29,30,31,32]">
                             /**
                              * src/Model/Home.php
                              */
@@ -1980,6 +1988,8 @@
                                     $this->db->create($params)
                                              ->table('test')
                                              ->execute();
+
+                                    $this-model->changeDatabaseConnection('api-rest');
 
                                     $this->db->create($params)
                                              ->table('test_two')

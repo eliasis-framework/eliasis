@@ -88,24 +88,53 @@ abstract class Model
     }
 
     /**
+     * Change database connection.
+     *
+     * @since 1.1.3
+     *
+     * @param string $id → database connection ID
+     */
+    public function changeDatabaseConnection($id)
+    {
+        $this->getDatabaseInstance($id);
+    }
+
+    /**
      * Get Database connection.
      *
-     * This method will only be used if the Database class exists.
+     * This method will only be run if the Database class exists.
      *
      * @since 1.0.6
      *
-     * @uses \Josantonius\Database\Database class
+     * @uses \Josantonius\Database\Database
      *
      * @link https://github.com/Josantonius/PHP-Database
      *
-     * @return object → controller instance
+     * @return object → Database instance
      */
-    private function getDatabaseInstance()
+    private function getDatabaseInstance($id = null)
     {
-        if (class_exists($Database = 'Josantonius\\Database\\Database')) {
-            $config = App::db();
-            $id = (is_array($config)) ? array_keys($config)[0] : 'app';
-            $this->db = $Database::getConnection($id);
+        $config = App::getOption('db');
+        $Database = 'Josantonius\\Database\\Database';
+
+        if (! class_exists($Database) || ! is_array($config)) {
+            return;
+        }
+
+        $id = $id ?: array_keys($config)[0];
+
+        $required = ['provider', 'host', 'user', 'name', 'password', 'settings'];
+
+        if (! array_diff($required, array_keys($config[$id]))) {
+            $this->db = $Database::getConnection(
+                $id,
+                $config[$id]['provider'],
+                $config[$id]['host'],
+                $config[$id]['user'],
+                $config[$id]['name'],
+                $config[$id]['password'],
+                $config[$id]['settings']
+            );
         }
     }
 }

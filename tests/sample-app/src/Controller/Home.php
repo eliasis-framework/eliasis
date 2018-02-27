@@ -66,6 +66,22 @@ class Home extends Controller
     }
 
     /**
+     * Get database instance.
+     */
+    public function getDatabase()
+    {
+        return $this->model->getDatabase();
+    }
+
+    /**
+     * Change database connection.
+     */
+    public function changeDatabaseConnection($id)
+    {
+        return $this->model->changeDatabaseConnection($id);
+    }
+
+    /**
      * Get view instance.
      */
     public function getView()

@@ -17,4 +17,11 @@ use Eliasis\Framework\Model;
  */
 class Home extends Model
 {
+    /**
+     * Get database instance.
+     */
+    public function getDatabase()
+    {
+        return $this->db;
+    }
 }

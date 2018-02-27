@@ -1,6 +1,6 @@
 # Eliasis PHP Framework
 
-[![Packagist](https://img.shields.io/packagist/v/eliasis-framework/eliasis.svg)](https://packagist.org/packages/eliasis-framework/eliasis) [![Downloads](https://img.shields.io/packagist/dt/eliasis-framework/eliasis.svg)](https://github.com/eliasis-framework/eliasis) [![kB](https://img.shields.io/badge/kB-~24.3-009688.svg)](https://github.com/eliasis-framework/eliasis) [![License](https://img.shields.io/packagist/l/eliasis-framework/eliasis.svg)](https://github.com/eliasis-framework/eliasis/blob/master/LICENSE) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4f65d7ad0ee14b53a8c30c70911903de)](https://www.codacy.com/app/Josantonius/Eliasis?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=eliasis-framework/eliasis&amp;utm_campaign=Badge_Grade) [![Build Status](https://travis-ci.org/eliasis-framework/eliasis.svg?branch=master)](https://travis-ci.org/eliasis-framework/eliasis) [![PSR2](https://img.shields.io/badge/PSR-2-1abc9c.svg)](http://www.php-fig.org/psr/psr-2/) [![PSR4](https://img.shields.io/badge/PSR-4-9b59b6.svg)](http://www.php-fig.org/psr/psr-4/) [![codecov](https://codecov.io/gh/eliasis-framework/eliasis/branch/master/graph/badge.svg)](https://codecov.io/gh/eliasis-framework/eliasis)
+[![Packagist](https://img.shields.io/packagist/v/eliasis-framework/eliasis.svg)](https://packagist.org/packages/eliasis-framework/eliasis) [![Downloads](https://img.shields.io/packagist/dt/eliasis-framework/eliasis.svg)](https://github.com/eliasis-framework/eliasis) [![kB](https://img.shields.io/badge/kB-~20.6-009688.svg)](https://github.com/eliasis-framework/eliasis) [![License](https://img.shields.io/packagist/l/eliasis-framework/eliasis.svg)](https://github.com/eliasis-framework/eliasis/blob/master/LICENSE) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4f65d7ad0ee14b53a8c30c70911903de)](https://www.codacy.com/app/Josantonius/Eliasis?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=eliasis-framework/eliasis&amp;utm_campaign=Badge_Grade) [![Build Status](https://travis-ci.org/eliasis-framework/eliasis.svg?branch=master)](https://travis-ci.org/eliasis-framework/eliasis) [![PSR2](https://img.shields.io/badge/PSR-2-1abc9c.svg)](http://www.php-fig.org/psr/psr-2/) [![PSR4](https://img.shields.io/badge/PSR-4-9b59b6.svg)](http://www.php-fig.org/psr/psr-4/) [![codecov](https://codecov.io/gh/eliasis-framework/eliasis/branch/master/graph/badge.svg)](https://codecov.io/gh/eliasis-framework/eliasis)
 
 [Versión en español](README-ES.md)
 
@@ -73,6 +73,7 @@ Run all previous tests:
 - [ ] Improve tests.
 - [ ] Improve documentation.
 - [ ] Refactor code for disabled code style rules. See [phpmd.xml](phpmd.xml) and [.php_cs.dist](.php_cs.dist).
+- [ ] Document the model's `changeDatabaseConnection()` methods.
 
 ## Contribute
 
