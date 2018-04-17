@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.1.3 - 2018-04-17
+
+* Added `after-load-hooks` action hook.
+
 ## 1.1.3 - 2018-02-19
 
 * Documentation was added.

@@ -356,6 +356,7 @@ class App
                 $Hook::addActions($this->settings['hooks']);
                 unset($this->settings['hooks']);
             }
+            $Hook::doAction('after-load-hooks');
         }
     }
 

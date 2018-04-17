@@ -74,6 +74,7 @@ Run all previous tests:
 - [ ] Improve documentation.
 - [ ] Refactor code for disabled code style rules. See [phpmd.xml](phpmd.xml) and [.php_cs.dist](.php_cs.dist).
 - [ ] Document the model's `changeDatabaseConnection()` methods.
+- [ ] Document about `after-load-hooks` hook.
 
 ## Contribute
 
