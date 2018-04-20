@@ -293,6 +293,7 @@ class App
                 break;
         }
 
+        $this->setOption('ROOT_URL', $baseUrl);
         $this->setOption('PUBLIC_URL', $baseUrl . 'public/');
         $this->setOption('MODULES_URL', $baseUrl . 'modules/');
         $this->setOption('PLUGINS_URL', $baseUrl . 'plugins/');

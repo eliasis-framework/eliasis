@@ -73,6 +73,7 @@ Ejecutar todas las pruebas anteriores:
 - [ ] Refactorizar código para las reglas de estilo de código deshabilitadas. Ver [phpmd.xml](phpmd.xml) y [.php_cs.dist](.php_cs.dist).
 - [ ] Documentar el método `changeDatabaseConnection()` de los modelos.
 - [ ] Documentar el nuevo gancho de acción: `after-load-hooks`.
+- [ ] Documentar la opción `APP::ROOT_URL()`.
 
 ## Contribuir
 

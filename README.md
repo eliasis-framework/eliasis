@@ -75,6 +75,7 @@ Run all previous tests:
 - [ ] Refactor code for disabled code style rules. See [phpmd.xml](phpmd.xml) and [.php_cs.dist](.php_cs.dist).
 - [ ] Document the model's `changeDatabaseConnection()` methods.
 - [ ] Document about `after-load-hooks` hook.
+- [ ] Document about `APP::ROOT_URL()` option.
 
 ## Contribute
 

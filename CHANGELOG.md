@@ -3,6 +3,7 @@
 ## 1.1.3 - 2018-04-17
 
 * Added `after-load-hooks` action hook.
+* Added `ROOT_URL()` option.
 
 ## 1.1.3 - 2018-02-19
 
