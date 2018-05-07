@@ -2,6 +2,12 @@
 
 ## 1.1.3 - 2018-04-17
 
+* Added `Eliasis\Framework\View::setHash()` method.
+
+* Added method `View::setHash()` to fixed imprecise paths in Windows when using the `debug_backtrace()` method.
+
+## 1.1.3 - 2018-04-17
+
 * Added `after-load-hooks` action hook.
 * Added `ROOT_URL()` option.
 
