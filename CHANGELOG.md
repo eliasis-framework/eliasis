@@ -1,10 +1,8 @@
 # CHANGELOG
 
-## 1.1.3 - 2018-04-17
+## 1.1.4 - 2018-05-07
 
-* Added `Eliasis\Framework\View::setHash()` method.
-
-* Added method `View::setHash()` to fixed imprecise paths in Windows when using the `debug_backtrace()` method.
+* `DIRECTORY_SEPARATOR` was added to the paths to avoid incompatibilities with Windows paths.
 
 ## 1.1.3 - 2018-04-17
 

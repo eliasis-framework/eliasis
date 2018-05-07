@@ -264,13 +264,13 @@ class App
      */
     private function setPaths($baseDirectory)
     {
-        $this->setOption('ROOT', Url::addBackSlash($baseDirectory));
-        $this->setOption('CORE', dirname(dirname(dirname(__DIR__))) . '/');
-        $this->setOption('PUBLIC', self::ROOT() . 'public/');
-        $this->setOption('TEMPLATES', self::ROOT() . 'templates/');
-        $this->setOption('MODULES', self::ROOT() . 'modules/');
-        $this->setOption('PLUGINS', self::ROOT() . 'plugins/');
-        $this->setOption('COMPONENTS', self::ROOT() . 'components/');
+        $this->setOption('ROOT', rtrim($baseDirectory, self::DS) . self::DS);
+        $this->setOption('CORE', dirname(dirname(dirname(__DIR__))) . self::DS);
+        $this->setOption('PUBLIC', self::ROOT() . 'public' . self::DS);
+        $this->setOption('TEMPLATES', self::ROOT() . 'templates' . self::DS);
+        $this->setOption('MODULES', self::ROOT() . 'modules' . self::DS);
+        $this->setOption('PLUGINS', self::ROOT() . 'plugins' . self::DS);
+        $this->setOption('COMPONENTS', self::ROOT() . 'components' . self::DS);
     }
 
     /**
@@ -324,8 +324,8 @@ class App
     private function getSettings()
     {
         $path = [
-            self::CORE() . 'config/',
-            self::ROOT() . 'config/',
+            self::CORE() . 'config' . self::DS,
+            self::ROOT() . 'config' . self::DS,
         ];
 
         foreach ($path as $dir) {

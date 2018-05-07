@@ -62,7 +62,7 @@ class View
         $file = $path . $file . '.php';
 
         if ($data) {
-            self::$data[self::setHash($file)] = $data;
+            self::$data[md5($file)] = $data;
         }
 
         require_once $file;
@@ -83,7 +83,7 @@ class View
     {
         $trace = debug_backtrace(2, 1);
 
-        $id = (isset($trace[0]['file'])) ? self::setHash($trace[0]['file']) : 0;
+        $id = (isset($trace[0]['file'])) ? md5($trace[0]['file']) : 0;
 
         $key = array_shift($params);
 
@@ -144,23 +144,5 @@ class View
         }
 
         return false;
-    }
-
-    /**
-     * Set file path hash.
-     *
-     * @since 1.1.4
-     *
-     * @param string $filePath → file path
-     *
-     * @return string
-     */
-    private static function setHash($filePath)
-    {
-        if (stristr(php_uname('s'), 'WIN')) {
-            $filePath = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $filePath);
-        }
-
-        return md5($filePath);
     }
 }
