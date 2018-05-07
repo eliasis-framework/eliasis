@@ -8,7 +8,7 @@
  * @link      https://github.com/eliasis-framework/eliasis
  * @since     1.1.2
  */
-require dirname(__DIR__) . '/lib/vendor/autoload.php';
+require dirname(dirname(dirname(__DIR__))) . '/vendor/autoload.php';
 
 use Eliasis\Framework\App;
 use Josantonius\LoadTime\LoadTime;

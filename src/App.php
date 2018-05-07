@@ -18,15 +18,6 @@ use Josantonius\Url\Url;
 class App
 {
     /**
-     * Set directory separator constant.
-     *
-     * @since 1.0.1
-     *
-     * @var string
-     */
-    const DS = DIRECTORY_SEPARATOR;
-
-    /**
      * Unique id for the application.
      *
      * @var string
@@ -264,13 +255,13 @@ class App
      */
     private function setPaths($baseDirectory)
     {
-        $this->setOption('ROOT', rtrim($baseDirectory, self::DS) . self::DS);
-        $this->setOption('CORE', dirname(dirname(dirname(__DIR__))) . self::DS);
-        $this->setOption('PUBLIC', self::ROOT() . 'public' . self::DS);
-        $this->setOption('TEMPLATES', self::ROOT() . 'templates' . self::DS);
-        $this->setOption('MODULES', self::ROOT() . 'modules' . self::DS);
-        $this->setOption('PLUGINS', self::ROOT() . 'plugins' . self::DS);
-        $this->setOption('COMPONENTS', self::ROOT() . 'components' . self::DS);
+        $this->setOption('ROOT', rtrim($baseDirectory, '/') . '/');
+        $this->setOption('CORE', dirname(dirname(dirname(__DIR__))) . '/');
+        $this->setOption('PUBLIC', self::ROOT() . 'public/');
+        $this->setOption('TEMPLATES', self::ROOT() . 'templates/');
+        $this->setOption('MODULES', self::ROOT() . 'modules/');
+        $this->setOption('PLUGINS', self::ROOT() . 'plugins/');
+        $this->setOption('COMPONENTS', self::ROOT() . 'components/');
     }
 
     /**
@@ -324,8 +315,8 @@ class App
     private function getSettings()
     {
         $path = [
-            self::CORE() . 'config' . self::DS,
-            self::ROOT() . 'config' . self::DS,
+            self::CORE() . 'config/',
+            self::ROOT() . 'config/',
         ];
 
         foreach ($path as $dir) {

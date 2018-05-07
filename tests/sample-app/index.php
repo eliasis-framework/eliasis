@@ -8,4 +8,4 @@
  * @link      https://github.com/eliasis-framework/eliasis
  * @since     1.1.2
  */
-require 'public' . DIRECTORY_SEPARATOR . 'index.php';
+require 'public/index.php';

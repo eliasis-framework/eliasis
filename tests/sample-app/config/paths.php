@@ -10,12 +10,11 @@
  */
 use Eliasis\Framework\App;
 
-$DS = App::DS;
 $rootPath = App::ROOT();
 
 return [
     'path' => [
-        'layout' => $rootPath . 'src' . $DS . 'template' . $DS . 'layout' . $DS,
-        'page' => $rootPath . 'src' . $DS . 'template' . $DS . 'page' . $DS,
+        'layout' => $rootPath . 'src/template/layout/',
+        'page' => $rootPath . 'src/template/page/',
     ],
 ];
