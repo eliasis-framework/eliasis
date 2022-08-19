@@ -18,13 +18,6 @@ use Eliasis\Framework\Exception\ControllerException;
 abstract class Controller
 {
     /**
-     * Controller instances.
-     *
-     * @var object
-     */
-    protected static $instance;
-
-    /**
      * Model instance.
      *
      * @var object
@@ -37,6 +30,13 @@ abstract class Controller
      * @var object
      */
     protected $view;
+
+    /**
+     * Controller instances.
+     *
+     * @var object
+     */
+    private static $instances;
 
     /**
      * Prevent creating a new controller instance.
@@ -71,27 +71,17 @@ abstract class Controller
     {
         $controller = get_called_class();
 
-        if (! isset(self::$instance[$controller])) {
-            self::$instance[$controller] = new $controller;
+        if (isset(self::$instances[$controller])) {
+            return self::$instances[$controller];
         }
 
-        if (is_null(self::$instance[$controller]->view)) {
-            self::getViewInstance(self::$instance[$controller]);
-        }
+        self::$instances[$controller] = new $controller();
 
-        self::getModelInstance(self::$instance[$controller], $controller);
+        self::$instances[$controller]->model = self::getModelInstance($controller);
 
-        return self::$instance[$controller];
-    }
+        self::$instances[$controller]->view = new View();
 
-    /**
-     * Get view instance.
-     *
-     * @param object $instance → this
-     */
-    protected static function getViewInstance($instance)
-    {
-        $instance->view = View::getInstance();
+        return self::$instances[$controller];
     }
 
     /**
@@ -99,19 +89,14 @@ abstract class Controller
      *
      * @since 1.0.2
      *
-     * @param object $instance   → this
      * @param string $controller → controller namespace
      *
      * @return object → controller instance
      */
-    protected static function getModelInstance($instance, $controller = '')
+    protected static function getModelInstance($controller)
     {
-        $controller = empty($controller) ? $controller : get_called_class();
-
         $model = str_replace('Controller', 'Model', $controller);
 
-        if (class_exists($model)) {
-            $instance->model = call_user_func($model . '::getInstance');
-        }
+        return class_exists($model) ? call_user_func($model . '::getInstance') : null;
     }
 }

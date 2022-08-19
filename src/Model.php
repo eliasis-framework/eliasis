@@ -18,15 +18,6 @@ use Eliasis\Framework\Exception\ModelException;
 abstract class Model
 {
     /**
-     * Model instances.
-     *
-     * @since 1.0.2
-     *
-     * @var object
-     */
-    protected static $instance;
-
-    /**
      * Database instance.
      *
      * @since 1.0.6
@@ -76,27 +67,25 @@ abstract class Model
     {
         $model = get_called_class();
 
-        if (! isset(self::$instance[$model])) {
-            self::$instance[$model] = new $model;
+        $instance = new $model();
 
-            if (is_null(self::$instance[$model]->db)) {
-                self::$instance[$model]->getDatabaseInstance();
-            }
+        if (is_null($instance->db)) {
+            $instance->db = self::getDatabaseInstance();
         }
 
-        return self::$instance[$model];
+        return $instance;
     }
 
     /**
      * Change database connection.
      *
-     * @since 1.1.3
+     * @since 1.1.5
      *
      * @param string $id → database connection ID
      */
-    public function changeDatabaseConnection($id)
+    public function setDatabaseConnection($id)
     {
-        $this->getDatabaseInstance($id);
+        $this->db = $this->getDatabaseInstance($id);
     }
 
     /**
@@ -106,35 +95,32 @@ abstract class Model
      *
      * @since 1.0.6
      *
+     * @param string $id → database connection ID
+     *
      * @uses \Josantonius\Database\Database
      *
      * @link https://github.com/Josantonius/PHP-Database
      *
      * @return object → Database instance
      */
-    private function getDatabaseInstance($id = null)
+    private static function getDatabaseInstance($id = 'app')
     {
-        $config = App::getOption('db');
         $Database = 'Josantonius\\Database\\Database';
 
-        if (! class_exists($Database) || ! is_array($config)) {
-            return;
+        $db = App::getOption('db', $id) ?: [];
+
+        if (!class_exists($Database) || count($db) < 6) {
+            return null;
         }
 
-        $id = $id ?: array_keys($config)[0];
-
-        $required = ['provider', 'host', 'user', 'name', 'password', 'settings'];
-
-        if (! array_diff($required, array_keys($config[$id]))) {
-            $this->db = $Database::getConnection(
-                $id,
-                $config[$id]['provider'],
-                $config[$id]['host'],
-                $config[$id]['user'],
-                $config[$id]['name'],
-                $config[$id]['password'],
-                $config[$id]['settings']
-            );
-        }
+        return $Database::getConnection(
+            $id,
+            isset($db['provider']) ? $db['provider'] : '',
+            isset($db['host']) ? $db['host'] : '',
+            isset($db['user']) ? $db['user'] : '',
+            isset($db['name']) ? $db['name'] : '',
+            isset($db['password']) ? $db['password'] : '',
+            isset($db['settings']) ? $db['settings'] : []
+        );
     }
 }

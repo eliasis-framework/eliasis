@@ -1,0 +1,2718 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en">
+<!--<![endif]-->
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Eliasis PHP Framework">
+    <meta name="author" content="Josantonius">
+    <meta name="keywords" content="">
+
+    <title>Eliasis | PHP framework by Josantonius</title>
+
+    <link rel="shortcut icon" href="https://eliasis-framework.github.io/eliasis/images/favicon.ico" type="image/x-icon">
+    <meta name="description" content="Eliasis es un framework web HMVC de código abierto para el desarrollo de sitios web dinámicos con PHP. Ligero, modular y optimizado para el desarrollo de plugins WordPress.">
+    <meta property="og:title" content="Eliasis | PHP Framework">
+    <meta property="og:site_name" content="Eliasis | PHP Framework">
+    <meta property="og:url" content="https://github.com/eliasis-framework/eliasis">
+    <meta property="og:description" content="Eliasis es un framework web HMVC de código abierto para el desarrollo de sitios web dinámicos con PHP. Ligero, modular y optimizado para el desarrollo de plugins WordPress.">
+    <meta property="og:image" content="https://eliasis-framework.github.io/eliasis/images/upload/eliasis.png">
+    <meta property="twitter:image" content="https://eliasis-framework.github.io/eliasis/images/upload/eliasis.png">
+    <meta property="twitter:title" content="Eliasis | PHP Framework">
+    <meta property="twitter:description" content="Eliasis es un framework web HMVC de código abierto para el desarrollo de sitios web dinámicos con PHP. Ligero, modular y optimizado para el desarrollo de plugins WordPress.">
+
+    <link rel="stylesheet" type="text/css" href="../../../fonts/font-awesome-4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/stroke.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/animate.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/prettyPhoto.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../../../js/syntax-highlighter/styles/shCore.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../../../js/syntax-highlighter/styles/shThemeRDark.css" media="all">
+
+    <!-- CUSTOM -->
+    <link rel="stylesheet" type="text/css" href="../../../css/custom.css">
+
+    <!-- ELIASIS -->
+    <link rel="stylesheet" type="text/css" href="../../../css/eliasis.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/directory-tree-list.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <div class="container">
+
+            <section id="top" class="section docs-heading">
+
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="big-title text-center">
+                            <h1>Eliasis PHP Framework</h1>
+                            <p class="lead">Eliasis PHP Framework / Documentación · Versión 1.1.3</p>
+                            <div class="text-center">
+                                <a href="../en/" class="btn btn-default">English version</a>
+                                <a href="https://github.com/eliasis-framework/eliasis/blob/master/docs/v1.1.3/lang/es/index.html" class="btn btn-default" target="_blank">Editar en GitHub</a>
+                            </div>
+                        </div>
+                        <!-- end title -->
+                    </div>
+                    <!-- end 12 -->
+                </div>
+                <!-- end row -->
+
+                <hr>
+
+            </section>
+            <!-- end section -->
+
+            <div class="row">
+
+                <div class="col-md-3">
+                    <nav class="docs-sidebar" data-spy="affix" data-offset-top="300" data-offset-bottom="200" role="navigation">
+                        <ul class="nav">
+                            <li><a href="#getting-started">Primeros pasos</a>
+                                <ul class="nav">
+                                    <li><a href="#requeriments">Requisitos</a></li>
+                                    <li><a href="#installation">Instalación</a></li>
+                                    <li><a href="#basic-structure">Estructura básica</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#the-basics">Lo básico</a>
+                                <ul class="nav">
+                                    <li><a href="#create-application">Crear aplicación</a></li>
+                                    <li><a href="#app-identifier">ID de aplicación</a></li>
+                                    <li><a href="#multiple-applications">Aplicaciones múltiples</a></li>
+                                    <li><a href="#configuration-files">Archivos de configuración</a></li>
+                                    <li><a href="#getting-options">Obtener opciones</a></li>
+                                    <li><a href="#controllers">Controladores</a></li>
+                                    <li><a href="#controller-instances">Instancias de controladores</a></li>
+                                    <li><a href="#models">Modelos</a></li>
+                                    <li><a href="#templates">Plantillas</a></li>
+                                    <li><a href="#predefined-paths">Rutas predefinidas</a></li>
+                                    <li><a href="#predefined-urls">URLs predefinidas</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#app-class">Clase App</a>
+                                <ul class="nav">
+                                    <li><a href="#methods-app-run">run()</a></li>
+                                    <li><a href="#methods-app-setOption">setOption()</a></li>
+                                    <li><a href="#methods-app-getOption">getOption()</a></li>
+                                    <li><a href="#methods-app-getControllerInstance">getControllerInstance()</a></li>
+                                    <li><a href="#methods-app-setCurrentID">setCurrentID()</a></li>
+                                    <li><a href="#methods-app-getCurrentID">getCurrentID()</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#view-class">Clase View</a>
+                                <ul class="nav">
+                                    <li><a href="#methods-view-getInstance">getInstance()</a></li>
+                                    <li><a href="#methods-view-addHeader">addHeader()</a></li>
+                                    <li><a href="#methods-view-addHeaders">addHeaders()</a></li>
+                                    <li><a href="#methods-view-sendHeaders">sendHeaders()</a></li>
+                                    <li><a href="#methods-view-renderizate">renderizate()</a></li>
+                                    <li><a href="#methods-view-getOption">getOption()</a></li>
+
+                                </ul>
+                            </li>
+                            <li><a href="#c-components">Componentes</a></li>
+                            <li><a href="#c-modules">Módulos</a></li>
+                            <li><a href="#c-plugins">Plugins</a></li>
+                            <li><a href="#c-templates">Plantillas</a></li>
+                            <li><a href="#c-additional-libraries">Bibliotecas adicionales</a>
+                                <ul class="nav">
+                                    <li><a href="#libraries-Asset">Asset</a></li>
+                                    <li><a href="#libraries-Complement">Complement</a></li>
+                                    <li><a href="#libraries-Cookie">Cookie</a></li>
+                                    <li><a href="#libraries-Curl">Curl</a></li>
+                                    <li><a href="#libraries-Database">Database</a></li>
+                                    <li><a href="#libraries-ErrorHandler">ErrorHandler</a></li>
+                                    <li><a href="#libraries-File">File</a></li>
+                                    <li><a href="#libraries-Hook">Hook</a></li>
+                                    <li><a href="#libraries-HTTPStatusCode">HTTPStatusCode</a></li>
+                                    <li><a href="#libraries-Ip">Ip</a></li>
+                                    <li><a href="#libraries-Json">Json</a></li>
+                                    <li><a href="#libraries-LanguageCode">LanguageCode</a></li>
+                                    <li><a href="#libraries-LoadTime">LoadTime</a></li>
+                                    <li><a href="#libraries-Logger">Logger</a></li>
+                                    <li><a href="#libraries-MimeType">MimeType</a></li>
+                                    <li><a href="#libraries-Request">Request</a></li>
+                                    <li><a href="#libraries-Router">Router</a></li>
+                                    <li><a href="#libraries-Session">Session</a></li>
+                                    <li><a href="#libraries-Str">Str</a></li>
+                                    <li><a href="#libraries-Url">Url</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#wordpress-libraries">Bibliotecas WordPress</a>
+                                <ul class="nav">
+                                    <li><a href="#libraries-WP_Image">WP_Image</a></li>
+                                    <li><a href="#libraries-WP_Menu">WP_Menu</a></li>
+                                    <li><a href="#libraries-WP_Notice">WP_Notice</a></li>
+                                    <li><a href="#libraries-WP_Register">WP_Register</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#developed-with-eliasis">Desarrollado con Eliasis</a></li>
+                            <li><a href="#license">Licencia</a></li>
+                        </ul>
+                    </nav >
+                </div>
+                <div class="col-md-9">
+                    <section class="welcome">
+
+                        <div class="row">
+                            <div class="col-md-12 left-align">
+                                <h2 class="dark-text">Introducción<hr></h2>
+                                <div class="row">
+
+                                    <div class="col-md-12 full">
+                                        <div class="intro1">
+                                            <ul>
+                                                <li><strong>Nombre : </strong><a href="https://github.com/eliasis-framework/eliasis" target="_blank">Eliasis PHP Framework</a></li>
+                                                <li><strong>Autor : </strong> <a href="//github.com/Josantonius" target="_blank">Josantonius</a></li>
+                                                <li><strong>Soporte : </strong> <a href="https://github.com/eliasis-framework/eliasis/issues" target="_blank">https://github.com/eliasis-framework/eliasis/issues</a></li>
+                                                <li><strong>Licencia : </strong> <a href="https://github.com/eliasis-framework/eliasis/blob/master/LICENSE" target="_blank">MIT</a></li>
+                                            </ul>
+                                        </div>
+
+                                        <hr>
+                                        <div>
+                                            <p><strong>Eliasis</strong> es un framework web HMVC de código abierto para el desarrollo de sitios web dinámicos con PHP. Ligero, modular y optimizado para el desarrollo de plugins WordPress.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- end row -->
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="getting-started" class="section">
+
+                        <div class="row">
+                            <div class="col-md-12 left-align">
+                                <h2 class="dark-text">Primeros pasos <a class="top" href="#top">#volver arriba</a><hr></h2>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <h3 id="requeriments">Requisitos</h3>
+                                
+                                <p>Este framework es soportado por versiones de PHP 5.6 o superiores y es compatible con versiones de HHVM 3.0 o superiores.</p>
+
+                                <h3 id="installation">Instalación</h3>
+
+                                <p>Puedes instalar Eliasis PHP Framework en tu proyecto utilizando <a href="http://getcomposer.org/download/" target="_blank">Composer</a>. Si vas a empezar un nuevo proyecto, recomendamos utilizar nuestra <a href="//github.com/eliasis-framework/app" target="_blank">aplicacion básica</a> como punto de partida:</p> 
+
+                                <pre class="brush: bash">
+                                    composer create-project --prefer-dist eliasis-framework/app
+                                </pre>
+
+                                <pre class="brush: bash">
+                                    cd app
+                                </pre>
+
+                                <pre class="brush: bash">
+                                    composer install
+                                </pre>
+                                <hr>
+                                <p>Para aplicaciones existentes puedes ejecutar lo siguiente:</p>
+
+                                <pre class="brush: bash">
+                                    composer require eliasis-framework/eliasis
+                                </pre>
+
+                                <p>El comando anterior sólo instalará los archivos necesarios, si prefieres descargar todo el código fuente (incluyendo tests, directorio vendor, excepciones no utilizadas, documentos...) puedes utilizar:</p>
+
+                                <pre class="brush: bash">
+                                    composer require eliasis-framework/eliasis-framework --prefer-source
+                                </pre>
+
+                                <h3 id="basic-structure">Estructura básica</h3>
+
+                                <p>Solo necesitas un archivo PHP en el que incluyas la autocarga de clases con Composer para crear tu primera aplicación con Eliasis Framework.</p>
+
+                                <div class="box">
+                                    <ul class="directory-list">
+                                        <li class="folder highlight">root
+                                            <ul>
+                                                <li><a class="highlight" href="#my-custom-app-php">my-custom-app.php</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <p></p>
+
+                                <pre class="brush: php">
+                                    /**
+                                     * my-custom-app.php
+                                     */
+                                    require __DIR__ . '/vendor/autoload.php';
+                                </pre>
+
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+
+                    </section>
+                    <!-- end section -->
+
+                    <section id="the-basics" class="section">
+
+                        <div class="row">
+                            <div class="col-md-12 left-align">
+                                <h2 class="dark-text">Lo básico <a class="top" href="#top">#volver arriba</a><hr></h2>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+
+                        <h3 id="create-application">Crear aplicación</h3>
+
+                        <p>Para crear una aplicación con Eliasis simplemente:</p>
+
+                        <pre class="brush: php">
+                            /**
+                             * my-custom-app.php
+                             */
+                            use Eliasis\Framework\App;
+
+                            App::run(__DIR__);
+                        </pre>
+
+                        <p>Si no se especifica ningún ID, el identificador predeterminado de la aplicación será "Default".</p>
+
+                        <div class="intro2 clearfix">
+                            <p><i class="fa fa-certificate"></i>Métodos vistos en esta sección:</p>
+                            <ol>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#methods-app-run">App::run()</a></i></li>
+                            </ol>
+                        </div>
+
+                        <h3 id="app-identifier">ID de aplicación</h3>
+
+                        <p>El identificador admite las siguientes convenciones de clase: UpperCamelCase, lowerCamelCase & snake_case.</p>
+
+                        <p>Los identificadores de aplicación permiten crear múltiples aplicaciones en un mismo sitio web, evitando colisiones y facilitando el acceso a ellas desde cualquier lugar:</p>
+
+                        <pre class="brush: php">
+                            App::run(__DIR__, 'app', 'MyApplication');
+                        </pre>
+
+
+                        <p>Idealmente diseñados para utilizar diferentes instancias de Eliasis Framework en múltples plugins de WordPress corriendo al mismo tiempo:</p>
+
+                        <div class="box">
+                            <ul class="directory-list">
+                                <li class="folder">root
+                                    <ul>
+                                        <li class="folder">wp-content
+                                            <ul>
+                                                <li class="folder">plugins
+                                                    <ul>
+                                                        <li class="folder highlight">my-first-plugin
+                                                            <ul>
+                                                                <li><a class="highlight" href="#my-first-plugin-php">my-first-plugin.php</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li class="folder highlight">my-second-plugin
+                                                            <ul>
+                                                                <li><a class="highlight" href="#my-second-plugin-php">my-second-plugin.php</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <pre id="my-first-plugin-php" class="brush: php">
+                            /**
+                             * wp-content/plugins/my-first-plugin/my-first-plugin.php
+                             */
+                            require __DIR__ . '/vendor/autoload.php';
+
+                            use Eliasis\Framework\App;
+
+                            App::run(__DIR__, 'wordpress-plugin', 'MyFirstPlugin');
+                        </pre>
+
+                        <pre id="my-second-plugin-php" class="brush: php">
+                            /**
+                             * wp-content/plugins/my-second-plugin/my-second-plugin.php
+                             */
+                            require __DIR__ . '/vendor/autoload.php';
+
+                            use Eliasis\Framework\App;
+
+                            App::run(__DIR__, 'wordpress-plugin', 'MySecondPlugin');
+                        </pre>
+
+                        <div class="intro2 clearfix">
+                            <p><i class="fa fa-certificate"></i>Métodos vistos en esta sección:</p>
+                            <ol>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#methods-app-run">App::run()</a></i></li>
+                            </ol>
+                        </div>
+
+                        <h3 id="multiple-applications">Aplicaciones múltiples</h3>
+
+                        <p>Tienes dos opciones para saltar de una aplicación a otra. Pasando el ID de la aplicación como método (recomendado):</p>
+                        
+                        <pre class="brush: php">
+                            App::MyFirstApp->getCurrentID(); // MyFirstApp
+
+                            App::MySecondApp->getCurrentID(); // MySecondApp
+                        </pre>
+
+                        <p>O a través del método App::setCurrentID():</p>
+
+                        <pre class="brush: php">
+                            App:setCurrentID('MyFirstApp');
+
+                            App::getCurrentID(); // MyFirstApp
+                            
+                            App:setCurrentID('MySecondApp');
+
+                            App::getCurrentID(); // MySecondApp
+                        </pre>
+
+                        <p>En el caso de solo utilizar una aplicación en el sitio web, no hay necesidad de especificar ni establecer el ID de la aplicación.</p>
+
+                        <div class="intro2 clearfix">
+                            <p><i class="fa fa-certificate"></i>Métodos vistos en esta sección:</p>
+                            <ol>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#methods-app-getCurrentID">App::getCurrentID()</a></i></li>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#methods-app-setCurrentID">App::setCurrentID()</a></i></li>
+                            </ol>
+                        </div>
+
+                        <h3 id="configuration-files">Archivos de configuración</h3>
+
+                        <p>La aplicación recopilará todos los archivos de configuración encontrados en el directorio "config":</p>
+
+                        <div class="box">
+                            <ul class="directory-list">
+                                <li class="folder">root
+                                    <ul>
+                                        <li class="folder highlight">config
+                                            <ul>
+                                                <li><a class="highlight" href="#config-paths-php">paths.php</a></li>
+                                                <li><a class="highlight" href="#config-settings-php">settings.php</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#my-custom-app-php">my-custom-app.php</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <p>Archivos de configuración deben retornar un array indexado y podrán contener cualquier tipo de dato:</p>
+
+                        <pre id="config-settings-php" class="brush: php">
+                            /**
+                             * config/settings.php
+                             */
+
+                            return [
+                                'slug' => 'my-custom-app',
+                                'email' => [
+                                    'rol' => [
+                                        'admin' => 'admin@site.com',
+                                        'editor' => 'editor@site.com'
+                                    ]
+                                ]
+                            ];
+                        </pre>
+
+                        <pre id="config-paths-php" class="brush: php">
+                            /**
+                             * config/paths.php
+                             */
+                            
+                            use Eliasis\Framework\App;
+
+                            return [
+                                'path' => [
+                                    'layout' => App::ROOT() . 'src/template/layout/',
+                                    'page'   => App::ROOT() . 'src/template/page/',
+                                ],
+                            ];
+                        </pre>
+
+                        <div class="intro2 clearfix">
+                            <p><i class="fa fa-certificate"></i>Temas referidos en esta sección:</p>
+                            <ol>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#predefined-paths">Rutas predefinidas</a></i></li>
+                            </ol>
+                        </div>
+
+                        <h3 id="getting-options">Obtener opciones</h3>
+
+                        <p>Para obtener los parámetros de configuración desde la aplicación tienes varias opciones.<br><br>
+                        Pasando el index como método:</p>
+
+                        <pre class="brush: php">
+                            App::slug();
+
+                            App::email();
+
+                            App::email('rol');
+
+                            App::email('rol', 'admin');
+                        </pre>
+
+                        <p>Utilizando el método getOption():</p>
+
+                        <pre class="brush: php">
+                            App::getOption('slug');
+
+                            App::getOption('email');
+
+                            App::getOption('email', 'rol');
+
+                            App::getOption('email', 'rol', 'admin');
+                        </pre>
+
+                        <p>Pasando el ID de la aplicación como método y usando el método getOption():</p>
+
+                        <pre class="brush: php">
+                            App::MyCustomApp()->getOption('slug');
+
+                            App::MyCustomApp()->getOption('email');
+
+                            App::MyCustomApp()->getOption('email', 'rol');
+
+                            App::MyCustomApp()->getOption('email', 'rol', 'admin');
+                        </pre>
+
+                        <p>Cualquiera de las tres opciones devolverá el mismo resultado:</p>
+
+                        <pre class="brush: php">
+                            /*
+                            string(13) "my-custom-app"
+
+                            array(1) {
+                                ["rol"] => array(1) {
+                                    ["admin"] => string(14) "admin@site.com"
+                                }
+                            }
+
+                            array(1) {
+                                ["admin"] => string(14) "admin@site.com"
+                            }
+
+                            string(14) "admin@site.com"
+                            */
+                        </pre>
+
+                        <div class="intro2 clearfix">
+                            <p><i class="fa fa-certificate"></i>Métodos vistos en esta sección:</p>
+                            <ol>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#methods-app-getOption">App::getOption()</a></i></li>
+                            </ol>
+                        </div>
+
+                        <h3 id="controllers">Controladores</h3>
+
+                        <p>Los controladores deben ser creados en el directorio "src/Controller" de la aplicación:</p>
+
+                        <div class="box">
+                            <ul class="directory-list">
+                                <li class="folder">root
+                                    <ul>
+                                        <li class="folder">config
+                                            <ul>
+                                                <li><a href="#config-paths-php">paths.php</a></li>
+                                                <li><a href="#config-settings-php">settings.php</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="folder">src
+                                            <ul>
+                                                <li class="folder highlight">Controller
+                                                    <ul>
+                                                        <li><a class="highlight" href="#src-controller-home-php">Home.php</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#my-custom-app-php">my-custom-app.php</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <p>La estructura básica de un controlador en Eliasis Framework es la siguiente:</p>
+
+                        <pre class="brush: php">
+                            /**
+                             * src/Controller/Home.php
+                             */
+                            namespace App\Controller;
+
+                            use Eliasis\Framework\Controller;
+
+                            class Home extends Controller
+                            {
+
+                            }
+                        </pre>
+
+                        <h3 id="controller-instances">Instancias de controladores</h3>
+
+                        <p>Puedes acceder fácilmente a la instancia de un controlador desde cualquier punto de la aplicación utilizando el método "App::getControllerInstance()".<br><br>
+                        El método "App::getControllerInstance" utiliza los espacios de nombre almacenados en "App::namespaces()" para obtener las instancias de los controladores, por lo tanto deben haber sido agregados anteriormente en el archivo "config/namespaces.php":</p>
+
+                        <div class="box">
+                            <ul class="directory-list">
+                                <li class="folder">root
+                                    <ul>
+                                        <li class="folder highlight">config
+                                            <ul>
+                                                <li><a class="highlight" href="#config-namespaces-php">namespaces.php</a></li>
+                                                <li><a href="#config-paths-php">paths.php</a></li>
+                                                <li><a href="#config-settings-php">settings.php</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="folder">src
+                                            <ul>
+                                                <li class="folder">Controller
+                                                    <ul>
+                                                        <li><a href="#src-controller-home-php">Home.php</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#my-custom-app-php">my-custom-app.php</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <pre id="config-namespaces-php" class="brush: php">
+                            /**
+                             * config/namespaces.php
+                             */
+                                                        
+                            return [
+                                'namespaces' => [
+                                    'controller' => 'App\\Controller\\'
+                                ],
+                            ];
+                        </pre>
+
+                        <p>O haber sido añadido anteriormente a través del método "App::setOption()":</p>
+
+                        <pre id="config-namespaces-php" class="brush: php">
+                            App::setOption('namespaces', [
+                                'controller' => 'App\\Controller\\'
+                            ];
+                        </pre>
+
+                        <p>Para obtener la instancia simplemente tienes que indicar el nombre de la clase del controlador y el ID del namespace. Este último parámetro es opcional, aunque es recomendable utilizarlo cuando se repiten nombres de clase:</p>
+
+                        <pre class="brush: php">
+                            App::getControllerInstance('Home');
+                        </pre>
+
+                        <pre class="brush: php">
+                            App::getControllerInstance('Home', 'controller');
+                        </pre>
+
+                        <div class="intro2 clearfix">
+                            <p><i class="fa fa-certificate"></i>Métodos vistos en esta sección:</p>
+                            <ol>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#methods-app-setOption">App::setOption()</a></i></li>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#methods-app-getControllerInstance">App::getControllerInstance()</a></i></li>
+                            </ol>
+                        </div>
+
+                        <h3 id="models">Modelos</h3>
+
+                        <p>Los modelos deben ser creados en el directorio "src/Model" de la aplicación, estar al mismo nivel que el controlador y tener el mismo nombre:</p>
+
+                        <div class="box">
+                            <ul class="directory-list">
+                                <li class="folder">root
+                                    <ul>
+                                        <li class="folder">config
+                                            <ul>
+                                                <li><a href="#config-namespaces-php">namespaces.php</a></li>
+                                                <li><a href="#config-paths-php">paths.php</a></li>
+                                                <li><a href="#config-settings-php">settings.php</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="folder">src
+                                            <ul>
+                                                <li class="folder">Controller
+                                                    <ul>
+                                                        <li><a href="#src-controller-home-php">Home.php</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="folder highlight">Model
+                                                    <ul>
+                                                        <li><a class="highlight" href="#src-model-home-php">Home.php</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#my-custom-app-php">my-custom-app.php</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <p>La estructura básica de un modelo en Eliasis Framework es la siguiente:</p>
+
+                        <pre class="brush: php">
+                            /**
+                             * src/Model/Home.php
+                             */
+                            namespace App\Model;
+
+                            use Eliasis\Framework\Model;
+
+                            class Home extends Model
+                            {
+                                
+                            }
+                        </pre>
+
+                        <p>Al instanciar un controlador, el modelo es instanciado automáticamente si es que existe. Puedes acceder a la instancia del modelo desde el controlador utilizando el atributo "model" en los métodos del controlador:</p>
+
+                        <pre class="brush: php">
+                            /**
+                             * src/Controller/Home.php
+                             */
+                            public function createTables()
+                            {
+                                return $this->model->createTables();
+                            }
+                        </pre>
+
+                        <h3 id="templates">Plantillas</h3>
+
+                        <p>Las plantillas pueden ser creadas en cualquier directorio aunque se recomienda hacerlo en el directorio "src/template":<br>
+                        </p>
+
+                        <div class="box">
+                            <ul class="directory-list">
+                                <li class="folder">root
+                                    <ul>
+                                        <li class="folder">config
+                                            <ul>
+                                                <li><a href="#config-namespaces-php">namespaces.php</a></li>
+                                                <li><a href="#config-paths-php">paths.php</a></li>
+                                                <li><a href="#config-settings-php">settings.php</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="folder">src
+                                            <ul>
+                                                <li class="folder">Controller
+                                                    <ul>
+                                                        <li><a href="#src-controller-home-php">Home.php</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="folder">Model
+                                                    <ul>
+                                                        <li><a href="#src-model-home-php">Home.php</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="folder">template
+                                                    <ul>
+                                                        <li class="folder highlight">layout
+                                                            <ul>
+                                                                <li><a class="highlight" href="#src-template-layout-footer-php">footer.php</a></li>
+                                                                <li><a class="highlight" href="#src-template-layout-header-php">header.php</a></li>
+                                                            </ul>
+                                                            <li class="folder highlight">page
+                                                                <ul>
+                                                                    <li><a class="highlight" href="#src-template-page-home-php">home.php</a></li>
+                                                                </ul>
+                                                            </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#my-custom-app-php">my-custom-app.php</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <p>Estructura básica de las plantillas:</p>
+
+                        <pre class="brush: php">
+                            /** 
+                             * src/template/layout/header.php
+                             *
+                             * Header content.
+                             */
+                        </pre>
+
+                        <pre class="brush: php">
+                            /** 
+                             * src/template/page/home.php
+                             *
+                             * Home page content.
+                             */
+                        </pre>
+
+                        <pre class="brush: php">
+                            /** 
+                             * src/template/layout/footer.php
+                             *
+                             * Footer content.
+                             */
+                        </pre>
+
+                        <p>Puedes acceder a la instancia de la vista desde el controlador utilizando el atributo "view" en los métodos del controlador.<br>
+                        Utiliza el método "renderizate" para cargar las plantillas y enviarle parámetros personalizados:</p>
+
+                        <pre class="brush: php">
+                            /**
+                             * src/Controller/Home.php
+                             */
+                            public function render()
+                            {
+                                $page = App::path('page');
+
+                                $layout = App::path('layout');
+
+                                $this->view->renderizate($layout, 'header', ['data' => 'Header']);
+
+                                $this->view->renderizate($page, 'home', ['data' => 'Home']);
+
+                                $this->view->renderizate($layout, 'footer', ['data' => 'Footer']);
+                            }
+                        </pre>
+
+                        <p>Desde cada plantilla podrás utilizar las opciones enviadas desde el método "renderizate" a través del método "View::getOption()":</p>
+
+                        <pre class="brush: php">
+                            /**
+                             *  src/template/layout/header.php
+                             */
+                            use Eliasis\Framework\View;
+
+                            View::getOption('data'); // Header
+                        </pre>
+
+                        <pre class="brush: php">
+                            /**
+                             *  src/template/page/home.php
+                             */
+                            use Eliasis\Framework\View;
+
+                            View::getOption('data'); // Home
+                        </pre>
+
+                        <pre class="brush: php">
+                            /**
+                             *  src/template/layout/footer.php
+                             */
+                            use Eliasis\Framework\View;
+
+                            View::getOption(); // ['data' => 'Footer']
+                        </pre>
+
+                        <div class="intro2 clearfix">
+                            <p><i class="fa fa-certificate"></i>Métodos vistos en esta sección:</p>
+                            <ol>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#methods-app-getOption">App::getOption()</a></i></li>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#methods-view-renderizate">$View->renderizate()</a></i></li>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#methods-view-getOption">View::getOption()</a></i></li>
+                            </ol>
+                        </div>
+
+                        <h3 id="predefined-paths">Rutas predefinidas</h3>
+
+                        <p>Lista de "constantes" para manejo de ruta:</p>
+
+                        <pre class="brush: bash">
+                            App::ROOT();       # /root/
+
+                            App::CORE();       # /root/vendor/eliasis-framework/eliasis/
+
+                            App::PUBLIC();     # /root/public/
+
+                            App::TEMPLATES();  # /root/templates/
+
+                            App::MODULES();    # /root/modules/
+
+                            App::PLUGINS();    # /root/plugins/
+
+                            App::COMPONENTS(); # /root/components/
+                        </pre>
+
+                        <p>También puedes acceder a estos parámetros a través de los diferentes métodos disponibles en Eliasis.</p>
+                        
+                        <div class="intro2 clearfix">
+                            <p><i class="fa fa-certificate"></i>Temas referidos en esta sección:</p>
+                            <ol>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#getting-options">Obtener opciones</a></i></li>
+                            </ol>
+                        </div>
+
+                        <h3 id="predefined-urls">URLs predefinidas</h3>
+
+                        <p>Lista de "constantes" para manejo de URLs:</p>
+
+                        <pre class="brush: bash">
+                            App::PUBLIC_URL();     # https://site.com/root/public/
+
+                            App::TEMPLATES_URL();  # https://site.com/root/templates/
+
+                            App::MODULES_URL();    # https://site.com/root/modules/
+
+                            App::PLUGINS_URL();    # https://site.com/root/plugins/
+
+                            App::COMPONENTS_URL(); # https://site.com/root/components/
+                        </pre>
+
+                        <p>También puedes acceder a estos parámetros a través de los diferentes métodos disponibles en Eliasis.</p>
+                        
+                        <div class="intro2 clearfix">
+                            <p><i class="fa fa-certificate"></i>Temas referidos en esta sección:</p>
+                            <ol>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#getting-options">Obtener opciones</a></i></li>
+                            </ol>
+                        </div>
+                    </section>
+                    <!-- end section -->
+
+                    <section id="app-class" class="section">
+
+                        <div class="row">
+                            <div class="col-md-12 left-align">
+                                <h2 class="dark-text">Clase App <a class="top" href="#top">#volver arriba</a><hr></h2>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+                        
+                        <h3 id="methods-app-run">App::run()</h3>
+
+                        <h4>Inicializador de aplicaciones.</h4>
+
+                        <pre class="brush: php">
+                            App::run($baseDirectory, $type, $id);
+                        </pre>
+
+                        <div class="table-responsive">        
+                          <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th>Atributo</th>
+                                <th>Descripción</th>
+                                <th>Tipo de dato</th>
+                                <th>Requerido</th>
+                                <th>Por defecto</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td><strong>$baseDirectory</strong></td>
+                                <td>Directorio raíz de la aplicación.</td>
+                                <td>string</td>
+                                <td>sí</td>
+                                <td></td>
+                              </tr>
+                              <tr>
+                                <td><strong>$type</strong></td>
+                                <td>Tipo de aplicación: "app" | "wordpress.plugin".</td>
+                                <td>string</td>
+                                <td>no</td>
+                                <td>"app"</td>
+                              </tr>
+                              <tr>
+                                <td><strong>$id</strong></td>
+                                <td>Identificador único para la aplicación.</td>
+                                <td>string</td>
+                                <td>no</td>
+                                <td>"Por defecto"</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        
+                        <p>@<strong>return</strong> (boolean true)</p>
+                        
+                        <hr>
+
+                        <p>Ejecutar aplicación:</p>
+                        
+                        <pre class="brush: php">
+                            App::run(__DIR__);
+                        </pre>
+
+                        <p>Ejecutar aplicación con ID específico:</p>
+                        
+                        <pre class="brush: php">
+                            App::run(__DIR__, 'app', 'FirstApplication')
+                        </pre>
+                        
+                        <p>Ejecutar plugin WordPress con ID específico:</p>
+                        
+                        <pre class="brush: php">
+                            App::run(__DIR__, 'wordpress-plugin', 'FirstApplication')
+                        </pre>
+
+                        <div class="intro2 clearfix">
+                            <p><i class="fa fa-certificate"></i>Puedes ampliar información en las secciones:</p>
+                            <ol>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#create-application">Crear aplicación</a></i></li>
+                            </ol>
+                        </div>
+
+                        <h3 id="methods-app-setOption">App::setOption()</h3>
+
+                        <h4>Definir opciones para la aplicación.</h4>
+
+                        <pre class="brush: php">
+                            App::setOption($option, $value);
+                        </pre>
+
+                        <div class="table-responsive">        
+                          <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th>Atributo</th>
+                                <th>Descripción</th>
+                                <th>Tipo de dato</th>
+                                <th>Requerido</th>
+                                <th>Por defecto</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td><strong>$option</strong></td>
+                                <td>Nombre para la opción.</td>
+                                <td>string</td>
+                                <td>sí</td>
+                                <td></td>
+                              </tr>
+                              <tr>
+                                <td><strong>$value</strong></td>
+                                <td>Valor de la opción.</td>
+                                <td>mixed</td>
+                                <td>sí</td>
+                                <td></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        
+                        <p>@<strong>return</strong> (mixed) → Option set.</p>
+                        
+                        <hr>
+
+                        <p>Establecer opciones:</p>
+                        
+                        <pre class="brush: php">
+                            App::setOption('string-test', 'string');
+
+                            App::setOption('int-test', 8);
+                            
+                            App::setOption('bool-test', true);
+                            
+                            App::setOption('array-test', []);
+                        </pre>
+
+                        <p>Establecer opciones para múltiples aplicaciones:</p>
+                        
+                        <pre class="brush: php">
+                            App::MyApplicationOne()->setOption('test', 'One');
+
+                            App::MyApplicationTwo()->setOption('test', 'Two');
+                            
+                            App::setCurrentID('MyApplicationThree');
+
+                            App::setOption('test', 'Three');
+
+                            App::MyApplicationFour()->setOption('test', 'Four');
+
+                        </pre>
+
+                        <div class="intro2 clearfix">
+                            <p><i class="fa fa-certificate"></i>Puedes ampliar información en las secciones:</p>
+                            <ol>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#configuration-files">Archivos de configuración</a></i></li>
+                            </ol>
+                        </div>
+
+                        <h3 id="methods-app-getOption">App::getOption()</h3>
+
+                        <h4>Obtener opciones de la aplicación.</h4>
+
+                        <pre class="brush: php">
+                            App::getOption(...$params);
+                        </pre>
+
+                        <div class="table-responsive">        
+                          <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th>Atributo</th>
+                                <th>Descripción</th>
+                                <th>Tipo de dato</th>
+                                <th>Requerido</th>
+                                <th>Por defecto</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td><strong>$params</strong></td>
+                                <td>Índice o índices del parámetro que se desea obtener.</td>
+                                <td>array</td>
+                                <td>sí</td>
+                                <td></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        
+                        <p>@<strong>return</strong> (mixed) → Parámetros solicitados.</p>
+                        
+                        <hr>
+
+                        <p>Obtener opciones:</p>
+                        
+                        <pre class="brush: php">
+                            App::getOption('index');
+
+                            App::getOption('index', 'index-1');
+
+                            App::getOption('index', 'index-1', 'index-2');
+                        </pre>
+
+                        <p>Obtener opciones para múltiples aplicaciones:</p>
+                        
+                        <pre class="brush: php">
+                            App::MyApplicationOne()->getOption('test');
+
+                            App::MyApplicationTwo()->getOption('test');
+                            
+                            App::setCurrentID('MyApplicationThree');
+
+                            App::getOption('test');
+
+                            App::MyApplicationFour()->getOption('test');
+                        </pre>
+
+                        <div class="intro2 clearfix">
+                            <p><i class="fa fa-certificate"></i>Puedes ampliar información en las secciones:</p>
+                            <ol>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#getting-options">Obtener opciones</a></i></li>
+                            </ol>
+                        </div>
+
+                        <h3 id="methods-app-getControllerInstance">App::getControllerInstance()</h3>
+
+                        <h4>Obtener la instancia del controlador.</h4>
+
+                        <pre class="brush: php">
+                            App::getControllerInstance($class, $namespace);
+                        </pre>
+
+                        <div class="table-responsive">        
+                          <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th>Atributo</th>
+                                <th>Descripción</th>
+                                <th>Tipo de dato</th>
+                                <th>Requerido</th>
+                                <th>Por defecto</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td><strong>$class</strong></td>
+                                <td>Nombre de la clase</td>
+                                <td>string</td>
+                                <td>sí</td>
+                                <td></td>
+                              </tr>
+                              <tr>
+                                <td><strong>$namespace</strong></td>
+                                <td>Índice del namespace.</td>
+                                <td>string</td>
+                                <td>no</td>
+                                <td>''</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        
+                        <p>@<strong>return</strong> (object|false) → Instancia de la clase o falso.</p>
+
+                        <hr>
+
+                        <p>Obtener la instancia del controlador:</p>
+                        
+                        <pre class="brush: php">
+                            App::getControllerInstance('Home');
+
+                            App::getControllerInstance('Home', 'controller');
+                        </pre>
+
+                        <div class="intro2 clearfix">
+                            <p><i class="fa fa-certificate"></i>Puedes ampliar información en las secciones:</p>
+                            <ol>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#controllers">Controllers</a></i></li>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#controller-instances">Instancias de controladores</a></i></li>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#multiple-applications">Aplicaciones múltiples</a></i></li>
+                            </ol>
+                        </div>
+
+                        <h3 id="methods-app-setCurrentID">App::setCurrentID()</h3>
+
+                        <h4>Seleccionar aplicación estableciendo su ID.</h4>
+
+                        <pre class="brush: php">
+                            App::setCurrentID($id);
+                        </pre>
+
+                        <div class="table-responsive">        
+                          <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th>Atributo</th>
+                                <th>Descripción</th>
+                                <th>Tipo de dato</th>
+                                <th>Requerido</th>
+                                <th>Por defecto</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td><strong>$id</strong></td>
+                                <td>ID de la aplicación.</td>
+                                <td>string</td>
+                                <td>sí</td>
+                                <td></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        
+                        <p>@<strong>return</strong> (boolean)</p>
+                        
+                        <hr>
+
+                        <p>Define the current application ID:</p>
+                        
+                        <pre class="brush: php">
+                            App::setCurrentID('MyApplicationOne');
+
+                            App::setCurrentID('MyApplicationTwo');
+                        </pre>
+
+                        <div class="intro2 clearfix">
+                            <p><i class="fa fa-certificate"></i>Puedes ampliar información en las secciones:</p>
+                            <ol>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#app-identifier">ID de aplicación</a></i></li>
+                            </ol>
+                        </div>
+
+                        <h3 id="methods-app-getCurrentID">App::getCurrentID()</h3>
+
+                        <h4>Obtener el ID de la aplicación actual.</h4>
+
+                        <pre class="brush: php">
+                            App::getCurrentID();
+                        </pre>
+                        
+                        <p>@<strong>return</strong> (string) → ID de la aplicación.</p>
+                        
+                        <hr>
+
+                        <p>Obtener el ID de la aplicación actual:</p>
+                        
+                        <pre class="brush: php">
+                            App::getCurrentID();
+                        </pre>
+
+                        <div class="intro2 clearfix">
+                            <p><i class="fa fa-certificate"></i>Puedes ampliar información en las secciones:</p>
+                            <ol>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#app-identifier">ID de aplicación</a></i></li>
+                            </ol>
+                        </div>
+                    </section>
+                    <!-- end section -->
+
+                    <section id="view-class" class="section">
+
+                        <div class="row">
+                            <div class="col-md-12 left-align">
+                                <h2 class="dark-text">Clase View <a class="top" href="#top">#volver arriba</a><hr></h2>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+                        
+                        <h3 id="methods-view-getInstance">View::getInstance()</h3>
+
+                        <h4>Obtener instancia de la vista.</h4>
+
+                        <pre class="brush: php">
+                            View::getInstance();
+                        </pre>
+                        
+                        <p>@<strong>return</strong> (object)</p>
+                        
+                        <hr>
+
+                        <p>Obtener instancia de la vista:</p>
+                        
+                        <pre class="brush: php">
+                            View::getInstance();
+                        </pre>
+
+                        <h3 id="methods-view-addHeader">View::addHeader()</h3>
+
+                        <h4>Agregar encabezado HTTP al array de encabezados.</h4>
+
+                        <pre class="brush: php">
+                            View::addHeader($header);
+                        </pre>
+
+                        <div class="table-responsive">        
+                          <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th>Atributo</th>
+                                <th>Descripción</th>
+                                <th>Tipo de dato</th>
+                                <th>Requerido</th>
+                                <th>Por defecto</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td><strong>$header</strong></td>
+                                <td>Encabezados HTTP.</td>
+                                <td>string</td>
+                                <td>sí</td>
+                                <td></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        
+                        <p>@<strong>return</strong> (boolean true)</p>
+                        
+                        <hr>
+
+                        <p>Agregar encabezado:</p>
+                        
+                        <pre class="brush: php">
+                            View::addHeader('HTTP/1.0 404 Not Found');
+                        </pre>
+
+                        <div class="intro2 clearfix">
+                            <p><i class="fa fa-certificate"></i>Puedes ampliar información en las secciones:</p>
+                            <ol>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#templates">Plantillas</a></i></li>
+                            </ol>
+                        </div>
+
+                        <h3 id="methods-view-addHeaders">View::addHeaders()</h3>
+
+                        <h4>Añadir un array con encabezados a la vista.</h4>
+
+                        <pre class="brush: php">
+                            View::addHeaders($headers);
+                        </pre>
+
+                        <div class="table-responsive">        
+                          <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th>Atributo</th>
+                                <th>Descripción</th>
+                                <th>Tipo de dato</th>
+                                <th>Requerido</th>
+                                <th>Por defecto</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td><strong>$headers</strong></td>
+                                <td>Encabezados HTTP.</td>
+                                <td>array</td>
+                                <td>sí</td>
+                                <td></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        
+                        <p>@<strong>return</strong> (boolean true)</p>
+                        
+                        <hr>
+
+                        <p>AAgregar encabezados:</p>
+                        
+                        <pre class="brush: php">
+                            View::addHeaders([
+                                'WWW-Authenticate: Negotiate',
+                                'HTTP/1.0 404 Not Found'
+                            ]);
+                        </pre>
+
+                        <div class="intro2 clearfix">
+                            <p><i class="fa fa-certificate"></i>Puedes ampliar información en las secciones:</p>
+                            <ol>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#templates">Plantillas</a></i></li>
+                            </ol>
+                        </div>
+
+                        <h3 id="methods-view-sendHeaders">View::sendHeaders()</h3>
+
+                        <h4>Enviar encabezados.</h4>
+
+                        <pre class="brush: php">
+                            View::sendHeaders();
+                        </pre>
+                        
+                        <p>@<strong>return</strong> (boolean)</p>
+
+                        <div class="intro2 clearfix">
+                            <p><i class="fa fa-certificate"></i>Puedes ampliar información en las secciones:</p>
+                            <ol>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#templates">Plantillas</a></i></li>
+                            </ol>
+                        </div>
+                        
+                        <h3 id="methods-view-renderizate">View::renderizate()</h3>
+
+                        <h4>Imprimir plantillas.</h4>
+
+                        <pre class="brush: php">
+                            View::renderizate($path, $file, $data);
+                        </pre>
+
+                        <div class="table-responsive">        
+                          <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th>Atributo</th>
+                                <th>Descripción</th>
+                                <th>Tipo de dato</th>
+                                <th>Requerido</th>
+                                <th>Por defecto</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td><strong>$path</strong></td>
+                                <td>Ruta del archivo.</td>
+                                <td>string</td>
+                                <td>sí</td>
+                                <td></td>
+                              </tr>
+                              <tr>
+                                <td><strong>$file</strong></td>
+                                <td>Nombre del archivo.</td>
+                                <td>string</td>
+                                <td>sí</td>
+                                <td></td>
+                              </tr>
+                              <tr>
+                                <td><strong>$data</strong></td>
+                                <td>Opciones para la vista.</td>
+                                <td>array</td>
+                                <td>no</td>
+                                <td>null</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        
+                        <p>@<strong>return</strong> (boolean true)</p>
+                        
+                        <hr>
+
+                        <p>Imprimir plantilla:</p>
+                        
+                        <pre class="brush: php">
+                            View::renderizate('path/to/file', 'template-name');
+                        </pre>
+
+                        <p>Imprimir plantilla con parámetros personalizados:</p>
+                        
+                        <pre class="brush: php">
+                            View::renderizate(
+                                'path/to/file',
+                                'template-name',
+                                ['test' => 'value']
+                            ););
+                        </pre>
+
+                        <div class="intro2 clearfix">
+                            <p><i class="fa fa-certificate"></i>Puedes ampliar información en las secciones:</p>
+                            <ol>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#templates">Plantillas</a></i></li>
+                            </ol>
+                        </div>
+
+                        <h3 id="methods-view-getOption">View::getOption()</h3>
+
+                        <h4>Obtener opciones.</h4>
+
+                        <pre class="brush: php">
+                            View::getOption(...$params);
+                        </pre>
+
+                        <div class="table-responsive">        
+                          <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th>Atributo</th>
+                                <th>Descripción</th>
+                                <th>Tipo de dato</th>
+                                <th>Requerido</th>
+                                <th>Por defecto</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td><strong>$params</strong></td>
+                                <td>Índice o índices del parámetro que se desea obtener.</td>
+                                <td>array</td>
+                                <td>sí</td>
+                                <td></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        
+                        <p>@<strong>return</strong> (mixed) → Parámetros solicitados.</p>
+                        
+                        <hr>
+
+                        <p>Get options:</p>
+                        
+                        <pre class="brush: php">
+                            View::getOption('index');
+
+                            View::getOption('index', 'index-1');
+
+                            View::getOption('index', 'index-1', 'index-2');
+                        </pre>
+
+                        <div class="intro2 clearfix">
+                            <p><i class="fa fa-certificate"></i>Puedes ampliar información en las secciones:</p>
+                            <ol>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#templates">Plantillas</a></i></li>
+                            </ol>
+                        </div>
+
+                    </section>
+                    <!-- end section -->
+
+                    <section id="c-components" class="section">
+
+                        <div class="row">
+                            <div class="col-md-12 left-align">
+                                <h2 class="dark-text">Componentes <a class="top" href="#top">#volver arriba</a><hr></h2>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+                        
+                        <p>Necesitarás instalar <a href="//github.com/eliasis-framework/complement" target="_blank">eliasis-framework/complement</a> para agregar componentes.</p>
+
+                        <pre class="brush: bash">
+                            composer require eliasis-framework/complement
+                        </pre>
+
+                        <div class="text-center">
+                            <a href="//eliasis-framework.github.io/Complement/v1.1.0/lang/es/" class="btn btn-default" target="_blank">Ver documentación</a>
+                        </div>
+
+                    </section>
+                    <!-- end section -->
+
+                    <section id="c-modules" class="section">
+
+                        <div class="row">
+                            <div class="col-md-12 left-align">
+                                <h2 class="dark-text">Módulos <a class="top" href="#top">#volver arriba</a><hr></h2>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+                        
+                        <p>Necesitarás instalar <a href="//github.com/eliasis-framework/complement" target="_blank"> para agregar módulos.</p>
+
+                        <pre class="brush: bash">
+                            composer require eliasis-framework/complement
+                        </pre>
+
+                        <div class="text-center">
+                            <a href="//eliasis-framework.github.io/Complement/v1.1.0/lang/es/" class="btn btn-default" target="_blank">Ver documentación</a>
+                        </div>
+
+                    </section>
+                    <!-- end section -->
+
+                    <section id="c-plugins" class="section">
+
+                        <div class="row">
+                            <div class="col-md-12 left-align">
+                                <h2 class="dark-text">Plugins <a class="top" href="#top">#volver arriba</a><hr></h2>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+                        
+                        <p>Necesitarás instalar <a href="//github.com/eliasis-framework/complement" target="_blank"> para agregar plugins.</p>
+
+                        <pre class="brush: bash">
+                            composer require eliasis-framework/complement
+                        </pre>
+
+                        <div class="text-center">
+                            <a href="//eliasis-framework.github.io/Complement/v1.1.0/lang/es/" class="btn btn-default" target="_blank">Ver documentación</a>
+                        </div>
+
+                    </section>
+                    <!-- end section -->
+
+                    <section id="c-templates" class="section">
+
+                        <div class="row">
+                            <div class="col-md-12 left-align">
+                                <h2 class="dark-text">Plantillas <a class="top" href="#top">#volver arriba</a><hr></h2>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+                        
+                        <p>Necesitarás instalar <a href="//github.com/eliasis-framework/complement" target="_blank"> para agregar plantillas.</p>
+
+                        <pre class="brush: bash">
+                            composer require eliasis-framework/complement
+                        </pre>
+
+                        <div class="text-center">
+                            <a href="//eliasis-framework.github.io/Complement/v1.1.0/lang/es/" class="btn btn-default" target="_blank">Ver documentación</a>
+                        </div>
+
+                    </section>
+                    <!-- end section -->
+
+                    <section id="additional-libraries" class="section">
+
+                        <div class="row">
+                            <div class="col-md-12 left-align">
+                                <h2 class="dark-text">Bibliotecas adicionales <a class="top" href="#top">#volver arriba</a><hr></h2>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+                        
+                        <p>Eliasis Framework está enfocado en la escalabilidad, permitiéndote desarrollar desde una aplicación con un simple controlador, hasta un sistema completo.<br><br>
+                            Para ello pone a disposición una serie de bibliotecas opcionales que al instalarlas en tu proyecto se integran en el núcleo de Eliasis:</p>
+
+                        <h3 id="libraries-Asset">Asset</h3>
+
+                        <h4>Biblioteca para manejo de estilos y scripts; añadir, minimizar, unificar e imprimir.</h4>
+                        
+                        <p>Para instalar esta biblioteca, simplemente:</p>
+
+                        <pre class="brush: bash">
+                            composer require Josantonius/Asset
+                        </pre>
+                        
+                        <p>Esta biblioteca contiene métodos estáticos y no se implementa en el núcleo de Eliasis.</p>
+
+                        <div class="box">
+                            <ul class="directory-list">
+                                <li class="folder">root
+                                    <ul>
+                                        <li class="folder highlight">config
+                                            <ul>
+                                                <li><a class="highlight" href="#config-assets-php">assets.php</a></li>
+                                                <li><a href="#config-namespaces-php">namespaces.php</a></li>
+                                                <li><a href="#config-paths-php">paths.php</a></li>
+                                                <li><a href="#config-settings-php">settings.php</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="folder">public
+                                            <ul>
+                                                <li class="folder highlight">css
+                                                    <ul>
+                                                        <li><a class="highlight" href="#public-css-styles-css">styles.css</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="folder highlight">js
+                                                    <ul>
+                                                        <li><a class="highlight" href="#public-js-scripts-js">scripts.js</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="folder">src
+                                            <ul>
+                                                <li class="folder">Controller
+                                                    <ul>
+                                                        <li><a href="#src-controller-home-php">Home.php</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="folder">Model
+                                                    <ul>
+                                                        <li><a href="#src-model-home-php">Home.php</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="folder">template
+                                                    <ul>
+                                                        <li class="folder">layout
+                                                            <ul>
+                                                                <li><a href="#src-template-layout-footer-php">footer.php</a></li>
+                                                                <li><a href="#src-template-layout-header-php">header.php</a></li>
+                                                            </ul>
+                                                            <li class="folder">page
+                                                                <ul>
+                                                                    <li><a href="#src-template-page-home-php">home.php</a></li>
+                                                                </ul>
+                                                            </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#my-custom-app-php">my-custom-app.php</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <p>Añadir scripts y estilos a la configuración de la aplicación:</p>
+                        
+                        <pre id="config-assets-php" class="brush: php">
+                            /** 
+                             * config/assets.php
+                             */
+                            use Eliasis\Framework\App;
+
+                            $public = App::PUBLIC_URL();
+
+                            return [
+                                'assets' => [
+                                    'js' => [
+                                        'myCustomScript' => [
+                                            'name'    => 'myCustomScript',
+                                            'url'     =>  $public . 'js/scripts.js',
+                                            'attr'    => 'defer',
+                                            'version' => '1.1.3',
+                                            'footer'  => false
+                                        ]
+                                    ],
+                                    'css' => [
+                                        'myCustomStyle' => [
+                                            'name'    => 'myCustomStyle',
+                                            'url'     => $public . 'css/styles.css',
+                                            'version' => '1.1.1'
+                                        ]
+                                    ]
+                                ]
+                            ];
+                        </pre>
+
+                        <p>Agregar estilos:</p>
+                        
+                        <pre id="public-css-styles-css" class="brush: php">
+                            /** 
+                             * public/css/styles.css
+                             */
+                        </pre>
+
+                        <pre class="brush: php">
+                            /**
+                             * src/Controller/Home.php
+                             */
+                            use Josantonius\Asset\Asset;
+
+                            public function css()
+                            {
+                                Asset::add('style',     
+                                    App::assets('css')['myFirstStyle']
+                                );
+                            }
+                        </pre>
+                        
+                        <p>Agregar scripts:</p>
+                        
+                        <pre id="public-js-scripts-js" class="brush: php">
+                            /** 
+                             * public/js/scripts.js
+                             */
+                        </pre>
+
+                        <pre class="brush: php">
+                            /**
+                             * src/Controller/Home.php
+                             */
+                            use Josantonius\Asset\Asset;
+
+                            public function js()
+                            {
+                                Asset::add('script',
+                                    App::assets('js')['myFirstScript']
+                                );
+                            }
+                        </pre>
+                        
+                        <p>Para minimizar y/o unificar scripts y estilos basta con colocar el siguiente comando antes de ser agregados:</p>
+
+                        <pre class="brush: php">
+                            /**
+                             * my-custom-app.php
+                             */
+                            use Josantonius\Asset\Asset;
+
+                            $public = App::PUBLIC_URL();
+
+                            Asset::unify('UniqueID', $public . '/', true);
+                        </pre>
+
+                        <div class="text-center">
+                            <a href="//github.com/Josantonius/PHP-ErrorHandler" class="btn btn-default" target="_blank">Ver documentación</a>
+                        </div>
+
+                        <h3 id="libraries-Complement">Complement</h3>
+                   
+                        <h4>Biblioteca para agregar adición de complementos en Eliasis Framework.</h4>
+                        
+                        <p>Para instalar esta biblioteca, simplemente:</p>
+
+                        <pre class="brush: bash">
+                            composer require eliasis-framework/complement
+                        </pre>
+                        
+                        <p>Esta biblioteca es instanciada por Eliasis cuando se encuentra instalada.<br><br></p>
+
+                        <div class="intro2 clearfix">
+                            <p><i class="fa fa-certificate"></i>Temas referidos en esta sección:</p>
+                            <ol>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#components">Componentes</a></i></li>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#modules">Módulos</a></i></li>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#plugins">Plugins</a></i></li>
+                                <li><i class="fa fa-circle" aria-hidden="true"><a href="#templates">Plantillas</a></i></li>
+                            </ol>
+                        </div>
+
+                        <div class="text-center">
+                            <a href="//github.com/eliasis-framework/complement" class="btn btn-default" target="_blank">Ver documentación</a>
+                        </div>
+
+                        <h3 id="libraries-Cookie">Cookie</h3>   
+                   
+                        <h4>Biblioteca para el manejo de cookies.</h4>
+                        
+                        <p>Para instalar esta biblioteca, simplemente:</p>
+
+                        <pre class="brush: bash">
+                            composer require Josantonius/Cookie
+                        </pre>
+                        
+                        <p>Esta biblioteca contiene métodos estáticos y no se implementa en el núcleo de Eliasis.</p>
+
+                        <div class="text-center">
+                            <a href="//github.com/Josantonius/PHP-Cookie" class="btn btn-default" target="_blank">Ver documentación</a>
+                        </div>
+                        
+                        <h3 id="libraries-Curl">Curl</h3>
+
+                        <h4>Biblioteca PHP para hacer peticiones HTTP a través de cURL.</h4>
+                        
+                        <p>Para instalar esta biblioteca, simplemente:</p>
+
+                        <pre class="brush: bash">
+                            composer require Josantonius/Curl
+                        </pre>
+                        
+                        <p>Esta biblioteca contiene métodos estáticos y no se implementa en el núcleo de Eliasis.</p>
+
+                        <div class="text-center">
+                            <a href="//github.com/Josantonius/PHP-Curl" class="btn btn-default" target="_blank">Ver documentación</a>
+                        </div>
+
+                        <h3 id="libraries-Database">Database</h3>
+
+                        <h4>SQL database management library.</h4>
+
+                        <p>Para instalar esta biblioteca, simplemente:</p>
+
+                        <pre class="brush: bash">
+                            composer require Josantonius/Database
+                        </pre>
+
+                        <p>Eliasis conectará con la base de datos utilizando la configuración con el ID 'app' en la configuración de la base de datos:</p>
+
+                        <div class="box">
+                            <ul class="directory-list">
+                                <li class="folder">root
+                                    <ul>
+                                        <li class="folder highlight">config
+                                            <ul>
+                                                <li><a href="#config-assets-php">assets.php</a></li>
+                                                <li><a class="highlight" href="#config-database-php">database.php</a></li>
+                                                <li><a href="#config-namespaces-php">namespaces.php</a></li>
+                                                <li><a href="#config-paths-php">paths.php</a></li>
+                                                <li><a href="#config-settings-php">settings.php</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="folder">public
+                                            <ul>
+                                                <li class="folder">css
+                                                    <ul>
+                                                        <li><a href="#public-css-styles-css">styles.css</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="folder">js
+                                                    <ul>
+                                                        <li><a href="#public-js-scripts-js">scripts.js</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="folder">src
+                                            <ul>
+                                                <li class="folder">Controller
+                                                    <ul>
+                                                        <li><a href="#src-controller-home-php">Home.php</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="folder">Model
+                                                    <ul>
+                                                        <li><a href="#src-model-home-php">Home.php</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="folder">template
+                                                    <ul>
+                                                        <li class="folder">layout
+                                                            <ul>
+                                                                <li><a href="#src-template-layout-footer-php">footer.php</a></li>
+                                                                <li><a href="#src-template-layout-header-php">header.php</a></li>
+                                                            </ul>
+                                                            <li class="folder">page
+                                                                <ul>
+                                                                    <li><a href="#src-template-page-home-php">home.php</a></li>
+                                                                </ul>
+                                                            </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#my-custom-app-php">my-custom-app.php</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <pre id="config-database-php" class="brush: php">
+                            /**
+                             * config/database.php
+                             */
+                            return [
+                                'db' => [
+                                    'app' => [
+                                        'provider' => 'PDOprovider',
+                                        'host' => 'localhost',
+                                        'user' => 'db_user',
+                                        'name' => 'db_name',
+                                        'password' => 'db_password',
+                                        'settings' => ['charset' => 'utf8'],
+                                    ],
+                                    'api-rest' => [
+                                        'provider' => 'PDOprovider',
+                                        'host' => 'localhost',
+                                        'user' => 'db_user',
+                                        'name' => 'db_name',
+                                        'password' => 'db_password',
+                                        'settings' => ['charset' => 'utf8'],
+                                    ],
+                                ],
+                            ];
+                        </pre>
+
+                        <p>Puedes acceder a la instancia de la base de datos utilizando el atributo "db" en los métodos del modelo. Para cambiar la conexión basta con utilizar el método "changeDatabaseConnection()" del modelo.</p>
+                        
+                        <pre id="src-model-home-php" class="brush: php highlight: [18,19,20,22,24,25,26,27,28,29,30,31,32]">
+                            /**
+                             * src/Model/Home.php
+                             */
+                            namespace App\Model;
+
+                            use Eliasis\Framework\Model;
+
+                            class Home extends Model
+                            {
+                                public function createTables()
+                                {
+                                    $params = [
+                                        'id'    => 'INT(6) PRIMARY KEY',
+                                        'name'  => 'VARCHAR(30) NOT NULL',
+                                        'email' => 'VARCHAR(50)'
+                                    ];
+
+                                    $this->db->create($params)
+                                             ->table('test')
+                                             ->execute();
+
+                                    $this-model->changeDatabaseConnection('api-rest');
+
+                                    $this->db->create($params)
+                                             ->table('test_two')
+                                             ->foreing('id')
+                                             ->reference('id')
+                                             ->on('test')
+                                             ->actions('ON DELETE CASCADE ON UPDATE CASCADE')
+                                             ->engine('innodb')
+                                             ->charset('utf8')
+                                             ->execute();
+                                }
+                            }
+                        </pre>
+
+                        <div class="text-center">
+                            <a href="//github.com/Josantonius/PHP-Database" class="btn btn-default" target="_blank">Ver documentación</a>
+                        </div>
+
+                        <h3 id="libraries-ErrorHandler">ErrorHandler</h3>
+
+                        <h4>Biblioteca para manejar excepciones y errores.</h4>
+                        
+                        <p>Para instalar esta biblioteca, simplemente:</p>
+
+                        <pre class="brush: bash">
+                            composer require Josantonius/ErrorHandler
+                        </pre>
+                        
+                        <p>Esta biblioteca es instanciada por Eliasis cuando se encuentra instalada.<br><br>
+                        Puedes establecer métodos personalizados que se llamarán cuando haya algún error o excepción:</p>
+
+                        <pre class="brush: php">
+                            /**
+                             * my-custom-app.php
+                             */
+                             $instance = App::getControllerInstance('Home', 'controller');
+                             $method = 'errorHandler';
+
+                            ErrorHandler::setCustomMethod($instance, $method);
+                        </pre>
+
+                        <div class="text-center">
+                            <a href="//github.com/Josantonius/PHP-ErrorHandler" class="btn btn-default" target="_blank">Ver documentación</a>
+                        </div>
+
+                        <h3 id="libraries-File">File</h3>
+
+                        <h4>Biblioteca para manejo de archivos.</h4>
+                        
+                        <p>Para instalar esta biblioteca, simplemente:</p>
+
+                        <pre class="brush: bash">
+                            composer require Josantonius/File
+                        </pre>
+                        
+                        <p>Esta biblioteca contiene métodos estáticos y no se implementa en el núcleo de Eliasis.</p>
+
+                        <div class="text-center">
+                            <a href="//github.com/Josantonius/PHP-File" class="btn btn-default" target="_blank">Ver documentación</a>
+                        </div>
+
+                        <h3 id="libraries-Hook">Hook</h3>
+
+                        <h4>Biblioteca para manejo de ganchos de acción.</h4>
+                        
+                        <p>Para instalar esta biblioteca, simplemente:</p>
+
+                        <pre class="brush: bash">
+                            composer require Josantonius/Hook
+                        </pre>
+
+                        <p>Al instalar esta biblioteca, Eliasis cargará los ganchos de acción que se encuentren en el index "hooks" de los archivos de configuración:</p>
+
+                        <div class="box">
+                            <ul class="directory-list">
+                                <li class="folder">root
+                                    <ul>
+                                        <li class="folder highlight">config
+                                            <ul>
+                                                <li><a href="#config-assets-php">assets.php</a></li>
+                                                <li><a href="#config-database-php">database.php</a></li>
+                                                <li><a href="#config-namespaces-php">namespaces.php</a></li>
+                                                <li><a href="#config-paths-php">paths.php</a></li>
+                                                <li><a class="highlight" href="#set-hooks-php">set-hooks.php</a></li>
+                                                <li><a href="#config-settings-php">settings.php</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="folder">public
+                                            <ul>
+                                                <li class="folder">css
+                                                    <ul>
+                                                        <li><a href="#public-css-styles-css">styles.css</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="folder">js
+                                                    <ul>
+                                                        <li><a href="#public-js-scripts-js">scripts.js</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="folder">src
+                                            <ul>
+                                                <li class="folder">Controller
+                                                    <ul>
+                                                        <li><a href="#src-controller-home-php">Home.php</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="folder">Model
+                                                    <ul>
+                                                        <li><a href="#src-model-home-php">Home.php</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="folder">template
+                                                    <ul>
+                                                        <li class="folder">layout
+                                                            <ul>
+                                                                <li><a href="#src-template-layout-footer-php">footer.php</a></li>
+                                                                <li><a href="#src-template-layout-header-php">header.php</a></li>
+                                                            </ul>
+                                                            <li class="folder">page
+                                                                <ul>
+                                                                    <li><a href="#src-template-page-home-php">home.php</a></li>
+                                                                </ul>
+                                                            </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#my-custom-app-php">my-custom-app.php</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <pre id="set-routes-php" class="brush: php">
+                            /**
+                             * config/set-hooks.php
+                             */
+                            use Eliasis\Framework\App;
+
+                            $namespace = App::namespaces('controller');
+
+                            $class =  $namespace . 'Home';
+
+                            return [
+                                'hooks' => [
+                                    ['header', [$class, 'header'], 8, 0],
+                                    ['footer', [$class, 'footer'], 8, 0],
+                                    ['css', [$class, 'css'], 8, 0],
+                                    ['js',  [$class, 'js'], 8, 0],
+                                ],
+                            ];
+                        </pre>
+
+                        <p>Se agregan los métodos al controlador:</p>
+                        
+                        <pre class="brush: php">
+                            /**
+                             * src/Controller/Home.php
+                             */
+                            public function header()
+                            {
+                                return '<header></header>';
+                            }
+
+                            public function footer()
+                            {
+                                return '<footer></footer>';
+                            }
+                        </pre>
+
+                        <p>Y se ejecutan en cualquier punto de la aplicación:</p>
+
+                        <pre id="src-template-layout-header-php" class="brush: php">
+                            /**
+                             *  src/template/layout/header.php
+                             */
+                            use Eliasis\Framework\View;
+                            use Josantonius\Hook\Hook;
+                            
+                            Hook::doAction('css');
+
+                            Hook::doAction('header');
+
+                            View::getOption('data');
+                        </pre>
+
+                        <pre id="src-template-page-home-php" class="brush: php">
+                            /**
+                             *  src/template/page/home.php
+                             */
+                            use Eliasis\Framework\View;
+                            use Josantonius\Hook\Hook;
+
+                            Hook::doAction('home');
+
+                            View::getOption('data');
+                        </pre>
+
+                        <pre id="src-template-layout-footer-php" class="brush: php">
+                            /**
+                             *  src/template/layout/footer.php
+                             */
+                            use Eliasis\Framework\View;
+                            use Josantonius\Hook\Hook;
+                            
+                            Hook::doAction('footer');
+
+                            Hook::doAction('js');
+
+                            View::getOption('data');
+                        </pre>
+
+                        <div class="text-center">
+                            <a href="//github.com/Josantonius/PHP-Hook" class="btn btn-default" target="_blank">Ver documentación</a>
+                        </div>
+
+                        <h3 id="libraries-HTTPStatusCode">HTTPStatusCode</h3>
+
+                        <h4>Biblioteca para obtener significado de códigos de estado de respuesta HTTP.</h4>
+                        
+                        <p>Para instalar esta biblioteca, simplemente:</p>
+
+                        <pre class="brush: bash">
+                            composer require Josantonius/HTTPStatusCode
+                        </pre>
+                        
+                        <p>Esta biblioteca contiene métodos estáticos y no se implementa en el núcleo de Eliasis.</p>
+
+                        <div class="text-center">
+                            <a href="//github.com/Josantonius/PHP-HTTPStatusCode" class="btn btn-default" target="_blank">Ver documentación</a>
+                        </div>
+
+                        <h3 id="libraries-Ip">Ip</h3>
+
+                        <h4>Biblioteca para obtener la IP del usuario.</h4>
+                        
+                        <p>Para instalar esta biblioteca, simplemente:</p>
+
+                        <pre class="brush: bash">
+                            composer require Josantonius/Ip
+                        </pre>
+
+                        <p>Y para obtener la IP del usuario, simplemente:</p>
+
+                        <pre class="brush: php">
+                            App::IP();
+                        </pre>
+
+                        <div class="text-center">
+                            <a href="//github.com/Josantonius/PHP-Ip" class="btn btn-default" target="_blank">Ver documentación</a>
+                        </div>
+
+                        <h3 id="libraries-Json">Json</h3>
+
+                        <h4>Biblioteca para la gestión de archivos JSON.</h4>
+                        
+                        <p>Para instalar esta biblioteca, simplemente:</p>
+
+                        <pre class="brush: bash">
+                            composer require Josantonius/Json
+                        </pre>
+                        
+                        <p>Esta biblioteca contiene métodos estáticos y no se implementa en el núcleo de Eliasis.</p>
+
+                        <div class="text-center">
+                            <a href="//github.com/Josantonius/PHP-Json" class="btn btn-default" target="_blank">Ver documentación</a>
+                        </div>
+
+                        <h3 id="libraries-LanguageCode">LanguageCode</h3>
+
+                        <h4>Lista de 217 códigos de idioma: ISO 639-</h4>
+                        
+                        <p>Para instalar esta biblioteca, simplemente:</p>
+
+                        <pre class="brush: bash">
+                            composer require Josantonius/LanguageCode
+                        </pre>
+                        
+                        <p>Esta biblioteca contiene métodos estáticos y no se implementa en el núcleo de Eliasis.</p>
+
+                        <div class="text-center">
+                            <a href="//github.com/Josantonius/PHP-LanguageCode" class="btn btn-default" target="_blank">Ver documentación</a>
+                        </div>
+
+                        <h3 id="libraries-LoadTime">LoadTime</h3>
+
+                        <h4>Calcular tiempo de carga de páginas o scripts.</h4>
+                        
+                        <p>Para instalar esta biblioteca, simplemente:</p>
+
+                        <pre class="brush: bash">
+                            composer require Josantonius/LoadTime
+                        </pre>
+                        
+                        <p>Esta biblioteca contiene métodos estáticos y no se implementa en el núcleo de Eliasis.</p>
+
+                        <div class="text-center">
+                            <a href="//github.com/Josantonius/PHP-LoadTime" class="btn btn-default" target="_blank">Ver documentación</a>
+                        </div>
+
+                        <h3 id="libraries-Logger">Logger</h3>
+
+                        <h4>Biblioteca para crear logs fácilmente y almacenarlos en formato JSON.</h4>
+                        
+                        <p>Para instalar esta biblioteca, simplemente:</p>
+
+                        <pre class="brush: bash">
+                            composer require Josantonius/Logger
+                        </pre>
+                        
+                        <p>Esta biblioteca contiene métodos estáticos y no se implementa en el núcleo de Eliasis.</p>
+
+                        <div class="text-center">
+                            <a href="//github.com/Josantonius/PHP-Logger" class="btn btn-default" target="_blank">Ver documentación</a>
+                        </div>
+
+                        <h3 id="libraries-MimeType">MimeType</h3>
+
+                        <h4>Biblioteca para obtener encabezados MIME y extensiones a partir de ellos.</h4>
+                        
+                        <p>Para instalar esta biblioteca, simplemente:</p>
+
+                        <pre class="brush: bash">
+                            composer require Josantonius/MimeType
+                        </pre>
+                        
+                        <p>Esta biblioteca contiene métodos estáticos y no se implementa en el núcleo de Eliasis.</p>
+
+                        <div class="text-center">
+                            <a href="//github.com/Josantonius/PHP-MimeType" class="btn btn-default" target="_blank">Ver documentación</a>
+                        </div>
+
+                        <h3 id="libraries-Request">Request</h3>
+
+                        <h4>Biblioteca para manejo de peticiones.</h4>
+                        
+                        <p>Para instalar esta biblioteca, simplemente:</p>
+
+                        <pre class="brush: bash">
+                            composer require Josantonius/Request
+                        </pre>
+                        
+                        <p>Esta biblioteca contiene métodos estáticos y no se implementa en el núcleo de Eliasis.</p>
+
+                        <div class="text-center">
+                            <a href="//github.com/Josantonius/PHP-Request" class="btn btn-default" target="_blank">Ver documentación</a>
+                        </div>
+
+                        <h3 id="libraries-Router">Router</h3>
+
+                        <h4>Biblioteca para manejo de rutas.</h4>
+                        
+                        <p>Para instalar esta biblioteca, simplemente:</p>
+
+                        <pre class="brush: bash">
+                            composer require Josantonius/Router
+                        </pre>
+
+                        <p>Al instalar esta biblioteca, Eliasis cargará las rutas que se encuentren en el index "routes" de los archivos de configuración:</p>
+
+                        <div class="box">
+                            <ul class="directory-list">
+                                <li class="folder">root
+                                    <ul>
+                                        <li class="folder highlight">config
+                                            <ul>
+                                                <li><a href="#config-assets-php">assets.php</a></li>
+                                                <li><a href="#config-database-php">database.php</a></li>
+                                                <li><a href="#config-namespaces-php">namespaces.php</a></li>
+                                                <li><a href="#config-paths-php">paths.php</a></li>
+                                                <li><a href="#set-hooks-php">set-hooks.php</a></li>
+                                                <li><a class="highlight" href="#set-routes-php">set-routes.php</a></li>
+                                                <li><a href="#config-settings-php">settings.php</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="folder">public
+                                            <ul>
+                                                <li class="folder">css
+                                                    <ul>
+                                                        <li><a href="#public-css-styles-css">styles.css</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="folder">js
+                                                    <ul>
+                                                        <li><a href="#public-js-scripts-js">scripts.js</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="folder">src
+                                            <ul>
+                                                <li class="folder">Controller
+                                                    <ul>
+                                                        <li><a href="#src-controller-home-php">Home.php</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="folder">Model
+                                                    <ul>
+                                                        <li><a href="#src-model-home-php">Home.php</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="folder">template
+                                                    <ul>
+                                                        <li class="folder">layout
+                                                            <ul>
+                                                                <li><a href="#src-template-layout-footer-php">footer.php</a></li>
+                                                                <li><a href="#src-template-layout-header-php">header.php</a></li>
+                                                            </ul>
+                                                            <li class="folder">page
+                                                                <ul>
+                                                                    <li><a href="#src-template-page-home-php">home.php</a></li>
+                                                                </ul>
+                                                            </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#my-custom-app-php">my-custom-app.php</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <pre id="set-hooks-php" class="brush: php">
+                            /**
+                             * config/set-routes.php
+                             */
+                            use Eliasis\Framework\App;
+
+                            $namespace = App::namespaces('controller');
+
+                            return [
+                                'routes' => [
+                                    'my-route/' => $namespace . 'Home@render'
+                                ],
+                            ];
+                        </pre>
+
+                        <p>Se agrega el método al controlador:</p>
+                        
+                        <pre id="src-controller-home-php" class="brush: php highlight: [40,41,42,43,44,45,46,47,48,49,50,51]">
+                            /**
+                             * src/Controller/Home.php
+                             */
+                            namespace App\Controller;
+                             
+                            use Eliasis\Framework\Controller;
+                            use Josantonius\Asset\Asset;
+                             
+                            class Home extends Controller
+                            {
+                                public function header()
+                                {
+                                    return '<header></header>';
+                                }
+                                 
+                                public function footer()
+                                {
+                                    return '<footer></footer>';
+                                }
+                                 
+                                public function css()
+                                {
+                                    Asset::add('style',     
+                                        App::assets('css')['myFirstStyle']
+                                    );
+                                }
+
+                                public function js()
+                                {
+                                    Asset::add('script',     
+                                        App::assets('js')['myFirstScript']
+                                    );
+                                }
+
+                                public function createTables()
+                                {
+                                    return $this->model->createTables();
+                                }
+
+                                public function render()
+                                {
+                                    $page = App::path('page');
+                                 
+                                    $layout = App::path('layout');
+                                 
+                                    $this->view->renderizate($layout, 'header', ['data' => 'Header']);
+                                 
+                                    $this->view->renderizate($page, 'home', ['data' => 'Home']);
+                                 
+                                    $this->view->renderizate($layout, 'footer', ['data' => 'Footer']);
+                                }
+                            }
+                        </pre>
+
+                        <p>Al acceder a la URL "https://site.com/my-route/" se ejecutará el método "home" y este ejecutará el método "render".</p>
+
+                        <div class="text-center">
+                            <a href="//github.com/Josantonius/PHP-Router" class="btn btn-default" target="_blank">Ver documentación</a>
+                        </div>
+
+                        <h3 id="libraries-Session">Session</h3>
+
+                        <h4>Biblioteca para el manejo de sesiones.</h4>
+                        
+                        <p>Para instalar esta biblioteca, simplemente:</p>
+
+                        <pre class="brush: bash">
+                            composer require Josantonius/Session
+                        </pre>
+                        
+                        <p>Esta biblioteca contiene métodos estáticos y no se implementa en el núcleo de Eliasis.</p>
+
+                        <div class="text-center">
+                            <a href="//github.com/Josantonius/PHP-Session" class="btn btn-default" target="_blank">Ver documentación</a>
+                        </div>
+
+                        <h3 id="libraries-Str">Str</h3>
+
+                        <h4>Biblioteca para manejo de strings.</h4>
+                        
+                        <p>Para instalar esta biblioteca, simplemente:</p>
+
+                        <pre class="brush: bash">
+                            composer require Josantonius/Str
+                        </pre>
+                        
+                        <p>Esta biblioteca contiene métodos estáticos y no se implementa en el núcleo de Eliasis.</p>
+
+                        <div class="text-center">
+                            <a href="//github.com/Josantonius/PHP-Str" class="btn btn-default" target="_blank">Ver documentación</a>
+                        </div>
+
+                        <h3 id="libraries-Url">Url</h3>
+
+                        <h4>Biblioteca para manipulación de urls.</h4>
+                        
+                        <p>Para instalar esta biblioteca, simplemente:</p>
+
+                        <pre class="brush: bash">
+                            composer require Josantonius/Url
+                        </pre>
+                        
+                        <p>Esta biblioteca viene integrada en el núcleo de Eliasis.</p>
+
+                        <div class="text-center">
+                            <a href="//github.com/Josantonius/PHP-Url" class="btn btn-default" target="_blank">Ver documentación</a>
+                        </div>
+
+                    </section>
+                    <!-- end section -->
+
+                    <section id="wordpress-libraries" class="section">
+
+                        <div class="row">
+                            <div class="col-md-12 left-align">
+                                <h2 class="dark-text">WordPress libraries <a class="top" href="#top">#volver arriba</a><hr></h2>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+                        
+                        <p>Serie de bibliotecas opcionales para WordPress que puedes integrar en Eliasis:</p>
+
+                        <h3 id="libraries-WP_Image">WP_Image</h3>
+
+                        <h4>Añadir, actualizar y borrar imágenes de posts en WordPress.</h4>
+                        
+                        <p>Para instalar esta biblioteca, simplemente:</p>
+
+                        <pre class="brush: bash">
+                            composer require Josantonius/WP_Image
+                        </pre>
+                        
+                        <p>Esta biblioteca contiene métodos estáticos y no se implementa en el núcleo de Eliasis.</p>
+
+                        <div class="text-center">
+                            <a href="//github.com/Josantonius/WP_Image" class="btn btn-default" target="_blank">Ver documentación</a>
+                        </div>
+
+                        <h3 id="libraries-WP_Menu">WP_Menu</h3>
+
+                        <h4>Agregar menú o submenús en WordPress.</h4>
+                        
+                        <p>Para instalar esta biblioteca, simplemente:</p>
+
+                        <pre class="brush: bash">
+                            composer require Josantonius/WP_Menu
+                        </pre>
+                        
+                        <p>Esta biblioteca contiene métodos estáticos y no se implementa en el núcleo de Eliasis.</p>
+
+                        <div class="text-center">
+                            <a href="//github.com/Josantonius/WP_Menu" class="btn btn-default" target="_blank">Ver documentación</a>
+                        </div>
+
+                        <h3 id="libraries-WP_Notice">WP_Notice</h3>
+
+                        <h4>Mostrar avisos en el panel de administración de WordPress.</h4>
+                        
+                        <p>Para instalar esta biblioteca, simplemente:</p>
+
+                        <pre class="brush: bash">
+                            composer require Josantonius/WP_Notice
+                        </pre>
+                        
+                        <p>Esta biblioteca contiene métodos estáticos y no se implementa en el núcleo de Eliasis.</p>
+
+                        <div class="text-center">
+                            <a href="//github.com/Josantonius/WP_Notice" class="btn btn-default" target="_blank">Ver documentación</a>
+                        </div>
+
+                        <h3 id="libraries-WP_Register">WP_Register</h3>
+
+                        <h4>Registrar, minificar y unificar recursos CSS y JavaScript en WordPress.</h4>
+                        
+                        <p>Para instalar esta biblioteca, simplemente:</p>
+
+                        <pre class="brush: bash">
+                            composer require Josantonius/WP_Register
+                        </pre>
+                        
+                        <p>Esta biblioteca contiene métodos estáticos y no se implementa en el núcleo de Eliasis.</p>
+
+                        <div class="text-center">
+                            <a href="//github.com/Josantonius/WP_Register" class="btn btn-default" target="_blank">Ver documentación</a>
+                        </div>
+
+                    </section>
+
+                    <section id="developed-with-eliasis" class="section">
+
+                        <div class="row">
+                            <div class="col-md-12 left-align">
+                                <h2 class="dark-text">Desarrollado con Eliasis <a class="top" href="#top">#volver arriba</a><hr></h2>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <p>Listado de aplicaciones y plugins para WordPress desarrollados con Eliasis Framework.</p>
+                            </div>
+
+                            <div id="search-inside" class="col-md-6 text-center">
+                                <h2>Search Inside</h2>
+                                <a href="../../../images/upload/search-inside.png" target="_blank" data-rel="prettyPhoto"><img src="../../../images/upload/search-inside.png" alt="" class="img-responsive img-thumbnail"></a><br><br>
+                                <div class="text-center">
+                                    <a href="//wordpress.org/plugins/search-inside/" class="btn btn-default" target="_blank">Ver en WordPress</a>
+                                </div>
+                            </div>
+                            <!-- end col -->
+
+                            <div id="extensions-for-grifus" class="col-md-6 text-center">
+                                <h2>Extensions For Grifus</h2>
+                                <a href="../../../images/upload/extensions-for-grifus.png" target="_blank" data-rel="prettyPhoto"><img src="../../../images/upload/extensions-for-grifus.png" alt="" class="img-responsive img-thumbnail"></a><br><br>
+                                <div class="text-center">
+                                    <a href="//wordpress.org/plugins/extensions-for-grifus/" class="btn btn-default" target="_blank">Ver en WordPress</a>
+                                </div>
+                            </div>
+                            <!-- end col -->
+
+                        </div>
+                        <!-- end row -->
+
+                    </section>
+                    <!-- end section -->
+
+                    <section id="license" class="section">
+
+                        <div class="row">
+                            <div class="col-md-12 left-align">
+                                <h2 class="dark-text">Licencia <a class="top" href="#top">#volver arriba</a><hr></h2>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                
+                                <p>2017 - 2018 <a href="//github.com/Josantonius" target="_blank">Josantonius</a>.<br><br>Código liberado bajo la licencia <a href="//raw.githubusercontent.com/eliasis-framework/complement/master/LICENSE" target="_blank">MIT</a></p>                        
+                            
+                            </div>
+                        </div>
+                        <!-- end row -->
+
+                    </section>
+
+                </div>
+                <!-- // end .col -->
+
+            </div>
+            <!-- // end .row -->
+
+        </div>
+        <!-- // end container -->
+
+    </div>
+    <!-- end wrapper -->
+
+    <script src="../../../js/jquery.min.js"></script>
+    <script src="../../../js/bootstrap.min.js"></script>
+    <script src="../../../js/retina.js"></script>
+    <script src="../../../js/jquery.fitvids.js"></script>
+    <script src="../../../js/wow.js"></script>
+    <script src="../../../js/jquery.prettyPhoto.js"></script>
+
+    <!-- CUSTOM PLUGINS -->
+    <script src="../../../js/custom.js"></script>
+    <script src="../../../js/main.js"></script>
+
+    <script src="../../../js/syntax-highlighter/scripts/shCore.js"></script>
+    <script src="../../../js/syntax-highlighter/scripts/shBrushXml.js"></script>
+    <script src="../../../js/syntax-highlighter/scripts/shBrushCss.js"></script>
+    <script src="../../../js/syntax-highlighter/scripts/shBrushJScript.js"></script>
+    <script src="../../../js/syntax-highlighter/scripts/shBrushBash.js"></script>
+    <script src="../../../js/syntax-highlighter/scripts/shBrushPhp.js"></script>
+
+</body>
+
+</html>

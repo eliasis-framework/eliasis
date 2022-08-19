@@ -18,6 +18,15 @@ use Josantonius\Url\Url;
 class App
 {
     /**
+     * Framework version.
+     *
+     * @since 1.1.5
+     *
+     * @var string
+     */
+    const VERSION = '1.1.5';
+
+    /**
      * Unique id for the application.
      *
      * @var string
@@ -52,7 +61,7 @@ class App
     {
         if (array_key_exists($index, self::$instances)) {
             self::setCurrentID($index);
-            $that = self::getInstance();
+            $that = self::geApptInstance();
 
             return $that;
         }
@@ -77,14 +86,13 @@ class App
     {
         self::$id = $id;
 
-        $that = self::getInstance();
+        $that = self::getAppInstance();
 
+        $that->runErrorHandler();
         $that->setPaths($baseDirectory);
         $that->setUrls($baseDirectory, $type);
         $that->setIp();
-        $that->runErrorHandler();
-        $that->getSettings();
-        $that->runHooks();
+        $that->setHooks();
         $that->runComplements();
         $that->runRoutes();
 
@@ -102,21 +110,21 @@ class App
      */
     public static function getOption(...$params)
     {
-        $that = self::getInstance();
+        $that = self::getAppInstance();
 
         $key = array_shift($params);
 
-        $col[] = isset($that->settings[$key]) ? $that->settings[$key] : 0;
+        $col[] = $that->setSettings($key) ? $that->settings[$key] : 0;
 
         if (! count($params)) {
-            return ($col[0]) ? $col[0] : '';
+            return ($col[0]) ? $col[0] : null;
         }
 
         foreach ($params as $param) {
             $col = array_column($col, $param);
         }
 
-        return (isset($col[0])) ? $col[0] : '';
+        return (isset($col[0])) ? $col[0] : null;
     }
 
     /**
@@ -131,9 +139,9 @@ class App
      */
     public static function setOption($option, $value)
     {
-        $that = self::getInstance();
+        $that = self::getAppInstance();
 
-        if (! is_array($value)) {
+        if (! is_array($value) || !$value) {
             return $that->settings[$option] = $value;
         }
 
@@ -156,6 +164,8 @@ class App
      *
      * @since 1.1.2
      *
+     * @deprecated 1.1.5
+     *
      * @param string $class     → class name
      * @param string $namespace → namespace index
      *
@@ -163,27 +173,45 @@ class App
      */
     public static function getControllerInstance($class, $namespace = '')
     {
-        $that = self::getInstance();
+        $backtrace = debug_backtrace()[0];
 
-        if (array_key_exists('namespaces', $that->settings)) {
+        trigger_error("The \"getControllerInstance()\" method has been deprecated and will be removed in future versions. Instead, it uses the \"getInstance()\" method. File: " . $backtrace['file'] . '. Line: ' . $backtrace['line'] . '.', E_USER_WARNING);
+
+        return self::getInstance($class, $namespace);
+    }
+
+    /**
+     * Get class instance.
+     *
+     * @since 1.1.5
+     *
+     * @param string $class     → class name
+     * @param string $namespace → namespace index
+     *
+     * @return object|null → class instance or null
+     */
+    public static function getInstance($class, $namespace)
+    {
+        $that = self::getAppInstance();
+
+        $fullClass = $namespace . $class;
+
+        if ($that->setSettings('namespaces')) {
             if (array_key_exists($namespace, $that->settings['namespaces'])) {
-                return call_user_func(
-                    [
-                        $that->settings['namespaces'][$namespace] . $class,
-                        'getInstance',
-                    ]
-                );
-            }
-
-            foreach ($that->settings['namespaces'] as $namespace) {
-                $instance = $namespace . $class;
-                if (class_exists($instance)) {
-                    return call_user_func([$instance, 'getInstance']);
-                }
+                $fullClass = $that->settings['namespaces'][$namespace] . $class;
             }
         }
 
-        return false;
+        if (isset(self::$instances[$fullClass])) {
+            return self::$instances[$fullClass];
+        } elseif (method_exists($fullClass, 'getInstance')) {
+            return call_user_func([$fullClass, 'getInstance']);
+        } elseif (class_exists($fullClass)) {
+            self::$instances[$fullClass] = new $fullClass();
+            return self::$instances[$fullClass];
+        }
+
+        return null;
     }
 
     /**
@@ -223,7 +251,7 @@ class App
      *
      * @return object → controller app instance
      */
-    protected static function getInstance()
+    protected static function getAppInstance()
     {
         if (! isset(self::$instances[self::$id])) {
             self::$instances[self::$id] = new self();
@@ -310,24 +338,26 @@ class App
     }
 
     /**
-     * Get settings.
+     * Set settings.
+     *
+     * @return boolean
      */
-    private function getSettings()
+    private function setSettings($key)
     {
-        $path = [
-            self::CORE() . 'config/',
-            self::ROOT() . 'config/',
-        ];
+        $settingsExists = isset($this->settings[$key]);
 
-        foreach ($path as $dir) {
-            if (is_dir($dir) && $handle = scandir($dir)) {
-                $files = array_slice($handle, 2);
-                foreach ($files as $file) {
-                    $config = require $dir . $file;
+        if (!$settingsExists) {
+            $file = self::ROOT() . 'config/' . $key . '.php';
+            if (file_exists($file)) {
+                $config = require $file;
+                if (is_array($config) && count($config)) {
                     $this->settings = array_merge($this->settings, $config);
+                    $settingsExists = true;
                 }
             }
         }
+
+        return $settingsExists;
     }
 
     /**
@@ -340,15 +370,15 @@ class App
      *
      * @link https://github.com/Josantonius/PHP-Hook
      */
-    private function runHooks()
+    private function setHooks()
     {
         if (class_exists($Hook = 'Josantonius\Hook\Hook')) {
             $Hook::getInstance(self::$id);
-            if (isset($this->settings['hooks'])) {
+            if ($this->setSettings('hooks')) {
                 $Hook::addActions($this->settings['hooks']);
                 unset($this->settings['hooks']);
             }
-            $Hook::doAction('after-load-hooks');
+            $Hook::doAction('after_set_application_hooks');
         }
     }
 
@@ -369,9 +399,9 @@ class App
         $complement = 'Eliasis\Complement\\';
 
         if (class_exists($complement . 'Complement')) {
-            call_user_func($complement . 'Type\Component::run');
-            call_user_func($complement . 'Type\Plugin::run');
             call_user_func($complement . 'Type\Module::run');
+            call_user_func($complement . 'Type\Plugin::run');
+            call_user_func($complement . 'Type\Component::run');
             call_user_func($complement . 'Type\Template::run');
         }
     }
@@ -389,7 +419,7 @@ class App
     private function runRoutes()
     {
         if (class_exists($Router = 'Josantonius\Router\Router')) {
-            if (isset($this->settings['routes'])) {
+            if ($this->setSettings('routes')) {
                 $Router::add($this->settings['routes']);
                 unset($this->settings['routes']);
             }

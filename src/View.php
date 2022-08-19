@@ -27,7 +27,7 @@ class View
      *
      * @var array
      */
-    protected static $instance;
+    // protected static $instance;
 
     /**
      * HTTP headers.
@@ -41,17 +41,16 @@ class View
      *
      * @return object → view instance
      */
-    public static function getInstance()
-    {
-        null === self::$instance and self::$instance = new self;
-
-        return static::$instance;
-    }
+    // public static function getInstance()
+    // {
+    //     null === self::$instance and self::$instance = new self;
+    //     return static::$instance;
+    // }
 
     /**
      * Render screen view.
      *
-     * @param string $path → file path
+     * @param string $path → filepath
      * @param string $file → filename
      * @param array  $data → options for view
      *
@@ -62,7 +61,7 @@ class View
         $file = $path . $file . '.php';
 
         if ($data) {
-            self::$data[self::setHash($file)] = $data;
+            self::$data[md5($file)] = $data;
         }
 
         require_once $file;
@@ -75,7 +74,8 @@ class View
      *
      * @since 1.0.9
      *
-     * @param array $params → parameters
+     * @param array  $params → parameters
+     * @param string $file   → filepath
      *
      * @return mixed
      */
@@ -83,7 +83,7 @@ class View
     {
         $trace = debug_backtrace(2, 1);
 
-        $id = (isset($trace[0]['file'])) ? self::setHash($trace[0]['file']) : 0;
+        $id = (isset($trace[0]['file'])) ? md5($trace[0]['file']) : 0;
 
         $key = array_shift($params);
 
@@ -144,23 +144,5 @@ class View
         }
 
         return false;
-    }
-
-    /**
-     * Set file path hash.
-     *
-     * @since 1.1.4
-     *
-     * @param string $filePath → file path
-     *
-     * @return string
-     */
-    private static function setHash($filePath)
-    {
-        if (stristr(php_uname('s'), 'WIN')) {
-            $filePath = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $filePath);
-        }
-
-        return md5($filePath);
     }
 }

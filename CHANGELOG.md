@@ -1,5 +1,41 @@
 # CHANGELOG
 
+## 1.1.5 - 2022-08-19
+
+* **The repository was archived.**
+
+* The option was enabled to add files in the `config` directory without having to return any value.
+
+* The `Eliasis\Framework\App::getOption()` method now returns null instead of an empty string if the option does not exist.
+
+* The `Eliasis\Framework\View::getOption()` method now returns null instead of an empty string if the option does not exist.
+
+* `Eliasis\Framework\Model` will try to create a connection to the database using the configuration with ID `app`. If it is not found, it will not create a connection to the database.
+
+* The `config` directory has been removed. It was only used to add the current version of the framework.
+
+* Now the configuration files will only be loaded when the option is requested.
+
+* `Eliasis\Complement\Traits\ComplementHandler::getSettings()` method was renamed to `Eliasis\Complement\Traits\ComplementHandler::setSettings()`.
+
+* The `after-load-hooks` action hook was renamed to `after_set_application_hooks`.
+
+* `before_run_complements` action hook was added.
+
+* `after_run_complements` action hook was added.
+
+* `Eliasis\Framework\App::getInstance()` was renamed to `Eliasis\Framework\App::getAppInstance()`
+
+* Deprecated `Eliasis\Framework\App::getControllerInstance()` method. It will be removed in future versions.
+
+* Added `Eliasis\Framework\App::getInstance()` method. Will be used instead of `Eliasis\Framework\App::getControllerInstance()` and any kind of instance can be obtained.
+
+* Deleted `Eliasis\Framework\Controller::getViewInstance()` method.
+
+* Added `Eliasis\Framework\Entity` class.
+
+* Renamed `Eliasis\Framework\Model::changeDatabaseConnection()` method to `Eliasis\Framework\Model::setDatabaseConnection()`.
+
 ## 1.1.4 - 2018-05-07
 
 * Added `Eliasis\Framework\View::setHash()` method.
@@ -107,7 +143,7 @@ The `addOption()` method will be deleted in the next version. It will be replace
 
 * Deleted `Eliasis\App\App->_runHooks()` method.
 
-* The Module library was deleted. Now the addition of modules for Eliasis Framework will not be included in the core and can optionally be added from https://github.com/Eliasis-Framework/Modules.git.
+* The Module library was deleted. Now the addition of modules for Eliasis Framework will not be included in the core and can optionally be added from <https://github.com/Eliasis-Framework/Modules.git>.
 
 * Added verification for the Module library on App class.
 
@@ -133,23 +169,22 @@ The `addOption()` method will be deleted in the next version. It will be replace
     ],
 ]
 
-* Database class url: https://github.com/Josantonius/PHP-Database
+* Database class url: <https://github.com/Josantonius/PHP-Database>
 
 ## 1.0.5 - 2017-04-29
 
 * Added `Eliasis\Module\Module::getModulesInfo()` method.
 A new method was added to obtain basic information for all loaded modules.
 
-
 ## 1.0.4 - 2017-04-26
 
-* The method of accessing the App object for multiapplications has been changed, the identifier is indicated directly when instantiating it. For example: 
+* The method of accessing the App object for multiapplications has been changed, the identifier is indicated directly when instantiating it. For example:
 
-App::Identifier('namespace', 'controller'); 
+App::Identifier('namespace', 'controller');
 
-Instead of 
+Instead of
 
-App::id('Identifier'); 
+App::id('Identifier');
 App::('namespace', 'controller');
 
 ## 1.0.3 - 2017-04-14
